@@ -1,0 +1,4 @@
+.product_list .productCard{
+    flex-basis: 25%;
+    margin: 0 3% 5% 3%;
+}

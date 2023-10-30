@@ -1,0 +1,17 @@
+.productCard {
+    min-width: 200px;
+    width: 20%;
+}
+
+.productCard .photo {
+    width: 100%;
+}
+
+.productCard p {
+    text-align: center;
+}
+
+.productCard a {
+    text-decoration: inherit;
+    color: inherit;
+}
