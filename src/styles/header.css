@@ -1,0 +1,10 @@
+.header_container {
+    position: absolute;
+    top: 0%;
+    z-index: 1;
+}
+
+.header_container .icon { 
+    width: 32px;
+    height: 32px;
+}

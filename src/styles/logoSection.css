@@ -1,0 +1,24 @@
+span + span {
+    margin-left: 80px;
+}
+
+.logo_section_container{
+    position: relative;
+    text-align: center;
+}
+
+.logo_section_container .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo_section_container .background {
+    height: 50vh;
+    filter: opacity(50%);
+}
+
+.logo_section_container .logo {
+    min-width: 300px;
+}
