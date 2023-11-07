@@ -1,10 +1,16 @@
 .header_container {
+    background-color: #28254F;
     position: absolute;
-    top: 0%;
+    top: -3%;
     z-index: 1;
+    height: 10px;
 }
 
+
+
 .header_container .icon { 
-    width: 32px;
-    height: 32px;
+    width: 17px;
+    height: 17px;
+    margin-top: 20px;
 }
+

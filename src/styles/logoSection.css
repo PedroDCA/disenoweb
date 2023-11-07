@@ -1,5 +1,8 @@
-span + span {
-    margin-left: 80px;
+span {
+    margin-left: 30px;
+    font-size: 10px;
+    margin-right: 30px;
+    margin-bottom: 7px;
 }
 
 .logo_section_container{
@@ -16,9 +19,39 @@ span + span {
 
 .logo_section_container .background {
     height: 50vh;
-    filter: opacity(50%);
+    /*filter: opacity(50%);*/
+    margin-bottom: 12px;
 }
 
+
+  
 .logo_section_container .logo {
-    min-width: 300px;
+    margin-top: 50px;
+    max-width: 130px;
 }
+
+.bootle-up-link {
+    position: absolute;
+    top: 200px; 
+    left: 60px; 
+    z-index: 2; 
+    font-family: Gusto-Italic;
+    font-size: 70px;
+    text-decoration: none;
+    color: white;
+  }
+.text-down
+{
+    font-family: Gusto-Italic;
+    font-size: 18px;
+    color: #28254F;
+    display: 'block'
+}
+
+
+  @font-face
+  {
+    font-family: Gusto-Italic;
+    src: url(../fonts/Gusto-Italic.ttf);
+  }
+
