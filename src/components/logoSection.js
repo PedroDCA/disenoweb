@@ -23,5 +23,4 @@ function LogoSection() {
     </div>
   );
 }
-
 export default LogoSection;

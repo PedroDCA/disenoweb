@@ -13,5 +13,4 @@ function ProductList({ productList }) {
     </>
   );
 }
-
 export default ProductList;
