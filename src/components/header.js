@@ -4,7 +4,7 @@ import Profile from "../images/profile.png";
 import Cart from "../images/cart.png";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ numberOfItems }) {
   return (
     <div className="container">
       <div className="d-flex flex-wrap align-items-center justify-content-between">
@@ -25,6 +25,13 @@ function Header() {
           <li>
             <Link to="/cart" className="nav-link px-3">
               <img src={Cart} className="icon" alt="Search" />
+              <span
+                className={`badge lblCartCount ${
+                  numberOfItems > 0 ? "" : "hidden"
+                }`}
+              >
+                {numberOfItems}
+              </span>
             </Link>
           </li>
         </ul>
