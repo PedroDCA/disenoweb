@@ -1,9 +1,15 @@
+import Header from "./header";
 import LogoSection from "./logoSection";
 
 function Homepage() {
   return (
     <>
-      <LogoSection />
+      <header className="p-3 header_container w-100">
+        <Header />
+      </header>
+      <main>
+        <LogoSection />
+      </main>
     </>
   );
 }
