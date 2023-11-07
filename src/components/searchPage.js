@@ -2,6 +2,8 @@ import LogoSection from "./logoSection";
 import ProductList from "./productList";
 import Botella from "../images/botella.jpg";
 import Header from "./header";
+import { RemoveCartElement } from "../store/actions";
+import { useEffect } from "react";
 
 const productList = [
   {
@@ -54,16 +56,18 @@ const productList = [
   },
 ];
 
-function SearchPage() {
+function SearchPage({ cartElementList, dispatch }) {
   return (
     <>
       <header className="p-3 header_container w-100">
-        <Header />
+        <Header numberOfItems={cartElementList.length} />
       </header>
-      <LogoSection />
-      <div className="container">
-        <ProductList productList={productList} />
-      </div>
+      <main>
+        <LogoSection />
+        <div className="container">
+          <ProductList productList={productList} />
+        </div>
+      </main>
     </>
   );
 }

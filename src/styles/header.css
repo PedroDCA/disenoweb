@@ -1,10 +1,23 @@
 .header_container {
-    position: absolute;
-    top: 0%;
-    z-index: 99;
+  position: absolute;
+  top: 0%;
+  z-index: 99;
 }
 
-.header_container .icon { 
-    width: 32px;
-    height: 32px;
+.header_container .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.lblCartCount {
+  font-size: 12px;
+  background: #ff0000;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -10px;
+}
+
+.lblCartCount.hidden {
+  visibility: hidden;
 }
