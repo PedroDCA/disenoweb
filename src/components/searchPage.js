@@ -4,36 +4,36 @@ import Botella from "../images/botella.jpg";
 import Header from "./header";
 
 const productList = [
-    {
-      id: 1,
-      imageUrl: Botella,
-      name: "Botella color ejemplo 750ml",
-      price: 10000,
-    },
-    {
-      id: 1,
-      imageUrl: Botella,
-      name: "Botella color ejemplo 750ml",
-      price: 10000,
-    },
-    {
-      id: 1,
-      imageUrl: Botella,
-      name: "Botella color ejemplo 750ml",
-      price: 10000,
-    },
-    {
-      id: 1,
-      imageUrl: Botella,
-      name: "Botella color ejemplo 750ml",
-      price: 10000,
-    },
-    {
-      id: 1,
-      imageUrl: Botella,
-      name: "Botella color ejemplo 750ml",
-      price: 10000,
-    },
+  {
+    id: 1,
+    imageUrl: Botella,
+    name: "Botella color ejemplo 750ml",
+    price: 10000,
+  },
+  {
+    id: 1,
+    imageUrl: Botella,
+    name: "Botella color ejemplo 750ml",
+    price: 10000,
+  },
+  {
+    id: 1,
+    imageUrl: Botella,
+    name: "Botella color ejemplo 750ml",
+    price: 10000,
+  },
+  {
+    id: 1,
+    imageUrl: Botella,
+    name: "Botella color ejemplo 750ml",
+    price: 10000,
+  },
+  {
+    id: 1,
+    imageUrl: Botella,
+    name: "Botella color ejemplo 750ml",
+    price: 10000,
+  },
   {
     id: 1,
     imageUrl: Botella,
@@ -57,7 +57,6 @@ const productList = [
 function SearchPage() {
   return (
     <>
-    
       <header className="p-3 header_container w-100">
         <Header />
       </header>
