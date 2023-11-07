@@ -1,6 +1,7 @@
 import LogoSection from "./logoSection";
 import ProductList from "./productList";
 import Botella from "../images/botella.jpg";
+import Header from "./header";
 
 const productList = [
     {
@@ -56,6 +57,10 @@ const productList = [
 function SearchPage() {
   return (
     <>
+    
+      <header className="p-3 header_container w-100">
+        <Header />
+      </header>
       <LogoSection />
       <div className="container">
         <ProductList productList={productList} />
