@@ -1,20 +1,26 @@
 import "../styles/logoSection.css";
 import Logo from "../images/logo.png";
 import Background from "../images/background.jpg";
+import { Link } from "react-router-dom";
 
 function LogoSection() {
   return (
-    <div className="logo_section_container">
-      <img src={Background} className="w-100 background" alt="Background" />
-      <div className="centered pt-5 w-100">
-        <div className="d-flex justify-content-center ">
+<div className="logo_section_container">
+      <div className="d-flex justify-content-center ">
           <img src={Logo} alt="Logo" className="w-25 logo" />
         </div>
-        <div className="d-flex justify-content-center pt-5">
+      <div className="d-flex justify-content-center pt-3">
           <span>Explorar</span>
           <span>Mejor vendidas</span>
-        </div>
       </div>
+        <Link to="/" className="d-flex align-items-center mb-2 mb-lg-0 bootle-up-link">
+          bootle up.
+        </Link>
+        <img src={Background} className="w-100 background" alt="Background"/>
+        <div>
+          <span className="text-down">¿Cuál es tu estilo? ¡Elige tu botella!</span>
+          <span style={{ display: 'block' }}>Bienvenid@ a nuestra tienda de botellas únicas.</span>
+        </div>
     </div>
   );
 }
