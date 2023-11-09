@@ -3,12 +3,13 @@ import Logo from "../images/logo.png";
 import Background from "../images/background.jpg";
 import { Link } from "react-router-dom";
 
-function LogoSection() {
+function LogoSection() 
+{
   return (
-<div className="logo_section_container">
+  <div className="logo_section_container">
       <div className="d-flex justify-content-center ">
           <img src={Logo} alt="Logo" className="w-25 logo" />
-        </div>
+      </div>
       <div className="d-flex justify-content-center pt-3">
           <span>Explorar</span>
           <span>Mejor vendidas</span>
@@ -17,11 +18,11 @@ function LogoSection() {
           bootle up.
         </Link>
         <img src={Background} className="w-100 background" alt="Background"/>
-        <div>
+      <div>
           <span className="text-down">¿Cuál es tu estilo? ¡Elige tu botella!</span>
           <span style={{ display: 'block' }}>Bienvenid@ a nuestra tienda de botellas únicas.</span>
-        </div>
-    </div>
+      </div>
+  </div>
   );
 }
 

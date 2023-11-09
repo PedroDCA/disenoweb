@@ -44,24 +44,24 @@ const productList = [
     imageUrl: redBottle,
     name: "Botella Vino 750ML",
     price: 12500,
-  },
-{
-  id: 1,
-  imageUrl: skyBottle,
-  name: "Botella Turquesa 750ML",
-  price: 15000,
 },
 {
-  id: 2,
-  imageUrl: purpleBottle,
-  name: "Botella Morada 750ML",
-  price: 13500,
+    id: 1,
+    imageUrl: skyBottle,
+    name: "Botella Turquesa 750ML",
+    price: 15000,
 },
 {
-  id: 3,
-  imageUrl: bronceBottle,
-  name: "Botella bronce 750ML",
-  price: 14200,
+    id: 2,
+    imageUrl: purpleBottle,
+    name: "Botella Morada 750ML",
+    price: 13500,
+},
+{
+    id: 3,
+    imageUrl: bronceBottle,
+    name: "Botella bronce 750ML",
+    price: 14200,
 },
 ];
 
