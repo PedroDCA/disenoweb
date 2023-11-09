@@ -8,22 +8,19 @@ function Header({ numberOfItems }) {
   return (
     <div className="container">
       <div className="d-flex flex-wrap align-items-center justify-content-between">
-        <Link to="/" className="d-flex align-items-center mb-2 mb-lg-0">
-          bootle up.
-        </Link>
-        <ul className="nav mb-2 justify-content-center mb-md-0">
+        <ul className="nav mb-2 justify-content-center mb-md-0" style={{ marginLeft: 'auto' }}>
           <li>
-            <Link to="/search" className="nav-link px-3">
+            <Link to="/search" className="nav-link px-2">
               <img src={Search} className="icon" alt="Search" />
             </Link>
           </li>
           <li>
-            <Link to="/profile" className="nav-link px-3">
+            <Link to="/profile" className="nav-link px-2">
               <img src={Profile} className="icon" alt="Search" />
             </Link>
           </li>
           <li>
-            <Link to="/cart" className="nav-link px-3">
+            <Link to="/cart" className="nav-link px-2">
               <img src={Cart} className="icon" alt="Search" />
               <span
                 className={`badge lblCartCount ${

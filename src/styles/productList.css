@@ -2,3 +2,16 @@
     flex-basis: 25%;
     margin: 0 3% 5% 3%;
 }
+
+.subtitle
+{
+    font-family: Gusto-Italic;
+    color: #28254F;
+    font-size: 50px;
+}
+
+@font-face
+{
+  font-family: Gusto-Italic;
+  src: url(../fonts/Gusto-Italic.ttf);
+}
