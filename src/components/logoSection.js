@@ -18,10 +18,6 @@ function LogoSection()
           bootle up.
         </Link>
         <img src={Background} className="w-100 background" alt="Background"/>
-      <div>
-          <span className="text-down">¿Cuál es tu estilo? ¡Elige tu botella!</span>
-          <span style={{ display: 'block' }}>Bienvenid@ a nuestra tienda de botellas únicas.</span>
-      </div>
   </div>
   );
 }
