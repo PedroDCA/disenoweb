@@ -9,7 +9,9 @@ const getNewCartElement = (elementInformation) => ({
 
 function addCartElement(cartList, elementInformation) {
   const newCartElement = getNewCartElement(elementInformation);
-  return cartList.push(newCartElement);
+  cartList.push(newCartElement);
+
+  return cartList;
 }
 
 const removeCartElement = (cartList, elementInformation) =>

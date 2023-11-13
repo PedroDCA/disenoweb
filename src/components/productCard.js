@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import { formatPriceForCard } from "../service/priceService";
 import "../styles/productCard.css";
+import { AddCartElement } from "../store/actions";
 
-function ProductCard({ productInformation }) {
+function ProductCard({ productInformation, dispatch }) {
+  const buttonText = productInformation.ableToAddCard ? 'Agregar al carrito' : 'En carrito';
   return (
     <div className="productCard">
-      <a href={`/product/${productInformation.id}`}>
+      <Link to={`/product/${productInformation.id}`}>
         <img
           src={productInformation.imageUrl}
           className="photo mx-auto"
@@ -16,7 +19,16 @@ function ProductCard({ productInformation }) {
             <strong>{formatPriceForCard(productInformation.price)}</strong>
           </p>
         </div>
-      </a>
+      </Link>
+      <p>
+        <button disabled={!productInformation.ableToAddCard}
+          onClick={() => {
+            dispatch({ type: AddCartElement, payload: productInformation });
+          }}
+        >
+          {buttonText}
+        </button>
+      </p>
     </div>
   );
 }

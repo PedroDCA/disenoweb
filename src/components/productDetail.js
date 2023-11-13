@@ -1,16 +1,53 @@
-import Header from "./header";
-import LogoSection from "./logoSection";
+import { formatPriceForCard } from "../service/priceService";
+import { AddCartElement } from "../store/actions";
 
-function ProductDetail({ cartElementList, dispatch }) {
+function ProductDetail({ productInformation, dispatch }) {
+  if (!productInformation?.id) {
+    return (<h1>Cargando</h1>);
+  }
+  const buttonText = productInformation.ableToAddCard
+    ? "Agregar al carrito"
+    : "En carrito";
   return (
-    <>
-      <header className="p-3 header_container w-100">
-        <Header numberOfItems={cartElementList.length} />
-      </header>
-      <main>
-        <LogoSection />
-      </main>
-    </>
+    <div className="d-flex">
+      <div>
+        <img src={productInformation.imageUrl} alt="Product" />
+      </div>
+      <div>
+        <div>
+          <p>Categorias</p>
+          <div>
+            <p>Categoria 1</p>
+            <p>Categoria 2</p>
+          </div>
+        </div>
+        <h2>{productInformation.name}</h2>
+        <div>
+          <p>Star section</p>
+          <p>
+            {productInformation.ratingAverage} (
+            {productInformation.reviewQuantity} reviews)
+          </p>
+        </div>
+        <p>{formatPriceForCard(productInformation.price)}</p>
+        <div>
+          <p>{productInformation.vendor.name}</p>
+          <p>{productInformation.vendor.ratingAverage}</p>
+        </div>
+        <button
+          disabled={!productInformation.ableToAddCard}
+          onClick={() => {
+            dispatch({ type: AddCartElement, payload: productInformation });
+          }}
+        >
+          {buttonText}
+        </button>
+        <div>
+          <p>Descripcion</p>
+          <p>{productInformation.descripcion}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
