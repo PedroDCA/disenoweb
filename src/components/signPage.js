@@ -13,35 +13,37 @@ function SignPage({ cartElementList }) {
         <div className={`container ${containerClasses}`} id="container">
           <div className="form-container register-container">
             <div className="form">
-              <h1>Registrese aquí</h1>
-              <input id="register_firstName" type="text" placeholder="Nombre" />
+              <h1 className="loginTitle">Registrese aquí</h1>
+              <input id="register_firstName" type="text" placeholder="Nombre" className="inputsLogin"/>
               <input
                 id="register_lastName"
                 type="text"
                 placeholder="Apellido"
+                className="inputsLogin"
               />
-              <input id="register_email" type="email" placeholder="Correo" />
+              <input id="register_email" type="email" placeholder="Correo" className="inputsLogin"/>
               <input
                 id="register_password"
                 type="password"
                 placeholder="Contraseña"
+                className="inputsLogin"
               />
-              <button>Registrarse</button>
+              <button className="loginButton">Registrarse</button>
               <div className="social-container">
                 <a
-                  href="https://www.facebook.com/WoodworksFurnitureMadison/"
+                  href="https://shorturl.at/qzAZ3"
                   className="social"
                 >
                   <i className="lni lni-facebook-fill"></i>
                 </a>
                 <a
-                  href="https://www.pinterest.com/woodworkswi/"
+                  href="https://shorturl.at/qzAZ3"
                   className="social"
                 >
                   <i className="lni lni-pinterest-fill"></i>
                 </a>
                 <a
-                  href="https://woodworksfurniturestore.com/"
+                  href="https://shorturl.at/qzAZ3"
                   className="social"
                 >
                   <i className="lni lni-website-fill"></i>
@@ -52,29 +54,30 @@ function SignPage({ cartElementList }) {
 
           <div className="form-container login-container">
             <div className="form">
-              <h1>Iniciar Sesión</h1>
-              <input id="login_email" type="email" placeholder="Correo" />
+              <h1 className="loginTitle">Iniciar Sesión</h1>
+              <input id="login_email" type="email" placeholder="Correo" className="inputsLogin"/>
               <input
                 id="login_password"
                 type="password"
                 placeholder="Contraseña"
+                className="inputsLogin"
               />
-              <button>Ingresar</button>
+              <button className="loginButton">Ingresar</button>
               <div className="social-container">
                 <a
-                  href="https://www.facebook.com/WoodworksFurnitureMadison/"
+                  href="https://shorturl.at/qzAZ3"
                   className="social"
                 >
                   <i className="lni lni-facebook-fill"></i>
                 </a>
                 <a
-                  href="https://www.pinterest.com/woodworkswi/"
+                  href="https://shorturl.at/qzAZ3"
                   className="social"
                 >
                   <i className="lni lni-pinterest-fill"></i>
                 </a>
                 <a
-                  href="https://woodworksfurniturestore.com/"
+                  href="https://shorturl.at/qzAZ3"
                   className="social"
                 >
                   <i className="lni lni-website-fill"></i>
@@ -90,7 +93,7 @@ function SignPage({ cartElementList }) {
                   ¿Ya tienes <br /> una cuenta?
                 </h1>
                 <p>
-                  si es así
+                  Si es así
                   <br /> ¡Inicia sesión aquí!
                 </p>
                 <button
@@ -107,7 +110,7 @@ function SignPage({ cartElementList }) {
                   Crea tu <br /> cuenta aquí
                 </h1>
                 <p>
-                  si todavía no tienes una cuenta, únete para empezar a crear
+                  Si todavía no tienes una cuenta,  únete para empezar a crear
                   tus productos
                 </p>
                 <button
@@ -115,7 +118,7 @@ function SignPage({ cartElementList }) {
                   id="register"
                   onClick={() => setContainerClasses("right-panel-active")}
                 >
-                  Registrarse
+                  Registrarse 
                   <i className="lni lni-arrow-right register"></i>
                 </button>
               </div>
