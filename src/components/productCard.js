@@ -4,7 +4,8 @@ import "../styles/productCard.css";
 import { AddCartElement } from "../store/actions";
 
 function ProductCard({ productInformation, dispatch }) {
-  const buttonText = productInformation.ableToAddCard ? 'Agregar al carrito' : 'En carrito';
+  const buttonText = productInformation.ableToAddCard ? 'Añadir al carrito' : 'En carrito';
+  
   return (
     <div className="productCard">
       <Link to={`/product/${productInformation.id}`}>
