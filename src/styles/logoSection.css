@@ -10,6 +10,9 @@ span
 {
     position: relative;
     text-align: center;
+    z-index: 1;
+    pointer-events: none;
+    
 }
 
 .logo_section_container .centered 
@@ -23,25 +26,33 @@ span
 .logo_section_container .background 
 {
     height: 50vh;
+    width: 100%;
+    background-size: auto 50%; /* Adjust the second value to control the visible height */
+    background-position: center; /* Center the background horizontally and vertically */
+    background-repeat: no-repeat;
     margin-bottom: 12px;
+    object-fit: cover;
+    object-position: center top; /* Muestra la parte inferior de la imagen */
 }
 
 .logo_section_container .logo 
 {
     margin-top: 50px;
-    max-width: 10%;
+    max-width: 14%;
+    
 }
 
 .bootle-up-link 
 {
+    
     position: absolute;
-    top: 200px; 
-    left: 60px; 
-    z-index: 2; 
+    top: 20vw; /* Utilizamos vw para hacerlo responsive al ancho de la ventana */
+    left: 5vw; /* Utilizamos vw para hacerlo responsive al ancho de la ventana */
     font-family: Gusto-Italic;
-    font-size: 70px;
+    font-size: 6vw; /* Utilizamos vw para hacerlo responsive al ancho de la ventana */
     text-decoration: none;
-    color: white;
+    color: #594F9B;
+    text-shadow: 1px 4px 2px #28254F; /* Sombra del texto */
 }
 
 .textAligment
@@ -67,16 +78,18 @@ span
 .imageContainer {
     display: flex;
     justify-content: center;
+    gap: 0%; /* Ajusta el valor según tus preferencias para el espacio entre las imágenes */
 }
 
-.Img1, .Img2, .Img3 {
-    width: 30%; 
-    height: auto; 
-    display: block; 
-    margin: 0 auto; 
+.Img1, .Img2, .Img3, .Img4 {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .imageContainer p {
+    font-family: Gusto-Italic;
     text-align: center;
     font-size: 120%;
     margin-top: 2%;
@@ -92,4 +105,23 @@ span
 {
     font-family: Gusto-Italic;
     src: url(../fonts/Gusto-Italic.ttf);
+}
+
+
+@media screen and (max-width: 768px) {
+    .Img1, .Img2, .Img3, .Img4 {
+        width: 100%; /* Cambia el ancho al 100% en pantallas más pequeñas */
+    }
+
+    .imageContainer p {
+        font-size: 100%; /* Ajusta el tamaño de fuente para pantallas más pequeñas */
+        margin-top: 1%; /* Ajusta el margen superior para pantallas más pequeñas */
+    }
+    .bootle-up-link 
+{
+    top: 40vw;
+    transform: translateX(65%); /* Centrado verticalmente */
+    font-size: 10vw; /* Ajustando el tamaño de fuente para pantallas más pequeñas */
+    text-shadow: 1px 3px 2px #28254F; /* Sombra del texto */ 
+}
 }

@@ -2,12 +2,20 @@ import "../styles/header.css";
 import Search from "../images/search.png";
 import Profile from "../images/profile.png";
 import Cart from "../images/cart.png";
+import Typo from "../images/typo.png";
 import { Link } from "react-router-dom";
 
 function Header({ numberOfItems }) {
   return (
     <div className="container">
       <div className="d-flex flex-wrap align-items-center justify-content-between">
+      <ul className="logo" style={{ marginRight: 'auto' }}>
+      <li>
+        <Link to="/home">
+        <img src={Typo} className="logo-header" alt="Search" />
+        </Link>
+      </li>
+      </ul>
         <ul className="nav mb-2 justify-content-center mb-md-0" style={{ marginLeft: 'auto' }}>
           <li>
             <Link to="/search" className="nav-link px-2">

@@ -28,6 +28,12 @@ function App() {
   const router = createBrowserRouter(
     [
       {
+        path: "/home",
+        element: (
+          <Homepage cartElementList={cartElementList} dispatch={dispatch} />
+        ),
+      },
+      {
         path: "/",
         element: (
           <Homepage cartElementList={cartElementList} dispatch={dispatch} />
