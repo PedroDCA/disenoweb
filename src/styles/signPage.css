@@ -84,10 +84,37 @@
   outline: none;
 }
 
+.loginTitle
+{
+font-family: Gusto-Italic;
+color: #28254F;
+font-size: 50px;
+}
+
+.loginButton
+{
+  background-color: #06A58F;
+  color: white;
+  border: none;
+  margin-top: 2%;
+  border-radius: 10px;
+  padding: 0.5% 6%
+}
+
+.inputsLogin
+{
+  border-radius: 8px;
+  margin: 0.5%;
+  padding: 0.3% 3%;
+  border: 1px solid lightgray;
+}
+
 button.ghost {
   background-color: rgba(22,74,65, 0.2);
   border: 2px solid #fff;
   color: #fff;
+  padding: 0.5% 4%;
+  border-radius: 10px;
 }
 
 button.ghost i{
@@ -202,7 +229,7 @@ button.ghost:hover i.login{
 }
 
 .overlay {
-  background-image: url('../images/image.gif');
+  background-image: url('../images/phraseBottle.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -304,4 +331,10 @@ button.ghost:hover i.login{
 
 .lni-website-fill::before {
   content: url('../images/website-design-24.png');
+}
+
+@font-face
+{
+font-family: Gusto-Italic;
+src: url(../fonts/Gusto-Italic.ttf);
 }
