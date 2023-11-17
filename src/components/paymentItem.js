@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { formatPriceForColonCurrency } from "../service/priceService";
-import { RemoveCartElement, UpdatePrice } from "../store/actions";
+import { useDispatch } from "react-redux";
+import { removeCartElement, updateTotalPrice } from "../store";
 
-function PaymentItem({ itemInformation, dispatch }) {
+function PaymentItem({ itemInformation }) {
   const [itemQuantity, setItemQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(itemInformation.totalPrice);
+  const id = itemInformation.id;
+  const dispatch = useDispatch();
 
   const getTotalPrice = (itemQuantity, price) => itemQuantity * price;
 
@@ -13,14 +16,16 @@ function PaymentItem({ itemInformation, dispatch }) {
   }, [itemQuantity, itemInformation]);
 
   useEffect(() => {
-    dispatch({
-      type: UpdatePrice,
-      payload: {
-        id: itemInformation.id,
+    if (!id) {
+      return;
+    }
+    dispatch(
+      updateTotalPrice({
+        id,
         totalPrice,
-      },
-    });
-  }, [totalPrice, itemInformation, dispatch]);
+      })
+    );
+  }, [totalPrice, id, dispatch]);
 
   const onChangeHandler = (event) => {
     setItemQuantity(event.target.value);
@@ -28,11 +33,7 @@ function PaymentItem({ itemInformation, dispatch }) {
   return (
     <tr>
       <td>
-        <button
-          onClick={() =>
-            dispatch({ type: RemoveCartElement, payload: itemInformation })
-          }
-        >
+        <button onClick={() => dispatch(removeCartElement(itemInformation.id))}>
           X
         </button>
       </td>

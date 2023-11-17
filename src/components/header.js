@@ -3,8 +3,11 @@ import Search from "../images/search.png";
 import Profile from "../images/profile.png";
 import Cart from "../images/cart.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function Header({ numberOfItems }) {
+function Header() {
+  const cartElementList = useSelector((state) => state.cart);
+  const numberOfItems = cartElementList.length;
   return (
     <div className="container">
       <div className="d-flex flex-wrap align-items-center justify-content-between">

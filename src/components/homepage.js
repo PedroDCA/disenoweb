@@ -5,11 +5,11 @@ import Img2 from "../images/purpleBottle.png";
 import Img3 from "../images/metalBottle.png";
 import { Link } from "react-router-dom";
 
-function Homepage({ cartElementList, dispatch }) {
+function Homepage() {
   return (
     <>
       <header className="p-3 header_container w-100">
-        <Header numberOfItems={cartElementList.length} />
+        <Header />
       </header>
       <main>
         <LogoSection />
