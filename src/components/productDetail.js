@@ -1,7 +1,9 @@
-import { formatPriceForCard } from "../service/priceService";
-import { AddCartElement } from "../store/actions";
+import { useDispatch } from "react-redux";
+import { formatPriceForColonCurrency } from "../service/priceService";
+import { addCartElement } from "../store"
 
-function ProductDetail({ productInformation, dispatch }) {
+function ProductDetail({ productInformation }) {
+  const dispatch = useDispatch();
   if (!productInformation?.id) {
     return (<h1>Cargando</h1>);
   }
@@ -29,7 +31,7 @@ function ProductDetail({ productInformation, dispatch }) {
             {productInformation.reviewQuantity} reviews)
           </p>
         </div>
-        <p>{formatPriceForCard(productInformation.price)}</p>
+        <p>{formatPriceForColonCurrency(productInformation.price)}</p>
         <div>
           <p>{productInformation.vendor.name}</p>
           <p>{productInformation.vendor.ratingAverage}</p>
@@ -37,7 +39,7 @@ function ProductDetail({ productInformation, dispatch }) {
         <button
           disabled={!productInformation.ableToAddCard}
           onClick={() => {
-            dispatch({ type: AddCartElement, payload: productInformation });
+            dispatch(addCartElement(productInformation));
           }}
         >
           {buttonText}

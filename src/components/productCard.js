@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { formatPriceForCard } from "../service/priceService";
+import { formatPriceForColonCurrency } from "../service/priceService";
 import "../styles/productCard.css";
-import { AddCartElement } from "../store/actions";
+import { useDispatch } from "react-redux";
+import { addCartElement } from "../store";
 
-function ProductCard({ productInformation, dispatch }) {
-  const buttonText = productInformation.ableToAddCard ? 'Añadir al carrito' : 'En carrito';
-  
+function ProductCard({ productInformation }) {
+  const dispatch = useDispatch();
+  const buttonText = productInformation.ableToAddCard ? 'Agregar al carrito' : 'En carrito';
   return (
     <div className="productCard">
       <Link to={`/product/${productInformation.id}`}>
@@ -17,14 +18,14 @@ function ProductCard({ productInformation, dispatch }) {
         <div>
           <p>{productInformation.name}</p>
           <p>
-            <strong>{formatPriceForCard(productInformation.price)}</strong>
+            <strong>{formatPriceForColonCurrency(productInformation.price)}</strong>
           </p>
         </div>
       </Link>
       <p>
         <button disabled={!productInformation.ableToAddCard}
           onClick={() => {
-            dispatch({ type: AddCartElement, payload: productInformation });
+            dispatch(addCartElement(productInformation));
           }}
         >
           {buttonText}

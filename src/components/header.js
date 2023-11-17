@@ -4,8 +4,11 @@ import Profile from "../images/profile.png";
 import Cart from "../images/cart.png";
 import Typo from "../images/typo.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function Header({ numberOfItems }) {
+function Header() {
+  const cartElementList = useSelector((state) => state.cart);
+  const numberOfItems = cartElementList.length;
   return (
     <div className="container">
       <div className="d-flex flex-wrap align-items-center justify-content-between">
@@ -28,7 +31,7 @@ function Header({ numberOfItems }) {
             </Link>
           </li>
           <li>
-            <Link to="/cart" className="nav-link px-2">
+            <Link to="/pay" className="nav-link px-2">
               <img src={Cart} className="icon" alt="Search" />
               <span
                 className={`badge lblCartCount ${

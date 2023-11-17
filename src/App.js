@@ -2,18 +2,19 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Homepage from "./components/homepage";
 import SearchPage from "./components/searchPage";
 import SignPage from "./components/signPage";
-import { useEffect, useReducer, useRef } from "react";
-import StoreReducer from "./store/reducers";
+import { useEffect, useRef } from "react";
 import Swal from "sweetalert2";
 import ProductDetailPage from "./components/productDetailPage";
+import PaymentPage from "./components/paymentPage";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [cartElementList, dispatch] = useReducer(StoreReducer, []);
+  const cartElementList = useSelector((state) => state.cart);
   const previousCartElementList = useRef(cartElementList);
 
   useEffect(() => {
     if (cartElementList.length === previousCartElementList.current.length) {
-      return
+      return;
     }
 
     if (cartElementList.length > previousCartElementList.current.length) {
@@ -23,34 +24,31 @@ function App() {
     if (cartElementList.length < previousCartElementList.current.length) {
       Swal.fire('Item eliminado del carrito!');
     }
-  }, [cartElementList, previousCartElementList])
+
+    previousCartElementList.current = cartElementList;
+  }, [cartElementList, previousCartElementList]);
 
   const router = createBrowserRouter(
     [
       {
         path: "/",
-        element: (
-          <Homepage cartElementList={cartElementList} dispatch={dispatch} />
-        ),
+        element: <Homepage />,
       },
       {
         path: "/product/:productId",
-        element: (
-          <ProductDetailPage
-            cartElementList={cartElementList}
-            dispatch={dispatch}
-          />
-        ),
+        element: <ProductDetailPage />,
       },
       {
         path: "/search",
-        element: (
-          <SearchPage cartElementList={cartElementList} dispatch={dispatch} />
-        ),
+        element: <SearchPage />,
       },
       {
         path: "/profile",
-        element: <SignPage cartElementList={cartElementList}/>,
+        element: <SignPage />,
+      },
+      {
+        path: "/pay",
+        element: <PaymentPage />,
       },
     ],
     {

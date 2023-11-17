@@ -6,11 +6,11 @@ import Img3 from "../images/filter3.png";
 import Img4 from "../images/filter4.png";
 import { Link } from "react-router-dom";
 
-function Homepage({ cartElementList, dispatch }) {
+function Homepage() {
   return (
     <>
       <header className="p-3 header_container w-100">
-        <Header numberOfItems={cartElementList.length} />
+        <Header />
       </header>
       <main>
         <LogoSection />

@@ -2,12 +2,12 @@ import Header from "./header";
 import "../styles/signPage.css";
 import { useState } from "react";
 
-function SignPage({ cartElementList }) {
+function SignPage() {
   const [containerClasses, setContainerClasses] = useState("");
   return (
     <>
       <header className="p-3 header_container w-100">
-        <Header numberOfItems={cartElementList.length} />
+        <Header />
       </header>
       <main>
         <div className={`container ${containerClasses}`} id="container">
