@@ -1,8 +1,9 @@
 import Header from "./header";
 import LogoSection from "./logoSection";
-import Img1 from "../images/blackBottle.png";
-import Img2 from "../images/purpleBottle.png";
-import Img3 from "../images/metalBottle.png";
+import Img1 from "../images/filter1.png";
+import Img2 from "../images/filter2.png";
+import Img3 from "../images/filter3.png";
+import Img4 from "../images/filter4.png";
 import { Link } from "react-router-dom";
 
 function Homepage() {
@@ -28,11 +29,15 @@ function Homepage() {
           </Link>     
           <Link to="/search" >
             <img src={Img2} alt="Imagen 2" className="Img2" />
-            <p>Térmicas</p>
+            <p>Rosadas</p>
           </Link>
           <Link to="/search" >
             <img src={Img3} alt="Imagen 3" className="Img3" />
-            <p>Hiking</p>
+            <p>Vidrio</p>
+          </Link>
+          <Link to="/search" >
+            <img src={Img4} alt="Imagen 4" className="Img4" />
+            <p>Térmicas</p>
           </Link>
         </div>
       </main>
