@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { formatPriceForCard } from "../service/priceService";
+import { formatPriceForColonCurrency } from "../service/priceService";
 import "../styles/productCard.css";
 import { AddCartElement } from "../store/actions";
 
@@ -16,7 +16,7 @@ function ProductCard({ productInformation, dispatch }) {
         <div>
           <p>{productInformation.name}</p>
           <p>
-            <strong>{formatPriceForCard(productInformation.price)}</strong>
+            <strong>{formatPriceForColonCurrency(productInformation.price)}</strong>
           </p>
         </div>
       </Link>

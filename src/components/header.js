@@ -20,7 +20,7 @@ function Header({ numberOfItems }) {
             </Link>
           </li>
           <li>
-            <Link to="/cart" className="nav-link px-2">
+            <Link to="/pay" className="nav-link px-2">
               <img src={Cart} className="icon" alt="Search" />
               <span
                 className={`badge lblCartCount ${

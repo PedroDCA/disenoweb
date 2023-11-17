@@ -1,4 +1,4 @@
-import { formatPriceForCard } from "../service/priceService";
+import { formatPriceForColonCurrency } from "../service/priceService";
 import { AddCartElement } from "../store/actions";
 
 function ProductDetail({ productInformation, dispatch }) {
@@ -29,7 +29,7 @@ function ProductDetail({ productInformation, dispatch }) {
             {productInformation.reviewQuantity} reviews)
           </p>
         </div>
-        <p>{formatPriceForCard(productInformation.price)}</p>
+        <p>{formatPriceForColonCurrency(productInformation.price)}</p>
         <div>
           <p>{productInformation.vendor.name}</p>
           <p>{productInformation.vendor.ratingAverage}</p>
