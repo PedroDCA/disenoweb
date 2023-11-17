@@ -6,6 +6,7 @@ import { useEffect, useReducer, useRef } from "react";
 import StoreReducer from "./store/reducers";
 import Swal from "sweetalert2";
 import ProductDetailPage from "./components/productDetailPage";
+import PaymentPage from "./components/paymentPage";
 
 function App() {
   const [cartElementList, dispatch] = useReducer(StoreReducer, []);
@@ -52,6 +53,10 @@ function App() {
         path: "/profile",
         element: <SignPage cartElementList={cartElementList}/>,
       },
+      {
+        path: "/pay",
+        element: <PaymentPage cartElementList={cartElementList} dispatch={dispatch}/>
+      }
     ],
     {
       basename: "/",

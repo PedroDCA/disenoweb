@@ -9,4 +9,4 @@ const colonFormatter = Intl.NumberFormat("en-US", {
  * It includes a dot "." on every 3 numbers, it adds the colon sign at the
  * beginning and add two decimal values.
  */
-export const formatPriceForCard = (price) => colonFormatter.format(price);
+export const formatPriceForColonCurrency = (price) => colonFormatter.format(price);
