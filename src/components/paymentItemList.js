@@ -1,6 +1,6 @@
 import PaymentItem from "./paymentItem";
 
-function PaymentItemList({ cartElementList, dispatch }) {
+function PaymentItemList({ cartElementList }) {
   return (
     <div>
       <h1>CARRITO DE COMPRAS</h1>
@@ -17,7 +17,7 @@ function PaymentItemList({ cartElementList, dispatch }) {
         </thead>
         <tbody>
           {cartElementList?.map?.((cartElement, index) => (
-            <PaymentItem itemInformation={cartElement} key={index} dispatch={dispatch}/>
+            <PaymentItem itemInformation={cartElement} key={index}/>
           ))}
         </tbody>
       </table>

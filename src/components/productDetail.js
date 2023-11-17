@@ -1,7 +1,9 @@
+import { useDispatch } from "react-redux";
 import { formatPriceForColonCurrency } from "../service/priceService";
-import { AddCartElement } from "../store/actions";
+import { addCartElement } from "../store"
 
-function ProductDetail({ productInformation, dispatch }) {
+function ProductDetail({ productInformation }) {
+  const dispatch = useDispatch();
   if (!productInformation?.id) {
     return (<h1>Cargando</h1>);
   }
@@ -37,7 +39,7 @@ function ProductDetail({ productInformation, dispatch }) {
         <button
           disabled={!productInformation.ableToAddCard}
           onClick={() => {
-            dispatch({ type: AddCartElement, payload: productInformation });
+            dispatch(addCartElement(productInformation));
           }}
         >
           {buttonText}

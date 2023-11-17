@@ -7,11 +7,13 @@ import {
   formatProductForDetailPage,
   getProductDetailById,
 } from "../service/productService";
+import { useSelector } from "react-redux";
 
-function ProductDetailPage({ cartElementList, dispatch }) {
+function ProductDetailPage() {
   const { productId } = useParams();
   const [productInformation, setProductInformation] = useState({});
   const [detailPageInformation, setDetailPageInformation] = useState({});
+  const cartElementList = useSelector((state) => state.cart);
 
   useEffect(() => {
     const updatedProductInformation = getProductDetailById(productId);
@@ -34,10 +36,7 @@ function ProductDetailPage({ cartElementList, dispatch }) {
       </header>
       <main>
         <LogoSection />
-        <ProductDetail
-          dispatch={dispatch}
-          productInformation={detailPageInformation}
-        />
+        <ProductDetail productInformation={detailPageInformation} />
       </main>
     </>
   );
