@@ -11,7 +11,7 @@ function Header({ numberOfItems }) {
       <div className="d-flex flex-wrap align-items-center justify-content-between">
       <ul className="logo" style={{ marginRight: 'auto' }}>
       <li>
-        <Link to="/home">
+        <Link to="/">
         <img src={Typo} className="logo-header" alt="Search" />
         </Link>
       </li>

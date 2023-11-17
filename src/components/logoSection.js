@@ -14,7 +14,7 @@ function LogoSection()
           <span>Explorar🠻</span>
           <span>Mejor vendidas</span>
       </div>
-        <Link to="/home" className="d-flex align-items-center mb-2 mb-lg-0 bootle-up-link">
+        <Link to="/" className="d-flex align-items-center mb-2 mb-lg-0 bootle-up-link">
           bottle up.
         </Link>
         <img src={Background} className="w-100 background" alt="Background"/>
