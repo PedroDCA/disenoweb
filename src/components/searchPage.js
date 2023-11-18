@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const productsToShow = getAllProducts();
 
 function SearchPage() {
-  const cartElementList = useSelector((state) => state.cart);
+  const cartElementList = useSelector((state) => state.cart.list);
   const cartProductIdList = cartElementList.map((element) => element.id);
   const searchProductList = formatProductListForSearchPage(productsToShow, cartProductIdList);
   return (

@@ -10,21 +10,21 @@ const getNewCartElement = (elementInformation) => ({
 
 const cartSlice = createSlice({
   name: "cartList",
-  initialState: [],
+  initialState: {list: []},
   reducers: {
     addCartElement: (state, action) => {
       const newCartItem = getNewCartElement(action.payload);
-      state.push(newCartItem);
+      state.list.push(newCartItem);
     },
     removeCartElement: (state, action) => {
-      return state.filter((element) => element.id !== action.payload);
+      return state.list.filter((element) => element.id !== action.payload);
     },
     updateTotalPrice: (state, action) => {
-      const cartItemIndex = state.findIndex(
+      const cartItemIndex = state.list.findIndex(
         (cartItem) => cartItem.id === action.payload.id
       );
       if (cartItemIndex > -1) {
-        state[cartItemIndex].totalPrice = action.payload.totalPrice;
+        state.list[cartItemIndex].totalPrice = action.payload.totalPrice;
       }
     },
   },

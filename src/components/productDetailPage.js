@@ -13,7 +13,7 @@ function ProductDetailPage() {
   const { productId } = useParams();
   const [productInformation, setProductInformation] = useState({});
   const [detailPageInformation, setDetailPageInformation] = useState({});
-  const cartElementList = useSelector((state) => state.cart);
+  const cartElementList = useSelector((state) => state.cart.list);
 
   useEffect(() => {
     const updatedProductInformation = getProductDetailById(productId);

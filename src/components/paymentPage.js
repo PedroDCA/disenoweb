@@ -1,22 +1,21 @@
-import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./header";
 import LogoSection from "./logoSection";
-import PaymentItemList from "./paymentItemList";
-import PaymentTotalSection from "./paymentTotalSection";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function PaymentPage() {
-  const cartElementList = useSelector((state) => state.cart);
-  const [total, setTotal] = useState(0);
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const isTotalPriceValid = state?.total > 0;
+  const isItemListValid = state?.itemList?.length > 0;
 
   useEffect(() => {
-    const newTotal = cartElementList.reduce(
-      (total, cartElement) => total + cartElement.totalPrice,
-      0
-    );
+    if (!isTotalPriceValid || !isItemListValid) {
+      navigate('/');
+      return;
+    }
+  }, [isTotalPriceValid, isItemListValid, navigate]);
 
-    setTotal(newTotal);
-  }, [cartElementList]);
   return (
     <>
       <header className="p-3 header_container w-100">
@@ -24,10 +23,7 @@ function PaymentPage() {
       </header>
       <main>
         <LogoSection />
-        <div className="container">
-          <PaymentItemList cartElementList={cartElementList} />
-          <PaymentTotalSection totalToPay={total}/>
-        </div>
+        <div className="container"></div>
       </main>
     </>
   );

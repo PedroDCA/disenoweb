@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Header() {
-  const cartElementList = useSelector((state) => state.cart);
+  const cartElementList = useSelector((state) => state.cart.list);
   const numberOfItems = cartElementList.length;
   return (
     <div className="container">
@@ -31,7 +31,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/pay" className="nav-link px-2">
+            <Link to="/cart" className="nav-link px-2">
               <img src={Cart} className="icon" alt="Search" />
               <span
                 className={`badge lblCartCount ${
