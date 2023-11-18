@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { formatPriceForColonCurrency } from "../service/priceService";
 import { useDispatch } from "react-redux";
 import { removeCartElement, updateTotalPrice } from "../store";
-import "../styles/paymentItem.css";
+import "../styles/checkoutItem.css";
 
-function PaymentItem({ itemInformation }) {
+function CheckoutItem({ itemInformation }) {
   const [itemQuantity, setItemQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(itemInformation.totalPrice);
   const id = itemInformation.id;
@@ -60,4 +60,4 @@ function PaymentItem({ itemInformation }) {
   );
 }
 
-export default PaymentItem;
+export default CheckoutItem;

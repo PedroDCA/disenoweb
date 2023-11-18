@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import Swal from "sweetalert2";
 import ProductDetailPage from "./components/productDetailPage";
 import { useSelector } from "react-redux";
-import CartPage from "./components/cartPage";
+import CheckoutPage from "./components/checkoutPage";
 import PaymentPage from "./components/paymentPage";
 
 function App() {
@@ -49,7 +49,7 @@ function App() {
       },
       {
         path: "/cart",
-        element: <CartPage />,
+        element: <CheckoutPage />,
       },
       {
         path: "/pay",

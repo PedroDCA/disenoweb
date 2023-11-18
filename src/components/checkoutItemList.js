@@ -1,7 +1,7 @@
-import PaymentItem from "./paymentItem";
-import "../styles/paymentItemList.css";
+import CheckoutItem from "./checkoutItem";
+import "../styles/checkoutItemList.css";
 
-function PaymentItemList({ cartElementList }) {
+function CheckoutItemList({ cartElementList }) {
   return (
     <div className="cartContainer">
       <h1 className="titleCarritoCompras">CARRITO DE COMPRAS</h1>
@@ -18,7 +18,7 @@ function PaymentItemList({ cartElementList }) {
         </thead>
         <tbody>
           {cartElementList?.map?.((cartElement, index) => (
-            <PaymentItem itemInformation={cartElement} key={index} />
+            <CheckoutItem itemInformation={cartElement} key={index} />
           ))}
         </tbody>
       </table>
@@ -26,4 +26,4 @@ function PaymentItemList({ cartElementList }) {
   );
 }
 
-export default PaymentItemList;
+export default CheckoutItemList;

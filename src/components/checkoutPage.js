@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import Header from "./header";
 import LogoSection from "./logoSection";
-import PaymentItemList from "./paymentItemList";
-import PaymentTotalSection from "./paymentTotalSection";
+import CheckoutItemList from "./checkoutItemList";
+import CheckoutTotalSection from "./checkoutTotalSection";
 import { useEffect, useState } from "react";
 
-function CartPage() {
+function CheckoutPage() {
   const cartElementList = useSelector((state) => state.cart.list);
   const [total, setTotal] = useState(0);
 
@@ -25,12 +25,12 @@ function CartPage() {
       <main>
         <LogoSection />
         <div className="container">
-          <PaymentItemList cartElementList={cartElementList} />
-          <PaymentTotalSection totalToPay={total} elementList={cartElementList}/>
+          <CheckoutItemList cartElementList={cartElementList} />
+          <CheckoutTotalSection totalToPay={total} elementList={cartElementList}/>
         </div>
       </main>
     </>
   );
 }
 
-export default CartPage;
+export default CheckoutPage;
