@@ -4,9 +4,39 @@ import cartReducer, {
   removeCartElement,
   updateTotalPrice,
 } from "./cart";
+import storage from "redux-persist/lib/storage";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
+} from "redux-persist";
 
-export default configureStore({
-  reducer: { cart: cartReducer },
+const persistConfiguration = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfiguration, cartReducer);
+
+const store = configureStore({
+  reducer: {
+    cart: persistedReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
-export { addCartElement, removeCartElement, updateTotalPrice };
+const persistor = persistStore(store);
+
+export default store;
+
+export { addCartElement, removeCartElement, updateTotalPrice, persistor };
