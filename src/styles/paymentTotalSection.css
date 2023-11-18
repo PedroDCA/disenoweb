@@ -1,0 +1,51 @@
+.btnCheckout {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #06A58F;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 0.8vh;
+}
+
+.btnCheckout:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.payment-container {
+    border: 1px solid grey;
+    padding: 12px;
+    margin-bottom: 4vh;
+}
+
+.total-label {
+    font-weight: bold;
+    font-size: larger;
+    color: #594F9B;
+}
+.subtotal-container
+{
+    color: #594F9B;
+}
+
+.total-container
+{
+    color: #594F9B;
+}
+
+.subtotal-container,
+.total-container {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
+    margin: 10px 0;
+    padding-top: 10px;
+}
+
+
+.subtotal-amount,
+.total-amount {
+    font-weight: bold;
+}

@@ -1,11 +1,12 @@
 import PaymentItem from "./paymentItem";
+import "../styles/paymentItemList.css";
 
 function PaymentItemList({ cartElementList }) {
   return (
-    <div>
-      <h1>CARRITO DE COMPRAS</h1>
-      <table>
-        <thead>
+    <div className="cartContainer">
+      <h1 className="titleCarritoCompras">CARRITO DE COMPRAS</h1>
+      <table className="cartTable">
+        <thead className="theadColor">
           <tr>
             <th></th>
             <th></th>
@@ -17,7 +18,7 @@ function PaymentItemList({ cartElementList }) {
         </thead>
         <tbody>
           {cartElementList?.map?.((cartElement, index) => (
-            <PaymentItem itemInformation={cartElement} key={index}/>
+            <PaymentItem itemInformation={cartElement} key={index} />
           ))}
         </tbody>
       </table>
