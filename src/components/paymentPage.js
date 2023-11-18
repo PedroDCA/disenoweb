@@ -2,6 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./header";
 import LogoSection from "./logoSection";
 import { useEffect } from "react";
+import BankCardForm from "./bankCardForm";
+import AddressForm from "./addressForm";
 
 function PaymentPage() {
   const { state } = useLocation();
@@ -11,7 +13,7 @@ function PaymentPage() {
 
   useEffect(() => {
     if (!isTotalPriceValid || !isItemListValid) {
-      navigate('/');
+      navigate("/");
       return;
     }
   }, [isTotalPriceValid, isItemListValid, navigate]);
@@ -23,7 +25,28 @@ function PaymentPage() {
       </header>
       <main>
         <LogoSection />
-        <div className="container"></div>
+        <div className="container">
+          <h1>Metodo de pago</h1>
+          <div>
+            <input
+              type="radio"
+              name="paymentType"
+              value="visa"
+              id="paymentVisa"
+            />
+            <label for="paymentVisa">VISA</label>
+            <input
+              type="radio"
+              name="paymentType"
+              value="mastercard"
+              id="paymentMastercard"
+            />
+            <label for="paymentVisa">MASTER CARD</label>
+          </div>
+          <BankCardForm />
+          <AddressForm />
+          <button>Comprar</button>
+        </div>
       </main>
     </>
   );
