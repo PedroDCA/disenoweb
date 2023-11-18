@@ -1,0 +1,49 @@
+.titleCarritoCompras
+{
+    font-family: Gusto-Italic;
+    color: #28254F;
+    font-size: 50px;
+}
+
+@font-face
+{
+    font-family: Gusto-Italic;
+    src: url(../fonts/Gusto-Italic.ttf);
+}
+
+/* paymentItemList.css */
+.cartContainer 
+{
+    margin: 10px;
+}
+.theadColor
+{
+    color: #594F9B;
+}
+
+.cartTable 
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+.cartTable th, .cartTable td 
+{
+    border: 1px solid lightgray;
+    padding: 9px;
+    text-align: center;
+}
+  
+.cartTable th 
+{
+    background-color: #f2f2f2;
+}
+  
+.cartTable td input 
+{
+    width: 40px; /* Ajusta el ancho según tus necesidades */
+    text-align: center;
+  }
+  
+  
+  
