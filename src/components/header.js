@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import CartModalWrapper from "./cartModalWrapper";
 
 function Header() {
-  const cartElementList = useSelector((state) => state.cart);
+  const cartElementList = useSelector((state) => state.cart.list);
   const numberOfItems = cartElementList.length;
   return (
     <div className="container">
@@ -32,7 +32,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/pay" className="nav-link px-2">
+            <Link to="/cart" className="nav-link px-2">
             <CartModalWrapper className="nav-link px-2" cartElementList={cartElementList} >
               <img src={Cart} className="icon" alt="Cart" />
             </CartModalWrapper>

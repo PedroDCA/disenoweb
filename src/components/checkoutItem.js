@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { formatPriceForColonCurrency } from "../service/priceService";
 import { useDispatch } from "react-redux";
 import { removeCartElement, updateTotalPrice } from "../store";
+import "../styles/checkoutItem.css";
 
-function PaymentItem({ itemInformation }) {
+function CheckoutItem({ itemInformation }) {
   const [itemQuantity, setItemQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(itemInformation.totalPrice);
   const id = itemInformation.id;
@@ -33,12 +34,12 @@ function PaymentItem({ itemInformation }) {
   return (
     <tr>
       <td>
-        <button onClick={() => dispatch(removeCartElement(itemInformation.id))}>
+        <button className="customXbutton" onClick={() => dispatch(removeCartElement(itemInformation.id))}>
           X
         </button>
       </td>
       <td>
-        <img src={itemInformation.imageUrl} alt="Item example" />
+        <img src={itemInformation.imageUrl} alt="Item example" className="imgProduct" />
       </td>
       <td>{itemInformation.name}</td>
       <td>
@@ -59,4 +60,4 @@ function PaymentItem({ itemInformation }) {
   );
 }
 
-export default PaymentItem;
+export default CheckoutItem;
