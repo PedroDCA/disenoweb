@@ -8,11 +8,9 @@ span
 
 .logo_section_container
 {
-    position: relative;
     text-align: center;
     z-index: 1;
-    pointer-events: none;
-    
+
 }
 
 .logo_section_container .centered 
@@ -33,12 +31,14 @@ span
     margin-bottom: 12px;
     object-fit: cover;
     object-position: center top; /* Muestra la parte inferior de la imagen */
+
 }
 
 .logo_section_container .logo 
 {
     margin-top: 50px;
     max-width: 14%;
+    z-index: 4;
     
 }
 
@@ -112,7 +112,16 @@ span
     .Img1, .Img2, .Img3, .Img4 {
         width: 100%; /* Cambia el ancho al 100% en pantallas más pequeñas */
     }
+    .logo_section_container
+{
+    margin-top: 7vw;
+}
 
+.logo_section_container .logo 
+{
+    max-width: 20%;
+    
+}
     .imageContainer p {
         font-size: 100%; /* Ajusta el tamaño de fuente para pantallas más pequeñas */
         margin-top: 1%; /* Ajusta el margen superior para pantallas más pequeñas */

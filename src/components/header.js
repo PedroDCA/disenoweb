@@ -5,6 +5,7 @@ import Cart from "../images/cart.png";
 import Typo from "../images/typo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CartModalWrapper from "./cartModalWrapper";
 
 function Header() {
   const cartElementList = useSelector((state) => state.cart.list);
@@ -32,7 +33,9 @@ function Header() {
           </li>
           <li>
             <Link to="/cart" className="nav-link px-2">
-              <img src={Cart} className="icon" alt="Search" />
+            <CartModalWrapper className="nav-link px-2" cartElementList={cartElementList} >
+              <img src={Cart} className="icon" alt="Cart" />
+            </CartModalWrapper>
               <span
                 className={`badge lblCartCount ${
                   numberOfItems > 0 ? "" : "hidden"
