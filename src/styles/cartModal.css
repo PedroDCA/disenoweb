@@ -1,0 +1,52 @@
+
+h2{
+
+  font-family: Gusto-Italic;
+    background-image: linear-gradient(to right, #e0e0e0, #F9D243, #ED74AB, #06A58F,#e0e0e0);
+    background-size: 100% 1.5px; /* Ancho y grosor del subrayado */
+    background-position: 0 80%; /* Posiciona el subrayado en la parte inferior del texto */
+    background-repeat: no-repeat; /* Evita que se repita el degradado */
+}
+
+.cart-preview-wrapper {
+  position: relative;
+  z-index: 2000; /* Ajustar el z-index para que esté por encima de otros elementos */
+}
+
+.cart-preview-modal {
+  align-items: center; /* Alinea verticalmente los elementos al centro */
+  text-align: center;
+  display: flex;
+  color: #28254F;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #F8EEFF;
+  border: 1px solid #ccc;
+  padding: 20px;
+  z-index: 1000; /* Ajustar el z-index para que el modal esté por encima del resto */
+  display: none;
+  font-family: 'Calibri Light', sans-serif;
+  font-size: 14px;
+  min-width: 200px; /* Establece un ancho mínimo */
+  min-height: 100px; /* Establece una altura mínima */
+
+}
+
+.img-cart{
+  width: 50px; /* Modifica el ancho según sea necesario */
+  height: auto; /* Para mantener la proporción de la imagen */
+  margin-right: 10px; /* Espacio entre la imagen y el texto */
+}
+.cart-preview-wrapper:hover .cart-preview-modal {
+  display: block;
+}
+#price{
+  font-weight: bold;
+}
+@font-face
+{
+  font-family: Gusto-Italic;
+  src: url(../fonts/Gusto-Italic.ttf);
+}
