@@ -1,0 +1,36 @@
+.container-cardinfo
+{
+    display: flex;
+}
+
+.infocard-title
+{
+    font-weight: normal;
+    margin-bottom: 2vh;
+}
+
+.inputs-card
+{
+    border-radius: 8px;
+    margin: 0.5%;
+    padding: 0.3% 3%;
+    border: 1px solid lightgray;
+    width: 25vh;
+    height: 4vh;
+}
+
+.inputs
+{
+    border-radius: 8px;
+    padding: 0.3% 3%;
+    border: 1px solid lightgray;
+    width: 50vh;
+    height: 4vh;
+}
+
+.subtitles
+{
+    font-family: 'Calibri Light', sans-serif;
+    font-size: 2.4vh;
+    padding: 0.7vh;
+}
