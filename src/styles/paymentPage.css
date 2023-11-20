@@ -1,0 +1,73 @@
+.payment-container 
+{
+    display: flex;
+    justify-content: space-between;
+}
+  
+.forms-container 
+{
+    flex-grow: 5;
+    margin-left: 10px; 
+}
+  
+input[type="radio"] 
+{
+    margin-right: 1vh; 
+    margin-left: 1vh;
+}
+
+.payment-options
+{
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: flex-start; 
+    margin-bottom: 7vh; 
+}
+
+.payment-option 
+{
+    text-align: center;
+}
+
+.payment-visa, .payment-mastercard 
+{
+    text-align: center; 
+}
+
+.Img2 
+{
+    width: 350px;
+    height: 350px;
+ 
+}
+  
+.Img1
+{
+    width: 350px;
+    height: 350px;
+}
+
+.payment-title
+{
+    font-weight: bold;
+    margin-bottom: 1vh;
+}
+
+.btn-comprar
+{
+    background-color: #06A58F;
+    color: white;
+    border: none;
+    margin-top: 2%;
+    border-radius: 12px;
+    padding: 0.5% 3%
+}
+
+.container-btn
+{
+    text-align: right;
+    margin-bottom: 3vh;
+}
+  
+ 

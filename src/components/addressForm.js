@@ -1,15 +1,23 @@
+import "../styles/addressForm.css";
+
 function AddressForm() {
   return (
     <>
-      <h2>Direccion de Entrega</h2>
-      <h3>Nombre completo</h3>
-      <input type="text" placeholder="Carlos Brenes Barrantes" />
-      <h3>Direccion</h3>
-      <input type="text" placeholder="San Jose, San Sebastian" />
-      <h3>Provincia</h3>
-      <input type="text" placeholder="San Jose" />
-      <h3>Canton</h3>
-      <input type="text" placeholder="Central" />
+      <h3 className="address-title">Dirección de Entrega</h3>
+      <h4 className="subtitles">Nombre completo</h4>
+      <input type="text" placeholder="Carlos Brenes Barrantes" className="inputs"/>
+      <h4 className="subtitles">Dirección</h4>
+      <input type="text" placeholder="San José, San Sebastián" className="inputs"/>
+      <div className="container-address">
+        <div>
+          <h4 className="subtitles">Provincia</h4>
+          <input type="text" placeholder="San José" className="inputs-addr"/>
+        </div>
+        <div>
+          <h4 className="subtitles">Cantón</h4>
+          <input type="text" placeholder="Central" className="inputs-addr"/>
+        </div>
+      </div>
     </>
   );
 }
