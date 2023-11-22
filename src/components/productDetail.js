@@ -14,17 +14,17 @@ function ProductDetail({ productInformation }) {
   return (
     <div className="product detail d-flex">
       <div>
-        <img src={productInformation.imageUrl} alt="Product" className="imgb"/>
+        <img src={productInformation.imageUrl} alt="Product" className="product-image"/>
       </div>
       <div>
         <div>
-          <p id="titulo-categorias">Categorias</p>
+          <p id="categories-title">Categorias</p>
           <div>
             <p id="categories">Categoria 1</p>
             <p id="categories">Categoria 2</p>
           </div>
         </div>
-        <h2 className="titulo-producto">{productInformation.name}</h2>
+        <h2 className="product-title">{productInformation.name}</h2>
         <div className="star-section">
           <p>★★★★☆</p>
           <p>
