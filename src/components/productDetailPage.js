@@ -8,6 +8,7 @@ import {
   getProductDetailById,
 } from "../service/productService";
 import { useSelector } from "react-redux";
+import "../styles/productDetailPage.css"
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -30,15 +31,19 @@ function ProductDetailPage() {
   }, [productInformation, cartElementList]);
 
   return (
-    <>
+    <div className="main-container">
       <header className="p-3 header_container w-100">
         <Header numberOfItems={cartElementList.length} />
       </header>
       <main>
+        <div>
         <LogoSection />
+        </div>
+        <div className="product-detail">
         <ProductDetail productInformation={detailPageInformation} />
+        </div>
       </main>
-    </>
+    </div>
   );
 }
 
