@@ -3,6 +3,53 @@
     width: 20%;
 }
 
+.btn-add-to-cart{
+    padding: 0.5em 3em;
+    background: none;
+    border: 0.5px solid #fff;
+    font-size: 15px;
+    color: #131313;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    border-radius: 12px;
+    background-color: #aba5ff;
+    font-weight: bolder;
+    box-shadow: 3px 3px 4px 1px #454086;
+    font-family: 'Calibri', sans-serif;
+}
+
+.btn-add-to-cart:before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 120%;
+    background-color: #F9D243;
+    top: 50%;
+    transform: skewX(30deg) translate(-150%, -50%);
+    transition: all 0.5s;
+  }
+
+  .btn-add-to-cart:hover {
+    background-color: #06A58F;
+    color: #fff;
+    box-shadow: 0 2px 0 2px #ED74AB;
+  }
+
+  .btn-add-to-cart:hover::before {
+    transform: skewX(30deg) translate(150%, -50%);
+    transition-delay: 0.1s;
+  }
+
+  .btn-add-to-cart:active{
+    transform: scale(0.9);
+  }
+  .btn-add-to-cart:disabled{
+    opacity: 0.5; /* Cambia la opacidad del botón deshabilitado */
+    cursor: not-allowed; /* Cambia el cursor */
+  }
+
 .productCard .photo {
     width: 100%;
 }
