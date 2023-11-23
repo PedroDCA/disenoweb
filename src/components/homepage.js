@@ -24,19 +24,19 @@ function Homepage() {
         </div>
         <div className="imageContainer">
           <Link to="/search" >
-            <img src={Img1} alt="Imagen 1" className="Img1" />
+            <img src={Img1} alt="Imagen 1" className="Img-filter" />
             <p>Deportivas</p>
           </Link>     
           <Link to="/search" >
-            <img src={Img2} alt="Imagen 2" className="Img2" />
+            <img src={Img2} alt="Imagen 2" className="Img-filter" />
             <p>Rosadas</p>
           </Link>
           <Link to="/search" >
-            <img src={Img3} alt="Imagen 3" className="Img3" />
+            <img src={Img3} alt="Imagen 3" className="Img-filter" />
             <p>Vidrio</p>
           </Link>
           <Link to="/search" >
-            <img src={Img4} alt="Imagen 4" className="Img4" />
+            <img src={Img4} alt="Imagen 4" className="Img-filter" />
             <p>Térmicas</p>
           </Link>
         </div>

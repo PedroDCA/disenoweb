@@ -7,7 +7,7 @@ const CartModal = ({ previewInfo }) => {
   return (
     <div className="cart-preview-modal">
       <img src={Cart} alt="Cart" className="img-cart"></img>
-      <h2>Mi carrito</h2>
+      <h2 className="cart-title">Mi carrito</h2>
       <ul>
         {previewInfo &&
           previewInfo.map((item) => (

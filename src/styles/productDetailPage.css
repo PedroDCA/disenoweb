@@ -1,19 +1,11 @@
-
-
 .header {
     background-color: #ffffff;
     padding: 10px 20px;
     border-bottom: 1px solid #e0e0e0;
 }
 
-.logo-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-}
 
-.imgb {
+.product-image {
     width: 800px;
 }
 
@@ -28,8 +20,3 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-    .main-container, .header, .logo-section, .product-detail {
-        padding: 10px;
-    }
-}

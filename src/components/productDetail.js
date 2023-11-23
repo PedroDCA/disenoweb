@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { formatPriceForColonCurrency } from "../service/priceService";
 import { addCartElement } from "../store"
+import "../styles/productDetail.css"
 
 function ProductDetail({ productInformation }) {
   const dispatch = useDispatch();
@@ -11,28 +12,28 @@ function ProductDetail({ productInformation }) {
     ? "Agregar al carrito"
     : "En carrito";
   return (
-    <div className="d-flex">
+    <div className="product detail d-flex">
       <div>
-        <img src={productInformation.imageUrl} alt="Product" />
+        <img src={productInformation.imageUrl} alt="Product" className="product-image"/>
       </div>
       <div>
         <div>
-          <p>Categorias</p>
+          <p id="categories-title">Categorias</p>
           <div>
-            <p>Categoria 1</p>
-            <p>Categoria 2</p>
+            <p id="categories">Categoria 1</p>
+            <p id="categories">Categoria 2</p>
           </div>
         </div>
-        <h2>{productInformation.name}</h2>
-        <div>
-          <p>Star section</p>
+        <h2 className="product-title">{productInformation.name}</h2>
+        <div className="star-section">
+          <p>★★★★☆</p>
           <p>
             {productInformation.ratingAverage} (
             {productInformation.reviewQuantity} reviews)
           </p>
         </div>
-        <p>{formatPriceForColonCurrency(productInformation.price)}</p>
-        <div>
+        <p className="price">{formatPriceForColonCurrency(productInformation.price)}</p>
+        <div className="vendor">
           <p>{productInformation.vendor.name}</p>
           <p>{productInformation.vendor.ratingAverage}</p>
         </div>
@@ -41,10 +42,10 @@ function ProductDetail({ productInformation }) {
           onClick={() => {
             dispatch(addCartElement(productInformation));
           }}
-        >
+       className="add-to-cart" >
           {buttonText}
         </button>
-        <div>
+        <div className="description">
           <p>Descripcion</p>
           <p>{productInformation.descripcion}</p>
         </div>
