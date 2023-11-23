@@ -8,6 +8,7 @@ import ProductDetailPage from "./components/productDetailPage";
 import { useSelector } from "react-redux";
 import CheckoutPage from "./components/checkoutPage";
 import PaymentPage from "./components/paymentPage";
+import ProfilePage from "./components/profilePage";
 
 function App() {
   const cartElementList = useSelector((state) => state.cart.list);
@@ -19,11 +20,11 @@ function App() {
     }
 
     if (cartElementList.length > previousCartElementList.current.length) {
-      Swal.fire('Item agregado al carrito!');
+      Swal.fire("Item agregado al carrito!");
     }
 
     if (cartElementList.length < previousCartElementList.current.length) {
-      Swal.fire('Item eliminado del carrito!');
+      Swal.fire("Item eliminado del carrito!");
     }
 
     previousCartElementList.current = cartElementList;
@@ -44,7 +45,7 @@ function App() {
         element: <SearchPage />,
       },
       {
-        path: "/profile",
+        path: "/sign",
         element: <SignPage />,
       },
       {
@@ -53,8 +54,12 @@ function App() {
       },
       {
         path: "/pay",
-        element: <PaymentPage />
-      }
+        element: <PaymentPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
     ],
     {
       basename: "/",
