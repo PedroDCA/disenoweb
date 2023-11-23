@@ -4,7 +4,7 @@ import cartReducer, {
   removeCartElement,
   updateTotalPrice,
 } from "./cart";
-import userReducer, { logIn, logOut } from "./user";
+import profileReducer, { logIn, logOut } from "./profile";
 import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
@@ -24,7 +24,7 @@ const persistConfiguration = {
 
 const combinedReducers = combineReducers({
   cart: cartReducer,
-  user: userReducer,
+  profile: profileReducer,
 })
 
 const persistedReducer = persistReducer(persistConfiguration, combinedReducers);

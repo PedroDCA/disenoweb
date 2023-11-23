@@ -1,60 +1,58 @@
 import { useEffect, useState } from "react";
 import Header from "./header";
 import LogoSection from "./logoSection";
-import ProfileInformationSection from "./profileInformationSection";
 import { useSelector } from "react-redux";
-import UserOrderHistorySection from "./userOrderHistorySection";
-import purpleBottle from "../images/purpleBottle.png";
-import bronceBottle from "../images/bronceBottle.png";
+import {
+  fetchOrderList,
+  fetchProductList,
+  fetchProfileInformation,
+  getComponentToRender,
+  getTabList,
+} from "../service/profileService";
 
 function ProfilePage() {
-  const userId = useSelector((state) => state.user.id);
-  const [userInformation, setUserInformation] = useState({});
+  const profileId = useSelector((state) => state.profile.id);
+  const profileType = useSelector((state) => state.profile.type);
+  const tabs = getTabList(profileType);
+  const [profileInformation, setProfileInformation] = useState({});
+  const [productList, setProductList] = useState([]);
   const [orderList, setOrderList] = useState([]);
 
   useEffect(() => {
-    if (!userId) {
+    if (!profileId) {
       return;
     }
 
-    setUserInformation({
-      name: "Pedro",
-      lastName: "Calderon",
-      email: "pcalderon@gmail.com",
-      password: "asda",
-    });
-  }, [userId]);
+    const newProfileInformation = fetchProfileInformation(
+      profileId,
+      profileType
+    );
+
+    setProfileInformation(newProfileInformation);
+  }, [profileId, profileType]);
+  
+  useEffect(() => {
+    if (!profileId) {
+      return;
+    }
+
+    const newProductList = fetchProductList(
+      profileId,
+      profileType
+    );
+
+    setProductList(newProductList);
+  }, [profileId, profileType]);
 
   useEffect(() => {
-    if (!userId) {
+    if (!profileId) {
       return;
     }
 
-    const newOrderList = [
-      {
-        totalPrice: 30000,
-        status: "Completado",
-        imageUrl: bronceBottle,
-        name: "Botella color ejemplo 750ml",
-        vendor: "Nombre vendedor",
-        quantity: 2,
-        individualPrice: 15000,
-        date: "2023-10-04T00:00:00",
-      },
-      {
-        totalPrice: 10000,
-        status: "En proceso",
-        imageUrl: purpleBottle,
-        name: "Botella color ejemplo 750ml",
-        vendor: "Nombre vendedor",
-        quantity: 5,
-        individualPrice: 2000,
-        date: "2023-11-15T00:00:00",
-      },
-    ];
+    const newOrderList = fetchOrderList(profileId, profileType);
 
     setOrderList(newOrderList);
-  }, [userId]);
+  }, [profileId, profileType]);
 
   const [tabSelected, setTabSelected] = useState("profileInformation");
   const [renderedComponent, setRenderedComponent] = useState(<></>);
@@ -64,21 +62,19 @@ function ProfilePage() {
       return;
     }
 
-    const availableTabs = {
-      profileInformation: (
-        <ProfileInformationSection userInformation={userInformation} />
-      ),
-      orderHistory: <UserOrderHistorySection orderList={orderList} />,
+    const information = {
+      profile: profileInformation,
+      orderList,
+      productList,
     };
-
-    const componentToRender = availableTabs[tabSelected];
+    const componentToRender = getComponentToRender(tabSelected, information);
 
     if (!componentToRender) {
       return;
     }
 
     setRenderedComponent(componentToRender);
-  }, [tabSelected, userInformation, orderList]);
+  }, [tabSelected, profileInformation, orderList, productList]);
 
   return (
     <>
@@ -88,23 +84,22 @@ function ProfilePage() {
       <main>
         <LogoSection />
         <div>
-          <input
-            type="radio"
-            name="profileOptions"
-            value="profileInformation"
-            id="profileInformationOption"
-            defaultChecked
-            onChange={(event) => setTabSelected(event.target.value)}
-          />
-          <label htmlFor="profileInformationOption">Panel Comprador</label>
-          <input
-            type="radio"
-            name="profileOptions"
-            value="orderHistory"
-            id="orderHistoryOption"
-            onChange={(event) => setTabSelected(event.target.value)}
-          />
-          <label htmlFor="orderHistoryOption">Historial de pedidos</label>
+          {tabs.map((tabInformation, index) => (
+            <div key={index}>
+              <input
+                type="radio"
+                name="profileOptions"
+                value={tabInformation.type}
+                id={`${tabInformation.type}Option`}
+                defaultChecked={index === 0}
+                key={index}
+                onChange={(event) => setTabSelected(event.target.value)}
+              />
+              <label htmlFor={`${tabInformation.type}Option`}>
+                {tabInformation.name}
+              </label>
+            </div>
+          ))}
         </div>
         <div className="container">{renderedComponent}</div>
       </main>
