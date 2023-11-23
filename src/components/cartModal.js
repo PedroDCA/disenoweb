@@ -6,7 +6,7 @@ import "../styles/cartModal.css";
 const CartModal = ({ previewInfo }) => {
   return (
     <div className="cart-preview-modal">
-      <img img src={Cart} alt="Cart" className="img-cart"></img>
+      <img src={Cart} alt="Cart" className="img-cart"></img>
       <h2>Mi carrito</h2>
       <ul>
         {previewInfo &&
