@@ -9,6 +9,7 @@ import bronceBottle from "../images/bronceBottle.png";
 
 function ProfilePage() {
   const userId = useSelector((state) => state.user.id);
+  const userType = useSelector((state) => state.user.type);
   const [userInformation, setUserInformation] = useState({});
   const [orderList, setOrderList] = useState([]);
 
@@ -68,7 +69,7 @@ function ProfilePage() {
       profileInformation: (
         <ProfileInformationSection userInformation={userInformation} />
       ),
-      orderHistory: <UserOrderHistorySection orderList={orderList} />,
+      userOrderHistory: <UserOrderHistorySection orderList={orderList} />,
     };
 
     const componentToRender = availableTabs[tabSelected];
@@ -91,7 +92,7 @@ function ProfilePage() {
           <input
             type="radio"
             name="profileOptions"
-            value="profileInformation"
+            value="userOrderHistory"
             id="profileInformationOption"
             defaultChecked
             onChange={(event) => setTabSelected(event.target.value)}
