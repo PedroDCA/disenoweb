@@ -13,7 +13,7 @@ function ProfileInformationSection({ userInformation }) {
           defaultValue={userInformation.lastName || ""}
           placeholder="Apellido"
         />
-        {userInformation.phoneNumber ? (
+        {userInformation.phoneNumber !== undefined ? (
           <input
             type="text"
             defaultValue={userInformation.phoneNumber}

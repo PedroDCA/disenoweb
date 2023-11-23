@@ -9,7 +9,7 @@ import CartModalWrapper from "./cartModalWrapper";
 
 function Header() {
   const cartElementList = useSelector((state) => state.cart.list);
-  const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isUserLoggedIn = useSelector((state) => state.profile.isLoggedIn);
   const numberOfItems = cartElementList.length;
   return (
     <div className="container">
