@@ -1,31 +1,33 @@
 import { formatToSpanishFullDate } from "../service/dateService";
 import { formatPriceForColonCurrency } from "../service/priceService";
+import '../styles/userOrder.css' ; 
 
 function UserOrder({ orderInformation }) {
   return (
-    <div>
-      <div>
-        <div>
-          <p>Fecha</p>
+    <div className="order-container">
+      <div className="order-details">
+      <div className="order-header">
+        <div className="order-section">
+          <p className="section-title">Fecha</p>
           <p>{formatToSpanishFullDate(orderInformation.date)}</p>
         </div>
-        <div>
-          <p>TOTAL</p>
-          <p>{orderInformation.totalPrice}</p>
+        <div className="order-section">
+        <p className="section-title">Total</p>
+          <p>₡{orderInformation.totalPrice}</p>
         </div>
-        <div>
-          <p>{orderInformation.status}</p>
-          <div>
-            <img src={orderInformation.imageUrl} alt="Order information" />
-            <p>{orderInformation.name}</p>
-            <p>Vendidor por {orderInformation.vendor}</p>
-            <p>Cantidad: {orderInformation.quantity}</p>
-            <p>
-              Precio Unitario:{" "}
-              {formatPriceForColonCurrency(orderInformation.individualPrice)}
+        </div>
+        <div className="order-section">
+        <p className="status">{orderInformation.status}</p>
+          <div className="product-info">
+            <img className="product-image" src={orderInformation.imageUrl} alt="Order information" />
+            <p className="product-name">{orderInformation.name}</p>
+            <p className="product-vendor">Vendido por {orderInformation.vendor}</p>
+            <p className="product-quantity">Cantidad: {orderInformation.quantity}</p>
+            <p className="product-price">
+              Precio Unitario: {formatPriceForColonCurrency(orderInformation.individualPrice)}
             </p>
           </div>
-          <button>Ordenar nuevamente</button>
+          <button className="order-button">Ordenar nuevamente</button>
         </div>
       </div>
     </div>

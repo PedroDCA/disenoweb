@@ -87,7 +87,63 @@ body, html {
   .profile-section button:hover {
     background-color: #0056b3;
   }
+  .tabs-container {
+    display: flex;
+    justify-content: flex-start; /* Cambiado a flex-start para alinear a la izquierda */
+    align-items: flex-start; /* Cambiado a flex-start para alinear a la izquierda */
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    margin-bottom: 2vw;
+    position: relative;
+    background-color: #594F9B;
+    z-index: 7;
+  }
   
+  .tab {
+    display: flex;
+    justify-content: flex-start; /* Cambiado a flex-start para alinear a la izquierda */
+    align-items: flex-start; /* Cambiado a flex-start para alinear a la izquierda */
+    color: #ffffff;
+    text-decoration: none;
+    position: relative;
+    font-size: 18px;
+    z-index: 9;
+    font-family: 'Calibri Light', sans-serif;
+    
+  }
+  
+  input[type="radio"] {
+    display: none;
+  }
+  
+  label {
+    cursor: pointer;
+    padding: 10px 60px;
+    border: 2px solid transparent;
+    border-radius: 8px 8px 0 0;
+    background-color: transparent;
+    
+  }
+  
+  label:hover, label:focus, label:active{
+    left: 0;
+    background-color: #9034db;
+    
+  }
+
+  input[type="radio"]:checked + label {
+    font-weight: bold;
+    background-color: transparent;
+    pointer-events: none;
+    background-image: linear-gradient(to right, #F9D243, #43edf9);
+    background-size: 100% 3px;
+    background-repeat: no-repeat;
+    background-position: 0 90%; /* Ajusta la posición vertical del subrayado */
+  
+  }
   /* Media queries para responsividad */
   @media screen and (max-width: 768px) {
     .profile-section, .welcome-section {

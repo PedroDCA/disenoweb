@@ -40,8 +40,8 @@ function Footer() {
 
           <div class="col-md-4 col-sm-6 col-xs-12">
             <ul class="social-icons">
-              <li><a class="facebook" href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-              <li><a class="twitter" href="https://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
+              <li><a id="facebook" href="https://shorturl.at/qzAZ3" ><i class="lni lni-facebook-fill"></i></a></li>
+              <li><a id="pinterest" href="https://shorturl.at/qzAZ3" ><i class="lni lni-pinterest-fill"></i></a></li>
             </ul>
           </div>
         </div>

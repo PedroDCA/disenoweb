@@ -1,0 +1,129 @@
+
+.vendor-product-header {
+    color: #000;
+    font-size: 18px;
+    font-weight: lighter;
+    display: flex;
+    width: 100%;
+    background-color: #F6F6F6;
+    padding: 5px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid #DDDDDD;
+  }
+  
+  .vendor-product-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2vw;
+  }
+  
+  .vendor-product-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .vendor-product-section {
+    margin-bottom: auto;
+  }
+  
+  .vendor-product-section p {
+    font-family: 'Calibri Light', sans-serif;
+    margin-left: 15px;
+  }
+  
+  .vendor-product-section-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .vendor-product-status {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #FFA500;
+    text-transform: uppercase;
+  }
+  
+  .vendor-product-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .vendor-product-image {
+    min-width: 10%;
+    border-radius: 50%;
+    margin-right: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .vendor-product-name {
+    font-weight: bold;
+  }
+  
+  .vendor-product-vendor {
+    color: #777;
+  }
+  
+  .vendor-product-quantity {
+    color: #555;
+  }
+  
+  .vendor-product-price {
+    color: #333;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  .vendor-product-name,
+  .vendor-product-vendor,
+  .vendor-product-quantity,
+  .vendor-product-price {
+    margin-bottom: 5px;
+    line-height: 1.4;
+    display: block;
+    width: calc(100% - 80px);
+  }
+  
+  .vendor-product-button {
+    padding: 8px 16px;
+    background-color: #B4B2D1;
+    border: 1px solid #A6A8AB;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 250px;
+  }
+  
+  .vendor-product-button:hover {
+    color: #fff;
+    background-color: #452F78;
+  }
+  
+  @media (max-width: 768px) {
+    .vendor-product-details {
+      padding: 10px;
+    }
+  
+    .vendor-product-info {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .vendor-product-image {
+      width: 0;
+      height: 0;
+    }
+  
+    .vendor-product-details > div {
+      text-align: center;
+    }
+  
+    .vendor-product-button {
+      width: 100%;
+    }
+  }
+  

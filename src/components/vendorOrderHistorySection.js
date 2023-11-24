@@ -1,4 +1,5 @@
 import VendorProduct from "./vendorProduct";
+import '../styles/vendorProductList.css' ;
 
 function VendorOrderHistorySection({ orderList }) {
   return (
