@@ -4,6 +4,7 @@ import LogoSection from "./logoSection";
 import CheckoutItemList from "./checkoutItemList";
 import CheckoutTotalSection from "./checkoutTotalSection";
 import { useEffect, useState } from "react";
+import Footer from './footer';
 
 function CheckoutPage() {
   const cartElementList = useSelector((state) => state.cart.list);
@@ -29,6 +30,7 @@ function CheckoutPage() {
           <CheckoutTotalSection totalToPay={total} elementList={cartElementList}/>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

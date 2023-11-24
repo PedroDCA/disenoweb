@@ -9,6 +9,7 @@ import {
   getComponentToRender,
   getTabList,
 } from "../service/profileService";
+import Footer from './footer';
 
 function ProfilePage() {
   const profileId = useSelector((state) => state.profile.id);
@@ -103,6 +104,7 @@ function ProfilePage() {
         </div>
         <div className="container">{renderedComponent}</div>
       </main>
+      <Footer/>
     </>
   );
 }

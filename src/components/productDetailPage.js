@@ -9,6 +9,7 @@ import {
 } from "../service/productService";
 import { useSelector } from "react-redux";
 import "../styles/productDetailPage.css"
+import Footer from './footer';
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -43,6 +44,7 @@ function ProductDetailPage() {
         <ProductDetail productInformation={detailPageInformation} />
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import AddressForm from "./addressForm";
 import "../styles/paymentPage.css";
 import Img1 from "../images/MASTECARD.png";
 import Img2 from "../images/VISA.png";
+import Footer from './footer';
 
 function PaymentPage() {
   const { state } = useLocation();
@@ -65,6 +66,7 @@ function PaymentPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
