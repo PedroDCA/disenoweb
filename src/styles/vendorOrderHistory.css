@@ -1,0 +1,88 @@
+
+td{
+  padding: 10px; /* Añade espacio entre el contenido de las celdas */
+}
+
+  .vendor-product-container {
+    background-color: #ebe9e9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1vw;
+    display: flex; /* Ajusta la disposición de los elementos hijos */
+    flex-direction: column; /* Apila los elementos hijos verticalmente */
+    
+  }
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  
+  .order-table th, .order-table td {
+    text-align: left;
+    padding: 8px;
+  }
+  .order-table td {
+    padding: 8px;  
+}
+  .order-table th {
+    font-weight: bold;
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .order-details {
+    padding: 8px; /* Ajusta según el padding que has definido para las otras celdas */
+    background-color: #CEC4D6;
+    border-radius: 5px;
+    margin-top: 0; /* Elimina el margen superior si no es necesario */
+    border: 1px solid #ddd;
+  }
+  .order-details select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    margin-top: 8px;
+  }
+  
+  /* Estilos para las opciones del select */
+  .order-details select option {
+    background-color: #fff;
+    color: #333;
+  }
+  .separator {
+    border: 3px solid #b4b4b4;
+    margin: 20px 0; /* Ajusta el espacio alrededor del separador según sea necesario */
+  }
+  .order-id{
+    font-family: Gusto-Italic;
+    font-size: 1.5vw;
+    color: #3c2255;
+  }
+  .order-details select.completed {
+    background-color: #008E76;
+    color: white;
+  }
+  
+  .order-details select.pending {
+    background-color: #e9cb8b;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .order-details select.sent {
+    background-color: #1A70AA;
+    color: white;
+  }
+  @font-face
+{
+  font-family: Gusto-Italic;
+  src: url(../fonts/Gusto-Italic.ttf);
+}
