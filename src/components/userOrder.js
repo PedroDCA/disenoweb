@@ -13,7 +13,7 @@ function UserOrder({ orderInformation }) {
         </div>
         <div className="order-section">
         <p className="section-title">Total</p>
-          <p>₡{orderInformation.totalPrice}</p>
+          <p>{formatPriceForColonCurrency(orderInformation.totalPrice)}</p>
         </div>
         </div>
         <div className="order-section">
