@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import CheckoutPage from "./components/checkoutPage";
 import PaymentPage from "./components/paymentPage";
 import ProfilePage from "./components/profilePage";
+import Footer from "./components/footer";
 
 function App() {
   const cartElementList = useSelector((state) => state.cart.list);
@@ -60,6 +61,10 @@ function App() {
         path: "/profile",
         element: <ProfilePage />,
       },
+      {
+        path: "/footer",
+        element: <Footer />,
+      }
     ],
     {
       basename: "/",

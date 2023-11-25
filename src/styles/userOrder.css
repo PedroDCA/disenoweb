@@ -1,0 +1,123 @@
+.order-header {
+    color: #000;
+    font-size: 18px;
+    font-weight: lighter;
+    display: flex;
+    width: 100%;
+    background-color: #F6F6F6;
+    padding: 5px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid #DDDDDD; /* Agregar borde con color y grosor */
+  }
+
+.order-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2vw;
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-section {
+    margin-bottom: auto;
+  }
+  
+  .order-section p{
+    font-family: 'Calibri Light', sans-serif;
+    margin-left: 15px;
+  }
+
+  .section-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .status {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #FFA500; 
+    text-transform: uppercase; 
+  }
+  
+  .product-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .product-image {
+    min-width: 10%;
+    border-radius: 50%;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    
+  }
+  
+  .product-name {
+    font-weight: bold;
+  }
+  
+  .product-vendor {
+    color: #777;
+  }
+  
+  .product-quantity {
+    color: #555;
+  }
+  
+  .product-price {
+    color: #333;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  .product-name,
+.product-vendor,
+.product-quantity,
+.product-price {
+  margin-bottom: 5px; /* Espacio entre los párrafos */
+  line-height: 1.4;
+  display: block;
+  width: calc(100% - 80px);
+}
+  .order-button {
+    padding: 8px 16px;
+    background-color: #B4B2D1;
+    border: 1px solid #A6A8AB;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 250px;
+  }
+  
+  .order-button:hover {
+    color: #fff;
+    background-color: #452F78;
+  }
+  @media (max-width: 768px) {
+    .order-details {
+      padding: 10px;
+    }
+  
+    .product-info {
+      flex-direction: column;
+      align-items: center;
+    }
+    .product-image{
+        width: 0;
+        height: 0;
+    }
+    .product-details > div {
+      text-align: center;
+    }
+  
+    .order-button {
+      width: 100%;
+    }
+  }

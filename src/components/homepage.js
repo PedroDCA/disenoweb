@@ -5,6 +5,7 @@ import Img2 from "../images/filter2.png";
 import Img3 from "../images/filter3.png";
 import Img4 from "../images/filter4.png";
 import { Link } from "react-router-dom";
+import Footer from './footer';
 
 function Homepage() {
   return (
@@ -41,6 +42,7 @@ function Homepage() {
           </Link>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
