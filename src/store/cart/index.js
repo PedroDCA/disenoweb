@@ -10,14 +10,16 @@ const getNewCartElement = (elementInformation) => ({
 
 const cartSlice = createSlice({
   name: "cartList",
-  initialState: {list: []},
+  initialState: { list: [] },
   reducers: {
     addCartElement: (state, action) => {
       const newCartItem = getNewCartElement(action.payload);
       state.list.push(newCartItem);
     },
     removeCartElement: (state, action) => {
-      state.list = state.list.filter((element) => element.id !== action.payload);
+      state.list = state.list.filter(
+        (element) => element.id !== action.payload
+      );
     },
     updateTotalPrice: (state, action) => {
       const cartItemIndex = state.list.findIndex(
@@ -26,6 +28,9 @@ const cartSlice = createSlice({
       if (cartItemIndex > -1) {
         state.list[cartItemIndex].totalPrice = action.payload.totalPrice;
       }
+    },
+    clear: () => {
+      return { list: [] };
     },
   },
 });

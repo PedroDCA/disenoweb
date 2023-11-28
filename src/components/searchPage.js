@@ -3,6 +3,7 @@ import ProductList from "./productList";
 import Header from "./header";
 import { formatProductListForSearchPage, getSummaryProductListAsync } from "../service/productService";
 import { useSelector } from "react-redux";
+import Footer from './footer';
 
 const productsToShow = await getSummaryProductListAsync();
 
@@ -21,6 +22,7 @@ function SearchPage() {
           <ProductList productList={searchProductList} />
         </div>
       </main>
+      <Footer />
     </>
   );
 }

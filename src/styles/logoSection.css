@@ -81,7 +81,7 @@ span
     gap: 0%; /* Ajusta el valor según tus preferencias para el espacio entre las imágenes */
 }
 
-.Img1, .Img2, .Img3, .Img4 {
+.Img-filter {
     width: 80%;
     height: auto;
     display: block;
@@ -109,9 +109,10 @@ span
 
 
 @media screen and (max-width: 768px) {
-    .Img1, .Img2, .Img3, .Img4 {
+    .Img-filter {
         width: 100%; /* Cambia el ancho al 100% en pantallas más pequeñas */
     }
+    
     .logo_section_container
 {
     margin-top: 7vw;
@@ -126,9 +127,10 @@ span
         font-size: 100%; /* Ajusta el tamaño de fuente para pantallas más pequeñas */
         margin-top: 1%; /* Ajusta el margen superior para pantallas más pequeñas */
     }
+
     .bootle-up-link 
 {
-    top: 40vw;
+    top: 50vw;
     transform: translateX(65%); /* Centrado verticalmente */
     font-size: 10vw; /* Ajustando el tamaño de fuente para pantallas más pequeñas */
     text-shadow: 1px 3px 2px #28254F; /* Sombra del texto */ 

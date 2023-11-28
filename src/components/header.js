@@ -9,6 +9,7 @@ import CartModalWrapper from "./cartModalWrapper";
 
 function Header() {
   const cartElementList = useSelector((state) => state.cart.list);
+  const isUserLoggedIn = useSelector((state) => state.profile.isLoggedIn);
   const numberOfItems = cartElementList.length;
   return (
     <div className="container">
@@ -27,7 +28,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/profile" className="nav-link px-2">
+            <Link to={isUserLoggedIn ? "/profile" : "/sign"} className="nav-link px-2">
               <img src={Profile} className="icon" alt="Search" />
             </Link>
           </li>

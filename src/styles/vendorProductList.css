@@ -1,0 +1,142 @@
+
+.vendor-product-header {
+    color: #000;
+    font-size: 18px;
+    font-weight: lighter;
+    display: flex;
+    width: 100%;
+    background-color: #F6F6F6;
+    padding: 5px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid #DDDDDD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+td{
+
+  padding: 10px; /* Añade espacio entre el contenido de las celdas */
+}
+
+
+.vendor-product-title{
+  color: #06A58F;
+  font-weight: bold;
+
+  }
+  .vendor-product-container {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1vw;
+    
+  }
+  
+  .vendor-product-labels {
+    font-weight: bolder;
+    color: #594F9B;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-direction: column; /* Cambia la dirección a columna */
+    gap: 10px; /* Espacio entre los botones */
+    justify-content: center; /* Centrar verticalmente los botones */
+    align-items: center; /* Centrar horizontalmente los botones */
+    width: 30%; /* Asegurar que ocupen todo el ancho disponible */
+  }
+  .vendor-product-details td .button-container {
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .vendor-product-image {
+    width: 10vw ;
+    margin-bottom: 15px;
+  }
+  
+  .vendor-product-price {
+    color: #333;
+    font-weight: bold;
+    
+  }
+  
+  .vendor-product-button-update, .vendor-product-button-deactivate {
+    padding: 8px 16px;
+    border: 1px solid #A6A8AB;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 250px;
+    
+  }
+  .vendor-product-button-update{
+    background-color: #06A58F;
+    color: white;
+  }
+
+  .vendor-product-button-update:hover,  .vendor-product-button-deactivate:hover {
+    color: #fff;
+    background-color: #452F78;
+  }
+  
+  @media (max-width: 768px) {
+  /* Reducir el tamaño del encabezado */
+  .vendor-product-header {
+    font-size: 16px;
+  }
+  
+  /* Reducir el espacio entre los contenedores */
+  .vendor-product-container {
+    padding: 5px;
+    margin-bottom: 5px; /* Reducir el margen inferior */
+  }
+  
+  /* Hacer la imagen más adaptable */
+  .vendor-product-image {
+    width: 100%; /* Ocupar todo el ancho disponible */
+    max-width: 100%; /* Mantener la proporción */
+    margin-bottom: 10px; /* Ajustar el margen inferior */
+  }
+  
+  /* Ajustar el ancho del contenedor de botones */
+  .button-container {
+    width: 100%;
+  }
+  
+  /* Hacer que los botones ocupen todo el ancho */
+  .vendor-product-button-update, .vendor-product-button-deactivate {
+    width: 100%;
+  }
+  
+  /* Opcional: ocultar algunas etiquetas menos importantes en dispositivos pequeños */
+  .vendor-product-labels {
+    display: none;
+  }
+  table {
+    width: 100%; /* Asegurar que la tabla ocupe todo el ancho disponible */
+    border-collapse: collapse; /* Colapsar los bordes de la tabla */
+  }
+
+  th, td {
+    display: block; /* Convertir tanto encabezados como celdas en bloques */
+    text-align: left; /* Alinear el texto a la izquierda */
+  }
+
+  /* Estilos específicos para los títulos */
+  th {
+    font-weight: bold;
+    background-color: #f2f2f2; /* Fondo de los encabezados */
+    padding: 8px; /* Espaciado interno en los encabezados */
+  }
+
+  td {
+    border-bottom: 1px solid #ddd; /* Línea separadora entre las celdas */
+    padding: 8px; /* Espaciado interno en las celdas */
+  }
+  }
+  

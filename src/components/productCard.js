@@ -27,7 +27,7 @@ function ProductCard({ productInformation }) {
           onClick={() => {
             dispatch(addCartElement(productInformation));
           }}
-        >
+        className="btn-add-to-cart">
           {buttonText}
         </button>
       </p>

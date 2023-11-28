@@ -1,9 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import cartReducer, {
   addCartElement,
   removeCartElement,
   updateTotalPrice,
 } from "./cart";
+import profileReducer, { logIn, logOut } from "./profile";
 import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
@@ -21,12 +22,15 @@ const persistConfiguration = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfiguration, cartReducer);
+const combinedReducers = combineReducers({
+  cart: cartReducer,
+  profile: profileReducer,
+})
+
+const persistedReducer = persistReducer(persistConfiguration, combinedReducers);
 
 const store = configureStore({
-  reducer: {
-    cart: persistedReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -39,4 +43,4 @@ const persistor = persistStore(store);
 
 export default store;
 
-export { addCartElement, removeCartElement, updateTotalPrice, persistor };
+export { addCartElement, removeCartElement, updateTotalPrice, logIn, logOut, persistor };
