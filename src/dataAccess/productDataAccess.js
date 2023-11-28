@@ -1,7 +1,7 @@
 import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, query } from 'firebase/firestore';
 import database from '../database/firebase';
 
-const product = "Product";
+const productCollectionName = "Product";
 
 /**
  * Saves a new product information into the database.
@@ -11,7 +11,7 @@ const product = "Product";
 
 export const addProductAsync = async (product) => {
     try {
-        const productCollection = collection(database, product);
+        const productCollection = collection(database, productCollectionName);
         const docRef = await addDoc(productCollection, product);
         console.log('Document written with ID: ', docRef.id);
         return docRef; // Optionally, you can return the document reference
@@ -28,7 +28,7 @@ export const addProductAsync = async (product) => {
  */
 export const deleteProductAsync = async (productId) => {
     try {
-        const productDocRef = doc(collection(database, product), productId);
+        const productDocRef = doc(collection(database, productCollectionName), productId);
         await deleteDoc(productDocRef);
         console.log('Document successfully deleted!');
     } catch (error) {
@@ -45,7 +45,7 @@ export const deleteProductAsync = async (productId) => {
  */
 export const updateProductAsync = async (productId, updatedProductInfo) => {
     try {
-        const productDocRef = doc(collection(database, product), productId);
+        const productDocRef = doc(collection(database, productCollectionName), productId);
         await updateDoc(productDocRef, updatedProductInfo);
         console.log('Document successfully updated!');
     } catch (error) {
@@ -56,9 +56,13 @@ export const updateProductAsync = async (productId, updatedProductInfo) => {
 
 export const getAllProductsAsync = async () => {
     try {
-        const result = await getDocs(query(collection(database, product)))
+        const result = await getDocs(query(collection(database, productCollectionName)));
+        const productList = result.docs.map((firebaseProduct) => {
+            const id = firebaseProduct.id;
+            return {...firebaseProduct.data(), id}
+        })
         console.log('Documents successfully found!');
-        return result;
+        return productList;
     } catch (error) {
         console.error('Error finding documents: ', error);
         throw error;
@@ -67,7 +71,7 @@ export const getAllProductsAsync = async () => {
 
 export const getProductByIdAsync = async (productId) => {
     try {
-        const productDocRef = doc(collection(database, product), productId);
+        const productDocRef = doc(collection(database, productCollectionName), productId);
         const result = await getDoc(productDocRef);
         const id = result.id;
         console.log('Documents successfully found!');

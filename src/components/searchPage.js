@@ -1,10 +1,10 @@
 import LogoSection from "./logoSection";
 import ProductList from "./productList";
 import Header from "./header";
-import { formatProductListForSearchPage, getAllProducts } from "../service/productService";
+import { formatProductListForSearchPage, getSummaryProductListAsync } from "../service/productService";
 import { useSelector } from "react-redux";
 
-const productsToShow = getAllProducts();
+const productsToShow = await getSummaryProductListAsync();
 
 function SearchPage() {
   const cartElementList = useSelector((state) => state.cart.list);

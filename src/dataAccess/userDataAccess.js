@@ -1,7 +1,7 @@
 import { collection, addDoc, deleteDoc, updateDoc, doc } from 'firebase/firestore';
 import database from '../database/firebase';
 
-const user = "User";
+const userCollectionName = "User";
 
 /**
  * Saves a new user information into the database.
@@ -11,7 +11,7 @@ const user = "User";
 
 export const addUserAsync = async (user) => {
     try {
-        const userCollection = collection(database, user);
+        const userCollection = collection(database, userCollectionName);
         const docRef = await addDoc(userCollection, user);
         console.log('Document written with ID: ', docRef.id);
         return docRef; // Optionally, you can return the document reference
@@ -28,7 +28,7 @@ export const addUserAsync = async (user) => {
  */
 export const deleteUserByIdAsync = async (userId) => {
     try {
-        const userDocRef = doc(collection(database, user), userId);
+        const userDocRef = doc(collection(database, userCollectionName), userId);
         await deleteDoc(userDocRef);
         console.log('Document successfully deleted!');
     } catch (error) {
@@ -45,7 +45,7 @@ export const deleteUserByIdAsync = async (userId) => {
  */
 export const updateUserByIdAsync = async (userId, updatedUserInfo) => {
     try {
-        const userDocRef = doc(collection(database, user), userId);
+        const userDocRef = doc(collection(database, userCollectionName), userId);
         await updateDoc(userDocRef, updatedUserInfo);
         console.log('Document successfully updated!');
     } catch (error) {

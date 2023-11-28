@@ -1,17 +1,16 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDocs, query, where, getDoc } from 'firebase/firestore';
 import database from '../database/firebase';
 
-const vendor = "Vendor";
+const vendorCollectionName = "Vendor";
 
 /**
  * Saves a new Vendor information into the database.
  * @param {Object} vendor Information to be saved on the database.
  * @returns A promise about the save transaction.
  */
-
 export const addVendorAsync = async (vendor) => {
     try {
-        const VendorCollection = collection(database, vendor);
+        const VendorCollection = collection(database, vendorCollectionName);
         const docRef = await addDoc(VendorCollection, vendor);
         console.log('Document written with ID: ', docRef.id);
         return docRef; // Optionally, you can return the document reference
@@ -28,7 +27,7 @@ export const addVendorAsync = async (vendor) => {
  */
 export const deleteVendorAsync = async (vendorId) => {
     try {
-        const vendorDocRef = doc(collection(database, vendor), vendorId);
+        const vendorDocRef = doc(collection(database, vendorCollectionName), vendorId);
         await deleteDoc(vendorDocRef);
         console.log('Document successfully deleted!');
     } catch (error) {
@@ -45,7 +44,7 @@ export const deleteVendorAsync = async (vendorId) => {
  */
 export const updateVendorAsync = async (vendorId, updatedVendorInfo) => {
     try {
-        const vendorDocRef = doc(collection(database, vendor), vendorId);
+        const vendorDocRef = doc(collection(database, vendorCollectionName), vendorId);
         await updateDoc(vendorDocRef, updatedVendorInfo);
         console.log('Document successfully updated!');
     } catch (error) {
@@ -56,7 +55,7 @@ export const updateVendorAsync = async (vendorId, updatedVendorInfo) => {
 
 export const getVendorByIdAsync = async (vendorId) => {
     try {
-        const result = await getDocs(query(collection(database, vendor), where('vendorId', '==', vendorId)));
+        const result = await getDoc(query(collection(database, vendorCollectionName), where('vendorId', '==', vendorId)));
         console.log('Documents successfully found!');
         return result.data();
     } catch (error) {

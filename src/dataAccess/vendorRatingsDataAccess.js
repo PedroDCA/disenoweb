@@ -1,17 +1,16 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDocs, query, where, getDoc } from 'firebase/firestore';
 import database from '../database/firebase';
 
-const vendorRating = "vendorRating";
+const vendorRatingCollectionName = "vendorRating";
 
 /**
  * Saves a new vendorRating information into the database.
  * @param {Object} vendorRating Information to be saved on the database.
  * @returns A promise about the save transaction.
  */
-
 export const addVendorRatingAsync = async (vendorRating) => {
     try {
-        const vendorRatingCollection = collection(database, vendorRating);
+        const vendorRatingCollection = collection(database, vendorRatingCollectionName);
         const docRef = await addDoc(vendorRatingCollection, vendorRating);
         console.log('Document written with ID: ', docRef.id);
         return docRef; // Optionally, you can return the document reference
@@ -28,7 +27,7 @@ export const addVendorRatingAsync = async (vendorRating) => {
  */
 export const deleteVendorRatingAsync = async (vendorRatingId) => {
     try {
-        const vendorRatingDocRef = doc(collection(database, vendorRating), vendorRatingId);
+        const vendorRatingDocRef = doc(collection(database, vendorRatingCollectionName), vendorRatingId);
         await deleteDoc(vendorRatingDocRef);
         console.log('Document successfully deleted!');
     } catch (error) {
@@ -45,7 +44,7 @@ export const deleteVendorRatingAsync = async (vendorRatingId) => {
  */
 export const updateVendorRatingAsync = async (vendorRatingId, updatedvendorRatingInfo) => {
     try {
-        const vendorRatingDocRef = doc(collection(database, vendorRating), vendorRatingId);
+        const vendorRatingDocRef = doc(collection(database, vendorRatingCollectionName), vendorRatingId);
         await updateDoc(vendorRatingDocRef, updatedvendorRatingInfo);
         console.log('Document successfully updated!');
     } catch (error) {
@@ -56,9 +55,13 @@ export const updateVendorRatingAsync = async (vendorRatingId, updatedvendorRatin
 
 export const getAllVendorRatingsAsync = async () => {
     try {
-        const result = await getDocs(query(collection(database, vendorRating)))
+        const result = await getDocs(query(collection(database, vendorRatingCollectionName)));
+        const vendorRatingList = result.docs.map((firebaseVendorRating) => {
+            const id = firebaseVendorRating.id;
+            return {...firebaseVendorRating.data(), id}
+        })
         console.log('Documents successfully found!');
-        return result;
+        return vendorRatingList;
     } catch (error) {
         console.error('Error finding documents: ', error);
         throw error;
@@ -67,7 +70,7 @@ export const getAllVendorRatingsAsync = async () => {
 
 export const getVendorRatingsByVendorIdAsync = async (vendorId) => {
     try {
-        const result = await getDocs(query(collection(database, vendorRating), where('vendorId', '==', vendorId)));
+        const result = await getDoc(query(collection(database, vendorRatingCollectionName), where('vendorId', '==', vendorId)));
         console.log('Documents successfully found!');
         return result.data();
     } catch (error) {

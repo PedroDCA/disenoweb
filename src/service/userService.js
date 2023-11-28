@@ -7,10 +7,10 @@ import { addUserAsync } from "../dataAccess/userDataAccess";
  */
 export const addNewUserAsync = async (userInformation) => {
     const newUser = {
-        Name: userInformation.name,
-        LastName: userInformation.lastName,
-        Email: userInformation.email,
-        Password: userInformation.password
+        name: userInformation.name,
+        lastName: userInformation.lastName,
+        email: userInformation.email,
+        password: userInformation.password
     };
 
     const user = await addUserAsync(newUser);

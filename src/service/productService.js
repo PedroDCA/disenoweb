@@ -15,11 +15,11 @@ const imageList = [blackBottle, greenBottle, pinkBottle, metalBottle, redBottle,
 const getRandomImageUrl = () => imageList[Math.random() * imageList.length];
 
 const mapToSummaryProduct = (product) => {
-  const name = `Botella ${ product.Color } ${ product.Storage }ml`;
+  const name = `Botella ${ product.color } ${ product.storage }ml`;
   const summaryProduct = {
     name,
     imageUrl: getRandomImageUrl(),
-    price: product.Price,
+    price: product.price,
   }
   return summaryProduct;
 };
