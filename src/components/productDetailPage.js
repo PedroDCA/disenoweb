@@ -5,7 +5,7 @@ import ProductDetail from "./productDetail";
 import { useEffect, useState } from "react";
 import {
   formatProductForDetailPage,
-  getProductDetailById,
+  getProductDetailByIdAsync,
 } from "../service/productService";
 import { useSelector } from "react-redux";
 import "../styles/productDetailPage.css"
@@ -18,8 +18,11 @@ function ProductDetailPage() {
   const cartElementList = useSelector((state) => state.cart.list);
 
   useEffect(() => {
-    const updatedProductInformation = getProductDetailById(productId);
-    setProductInformation(updatedProductInformation);
+    if (!productId){
+      return;
+    }
+    const updatedProductInformation = getProductDetailByIdAsync(productId);
+    updatedProductInformation.then((information) => setProductInformation(information));
   }, [productId]);
 
   useEffect(() => {

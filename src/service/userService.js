@@ -5,7 +5,7 @@ import { addUserAsync } from "../dataAccess/userDataAccess";
  * @param {Object} userInformation The information related to the user.
  * @returns The user information saved.
  */
-export const addNewUser = async (userInformation) => {
+export const addNewUserAsync = async (userInformation) => {
     const newUser = {
         name: userInformation.name,
         lastName: userInformation.lastName,

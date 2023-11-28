@@ -6,124 +6,41 @@ import redBottle from "../images/redBottle.png";
 import skyBottle from "../images/skyBottle.png";
 import purpleBottle from "../images/purpleBottle.png";
 import bronceBottle from "../images/bronceBottle.png";
+import { getAllProductsAsync, getProductByIdAsync } from "../dataAccess/productDataAccess";
+import { getProductRatingsByProductIdAsync } from "../dataAccess/productRatingsDataAccess";
+import { getVendorAverageRatingAsync, getVendorNameByIdAsync } from "./vendorService";
 
-const productList = [
-  {
-    id: 1,
-    imageUrl: blackBottle,
-    name: "Botella Negro Opaco  750ML",
-    price: 15000,
-    ratingAverage: 3.0,
-    reviewQuantity: 30,
-    vendor: {
-      name: "Patitos Inc",
-      ratingAverage: 4.4,
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum metus quis elementum auctor. Curabitur volutpat ultricies eleifend. Mauris quis viverra enim. Donec scelerisque tellus eu ante placerat, eu lobortis",
-  },
-  {
-    id: 2,
-    imageUrl: greenBottle,
-    name: "Botella Verde Agua 750ML",
-    price: 12500,
-    ratingAverage: 3.0,
-    reviewQuantity: 30,
-    vendor: {
-      name: "Patitos Inc",
-      ratingAverage: 4.4,
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum metus quis elementum auctor. Curabitur volutpat ultricies eleifend. Mauris quis viverra enim. Donec scelerisque tellus eu ante placerat, eu lobortis",
-  },
-  {
-    id: 3,
-    imageUrl: pinkBottle,
-    name: "Botella Rosado Pastel 750ML",
-    price: 14200,
-    ratingAverage: 3.0,
-    reviewQuantity: 30,
-    vendor: {
-      name: "Patitos Inc",
-      ratingAverage: 4.4,
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum metus quis elementum auctor. Curabitur volutpat ultricies eleifend. Mauris quis viverra enim. Donec scelerisque tellus eu ante placerat, eu lobortis",
-  },
-  {
-    id: 4,
-    imageUrl: metalBottle,
-    name: "Botella Metálico claro 750ML",
-    price: 13500,
-    ratingAverage: 3.0,
-    reviewQuantity: 30,
-    vendor: {
-      name: "Patitos Inc",
-      ratingAverage: 4.4,
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum metus quis elementum auctor. Curabitur volutpat ultricies eleifend. Mauris quis viverra enim. Donec scelerisque tellus eu ante placerat, eu lobortis",
-  },
-  {
-    id: 5,
-    imageUrl: redBottle,
-    name: "Botella Vino 750ML",
-    price: 12500,
-    ratingAverage: 3.0,
-    reviewQuantity: 30,
-    vendor: {
-      name: "Patitos Inc",
-      ratingAverage: 4.4,
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum metus quis elementum auctor. Curabitur volutpat ultricies eleifend. Mauris quis viverra enim. Donec scelerisque tellus eu ante placerat, eu lobortis",
-  },
-  {
-    id: 6,
-    imageUrl: skyBottle,
-    name: "Botella Turquesa 750ML",
-    price: 15000,
-    ratingAverage: 3.0,
-    reviewQuantity: 30,
-    vendor: {
-      name: "Patitos Inc",
-      ratingAverage: 4.4,
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum metus quis elementum auctor. Curabitur volutpat ultricies eleifend. Mauris quis viverra enim. Donec scelerisque tellus eu ante placerat, eu lobortis",
-  },
-  {
-    id: 7,
-    imageUrl: purpleBottle,
-    name: "Botella Morada 750ML",
-    price: 13500,
-    ratingAverage: 3.0,
-    reviewQuantity: 30,
-    vendor: {
-      name: "Patitos Inc",
-      ratingAverage: 4.4,
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum metus quis elementum auctor. Curabitur volutpat ultricies eleifend. Mauris quis viverra enim. Donec scelerisque tellus eu ante placerat, eu lobortis",
-  },
-  {
-    id: 8,
-    imageUrl: bronceBottle,
-    name: "Botella bronce 750ML",
-    price: 14200,
-    ratingAverage: 3.0,
-    reviewQuantity: 30,
-    vendor: {
-      name: "Patitos Inc",
-      ratingAverage: 4.4,
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum metus quis elementum auctor. Curabitur volutpat ultricies eleifend. Mauris quis viverra enim. Donec scelerisque tellus eu ante placerat, eu lobortis",
-  },
-];
+const imageList = [blackBottle, greenBottle, pinkBottle, metalBottle, redBottle, skyBottle, purpleBottle, bronceBottle];
 
-export const getAllProducts = () => productList;
+const getRandomImageUrl = () => imageList[Math.random() * imageList.length];
 
+const mapToSummaryProduct = (product) => {
+  const name = `Botella ${ product.color } ${ product.storage }ml`;
+  const summaryProduct = {
+    name,
+    id: product.id,
+    imageUrl: getRandomImageUrl(),
+    price: product.price,
+  }
+  return summaryProduct;
+};
+
+/**
+ * Gets a list of summary products asynchronously.
+ * @returns {Array} List of summary products.
+ */
+export const getSummaryProductListAsync = async() => {
+  const products = await getAllProductsAsync();
+  const summaryProducts = products.map(mapToSummaryProduct);
+  return summaryProducts
+};
+
+/**
+ * Formats a product list for the search page by adding a flag indicating whether the product can be added to the cart.
+ * @param {Array} productList - List of products.
+ * @param {Array} cartItemIdList - List of cart item IDs.
+ * @returns {Array} Formatted product list.
+ */
 export const formatProductListForSearchPage = (productList, cartItemIdList) => {
   const searchProductList = productList.map((product) => {
     const isProductOnCart = cartItemIdList.some(
@@ -137,6 +54,12 @@ export const formatProductListForSearchPage = (productList, cartItemIdList) => {
   return searchProductList;
 };
 
+/**
+ * Formats a product for the detail page by adding a flag indicating whether the product can be added to the cart.
+ * @param {Object} product - Product information.
+ * @param {Array} cartItemIdList - List of cart item IDs.
+ * @returns {Object} Formatted product.
+ */
 export const formatProductForDetailPage = (product, cartItemIdList) => {
   const isProductOnCart = cartItemIdList.some(
     (itemId) => itemId === product.id
@@ -146,5 +69,35 @@ export const formatProductForDetailPage = (product, cartItemIdList) => {
   return product;
 };
 
-export const getProductDetailById = (productId) =>
-  productList.find((product) => product.id === Number(productId));
+/**
+ * Gets the average rating for a product asynchronously.
+ * @param {string} productId - The unique identifier of the product.
+ * @returns {number} The average rating of the product.
+ */
+const getProductAverageRatingAsync = async(productId) => {
+  const productRatings = await getProductRatingsByProductIdAsync(productId);
+  const totalRatings = productRatings.reduce((accummulator, productRating) => {
+    return accummulator + Number(productRating.rate);
+  }, 0);
+  const averageRating = totalRatings/productRatings.length;
+  return averageRating;
+}
+
+/**
+ * Gets detailed information about a product asynchronously.
+ * @param {string} productId - The unique identifier of the product.
+ * @returns {Object} Detailed information about the product.
+ */
+export const getProductDetailByIdAsync = async(productId) => {
+  const productData = await getProductByIdAsync(productId);
+  const productAverageRating = await getProductAverageRatingAsync(productId);
+  const vendorAverageRating = await getVendorAverageRatingAsync(productData.vendorId);
+  const vendorName = await getVendorNameByIdAsync(productData.vendorId);
+  const productDetailInformation = {
+    ...productData,
+    averageRating: productAverageRating,
+    vendorAverageRating: vendorAverageRating,
+    vendorName,
+  }
+  return productDetailInformation;
+}

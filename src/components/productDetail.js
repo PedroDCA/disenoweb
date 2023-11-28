@@ -34,8 +34,8 @@ function ProductDetail({ productInformation }) {
         </div>
         <p className="price">{formatPriceForColonCurrency(productInformation.price)}</p>
         <div className="vendor">
-          <p>{productInformation.vendor.name}</p>
-          <p>{productInformation.vendor.ratingAverage}</p>
+          <p>{productInformation.vendorName}</p>
+          <p>{productInformation.vendorAverageRating}</p>
         </div>
         <button
           disabled={!productInformation.ableToAddCard}
