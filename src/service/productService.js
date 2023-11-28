@@ -18,6 +18,7 @@ const mapToSummaryProduct = (product) => {
   const name = `Botella ${ product.color } ${ product.storage }ml`;
   const summaryProduct = {
     name,
+    id: product.id,
     imageUrl: getRandomImageUrl(),
     price: product.price,
   }
@@ -76,7 +77,7 @@ export const formatProductForDetailPage = (product, cartItemIdList) => {
 const getProductAverageRatingAsync = async(productId) => {
   const productRatings = await getProductRatingsByProductIdAsync(productId);
   const totalRatings = productRatings.reduce((accummulator, productRating) => {
-    return accummulator + Number(productRating.Rate);
+    return accummulator + Number(productRating.rate);
   }, 0);
   const averageRating = totalRatings/productRatings.length;
   return averageRating;
@@ -90,8 +91,8 @@ const getProductAverageRatingAsync = async(productId) => {
 export const getProductDetailByIdAsync = async(productId) => {
   const productData = await getProductByIdAsync(productId);
   const productAverageRating = await getProductAverageRatingAsync(productId);
-  const vendorAverageRating = await getVendorAverageRatingAsync(productData.VendorId);
-  const vendorName = await getVendorNameByIdAsync(productData.VendorId);
+  const vendorAverageRating = await getVendorAverageRatingAsync(productData.vendorId);
+  const vendorName = await getVendorNameByIdAsync(productData.vendorId);
   const productDetailInformation = {
     ...productData,
     averageRating: productAverageRating,

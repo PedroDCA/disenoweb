@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDocs, query, where, getDoc } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc } from 'firebase/firestore';
 import database from '../database/firebase';
 
 const vendorCollectionName = "Vendor";
@@ -55,9 +55,10 @@ export const updateVendorAsync = async (vendorId, updatedVendorInfo) => {
 
 export const getVendorByIdAsync = async (vendorId) => {
     try {
-        const result = await getDoc(query(collection(database, vendorCollectionName), where('vendorId', '==', vendorId)));
+        const result = await getDoc(doc(collection(database, vendorCollectionName), vendorId));
+        const id = result.id;
         console.log('Documents successfully found!');
-        return result.data();
+        return {...result.data(), id};
     } catch (error) {
         console.error('Error finding documents: ', error);
         throw error;

@@ -22,5 +22,5 @@ export const getVendorAverageRatingAsync = async(vendorId) => {
       return accummulator + Number(vendorRating.Rate);
     }, 0);
     const averageRating = totalRatings/vendorRatings.length;
-    return averageRating;
+    return averageRating || 0;
   }

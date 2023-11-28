@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDocs, query, where, getDoc } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import database from '../database/firebase';
 
 const productRatingCollectionName = "ProductRating";
@@ -70,9 +70,13 @@ export const getAllProductRatingsAsync = async () => {
 
 export const getProductRatingsByProductIdAsync = async (productId) => {
     try {
-        const result = await getDoc(query(collection(database, productRatingCollectionName), where('productId', '==', productId)));
+        const result = await getDocs(query(collection(database, productRatingCollectionName), where('productId', '==', productId)));
+        const productRatingList = result.docs.map((firebaseProductRating) => {
+            const id = firebaseProductRating.id;
+            return {...firebaseProductRating.data(), id}
+        })
         console.log('Documents successfully found!');
-        return result.data();
+        return productRatingList;
     } catch (error) {
         console.error('Error finding documents: ', error);
         throw error;

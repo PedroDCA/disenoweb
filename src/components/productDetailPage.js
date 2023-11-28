@@ -18,8 +18,11 @@ function ProductDetailPage() {
   const cartElementList = useSelector((state) => state.cart.list);
 
   useEffect(() => {
+    if (!productId){
+      return;
+    }
     const updatedProductInformation = getProductDetailByIdAsync(productId);
-    updatedProductInformation.then((information) => setProductInformation(updatedProductInformation));
+    updatedProductInformation.then((information) => setProductInformation(information));
   }, [productId]);
 
   useEffect(() => {
