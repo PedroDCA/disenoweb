@@ -158,3 +158,19 @@ export const getBoughtProductsByUserIdAsync = async (userId) => {
 
   return Promise.all([boughtProducts]);
 };
+
+export const addProductBought = async (productId, amount, receiptId) => {
+  try {
+    const productCollection = collection(database, productCollectionName);
+    const docRef = await addDoc(productCollection, {
+      productId,
+      amount,
+      receiptId,
+    });
+    console.log("Document written with ID: ", docRef.id);
+    return docRef; // Optionally, you can return the document reference
+  } catch (error) {
+    console.error("Error adding document: ", error);
+    throw error; // Rethrow the error to handle it elsewhere, if needed
+  }
+};
