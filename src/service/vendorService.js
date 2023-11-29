@@ -8,7 +8,7 @@ import { getVendorRatingsByVendorIdAsync } from "../dataAccess/vendorRatingsData
  */
 export const getVendorNameByIdAsync = async(vendorId) => {
     const vendor = await getVendorByIdAsync(vendorId);
-    return vendor.Name;
+    return vendor.name;
 }
 
 /**

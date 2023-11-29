@@ -147,18 +147,22 @@ export const getUserOrderHistoryByUserIdAsync = async (userId) => {
   return userOrderList;
 };
 
-export const getProductInformationForVendor = (product) => {
+export const getProductInformationForVendor = (product, vendorName) => {
   const summaryProduct = {
+      imageUrl: product.imageUrl,
+      name: getProductName(product),
       availability: product.availability,
       color: product.color,
       storage: product.storage,
-      price: product.price
+      price: product.price,
+      vendorName
     }
   return summaryProduct;
 }
 
 export const getAllProductsByVendorIdAsync = async(vendorId) => {
+  const vendorName = await getVendorNameByIdAsync(vendorId);
   const products = await getProductsByVendorIdAsync(vendorId);
-  const productsInformationForVendor = products.map(getProductInformationForVendor);
+  const productsInformationForVendor = products.map((productInformation) => getProductInformationForVendor(productInformation, vendorName));
   return productsInformationForVendor;
 }
