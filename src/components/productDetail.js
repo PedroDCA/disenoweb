@@ -26,7 +26,7 @@ function ProductDetail({ productInformation }) {
         </div>
         <h2 className="product-title">{productInformation.name}</h2>
         <div className="star-section">
-          <p>★★★★☆</p>
+          <p>{productInformation.ratingAverage}</p>
           <p>
             {productInformation.ratingAverage} (
             {productInformation.reviewQuantity} reviews)
