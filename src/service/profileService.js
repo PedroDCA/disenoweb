@@ -4,9 +4,9 @@ import ProfileInformationSection from "../components/profileInformationSection";
 import UserOrderHistorySection from "../components/userOrderHistorySection";
 import VendorOrderHistorySection from "../components/vendorOrderHistorySection";
 import VendorProductList from "../components/vendorProductList";
+import { getUserOrderHistoryByUserIdAsync, getAllProductsByVendorIdAsync} from "./productService";
 import { getUserInformationForProfilePageByUserId } from "./userService";
 import { getVendorInformationForProfilePageByVendorId } from "./vendorService";
-import { getAllProductsByVendorIdAsync } from "./productService";
 
 export const fetchProfileInformationAsync = async (id, type) => {
   if (type === "user") {
@@ -23,6 +23,11 @@ export const fetchProfileInformationAsync = async (id, type) => {
 };
 
 export const fetchOrderList = (id, type) => {
+  if (type === "user") {
+    const userOrderList = getUserOrderHistoryByUserIdAsync(id);
+    return userOrderList;
+  }
+
   return [
     {
       totalPrice: 30000,
@@ -36,8 +41,8 @@ export const fetchOrderList = (id, type) => {
       labels: ["Temporada", "Oferta"],
       storage: 300,
       color: "Rojo",
-      address: 'Desamparados, San Jose',
-      id: 1
+      address: "Desamparados, San Jose",
+      id: 1,
     },
     {
       totalPrice: 10000,
@@ -51,8 +56,8 @@ export const fetchOrderList = (id, type) => {
       labels: ["Temporada", "Oferta"],
       storage: 300,
       color: "Rojo",
-      address: 'Guadalupe, San Jose',
-      id: 2
+      address: "Guadalupe, San Jose",
+      id: 2,
     },
     {
       totalPrice: 10000,
@@ -66,8 +71,8 @@ export const fetchOrderList = (id, type) => {
       labels: ["Temporada", "Oferta"],
       storage: 300,
       color: "Rojo",
-      address: 'Tibas, San Jose',
-      id: 3
+      address: "Tibas, San Jose",
+      id: 3,
     },
   ];
 };

@@ -9,7 +9,7 @@ import {
   getComponentToRender,
   getTabList,
 } from "../service/profileService";
-import Footer from './footer';
+import Footer from "./footer";
 
 function ProfilePage() {
   const profileId = useSelector((state) => state.profile.id);
@@ -30,7 +30,7 @@ function ProfilePage() {
     ).then((newProfileInformation) => setProfileInformation(newProfileInformation));
 
   }, [profileId, profileType]);
-  
+
   useEffect(() => {
     if (!profileId) {
       return;
@@ -83,26 +83,26 @@ function ProfilePage() {
       <main>
         <LogoSection />
         <div className="tabs-container">
-        {tabs.map((tabInformation, index) => (
-          <div className="tab" key={index}>
-            <input
-              type="radio"
-              name="profileOptions"
-              value={tabInformation.type}
-              id={`${tabInformation.type}Option`}
-              defaultChecked={index === 0}
-              key={index}
-              onChange={(event) => setTabSelected(event.target.value)}
-            />
-            <label htmlFor={`${tabInformation.type}Option`}>
-              {tabInformation.name}
-            </label>
+          {tabs.map((tabInformation, index) => (
+            <div className="tab" key={index}>
+              <input
+                type="radio"
+                name="profileOptions"
+                value={tabInformation.type}
+                id={`${tabInformation.type}Option`}
+                defaultChecked={index === 0}
+                key={index}
+                onChange={(event) => setTabSelected(event.target.value)}
+              />
+              <label htmlFor={`${tabInformation.type}Option`}>
+                {tabInformation.name}
+              </label>
             </div>
           ))}
         </div>
         <div className="container">{renderedComponent}</div>
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 }
