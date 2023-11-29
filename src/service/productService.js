@@ -6,22 +6,41 @@ import redBottle from "../images/redBottle.png";
 import skyBottle from "../images/skyBottle.png";
 import purpleBottle from "../images/purpleBottle.png";
 import bronceBottle from "../images/bronceBottle.png";
-import { getAllProductsAsync, getProductByIdAsync } from "../dataAccess/productDataAccess";
+import {
+  getAllProductsAsync,
+  getBoughtProductsByUserIdAsync,
+  getProductByIdAsync,
+} from "../dataAccess/productDataAccess";
 import { getProductRatingsByProductIdAsync } from "../dataAccess/productRatingsDataAccess";
-import { getVendorAverageRatingAsync, getVendorNameByIdAsync } from "./vendorService";
+import {
+  getVendorAverageRatingAsync,
+  getVendorNameByIdAsync,
+} from "./vendorService";
 
-const imageList = [blackBottle, greenBottle, pinkBottle, metalBottle, redBottle, skyBottle, purpleBottle, bronceBottle];
+const imageList = [
+  blackBottle,
+  greenBottle,
+  pinkBottle,
+  metalBottle,
+  redBottle,
+  skyBottle,
+  purpleBottle,
+  bronceBottle,
+];
 
 const getRandomImageUrl = () => imageList[Math.random() * imageList.length];
 
+const getProductName = (product) =>
+  `Botella ${product.color} ${product.storage}ml`;
+
 const mapToSummaryProduct = (product) => {
-  const name = `Botella ${ product.color } ${ product.storage }ml`;
+  const name = getProductName(product);
   const summaryProduct = {
     name,
     id: product.id,
     imageUrl: getRandomImageUrl(),
     price: product.price,
-  }
+  };
   return summaryProduct;
 };
 
@@ -29,10 +48,10 @@ const mapToSummaryProduct = (product) => {
  * Gets a list of summary products asynchronously.
  * @returns {Array} List of summary products.
  */
-export const getSummaryProductListAsync = async() => {
+export const getSummaryProductListAsync = async () => {
   const products = await getAllProductsAsync();
   const summaryProducts = products.map(mapToSummaryProduct);
-  return summaryProducts
+  return summaryProducts;
 };
 
 /**
@@ -74,30 +93,54 @@ export const formatProductForDetailPage = (product, cartItemIdList) => {
  * @param {string} productId - The unique identifier of the product.
  * @returns {number} The average rating of the product.
  */
-const getProductAverageRatingAsync = async(productId) => {
+const getProductAverageRatingAsync = async (productId) => {
   const productRatings = await getProductRatingsByProductIdAsync(productId);
   const totalRatings = productRatings.reduce((accummulator, productRating) => {
     return accummulator + Number(productRating.rate);
   }, 0);
-  const averageRating = totalRatings/productRatings.length;
+  const averageRating = totalRatings / productRatings.length;
   return averageRating;
-}
+};
 
 /**
  * Gets detailed information about a product asynchronously.
  * @param {string} productId - The unique identifier of the product.
  * @returns {Object} Detailed information about the product.
  */
-export const getProductDetailByIdAsync = async(productId) => {
+export const getProductDetailByIdAsync = async (productId) => {
   const productData = await getProductByIdAsync(productId);
   const productAverageRating = await getProductAverageRatingAsync(productId);
-  const vendorAverageRating = await getVendorAverageRatingAsync(productData.vendorId);
+  const vendorAverageRating = await getVendorAverageRatingAsync(
+    productData.vendorId
+  );
   const vendorName = await getVendorNameByIdAsync(productData.vendorId);
   const productDetailInformation = {
     ...productData,
     averageRating: productAverageRating,
     vendorAverageRating: vendorAverageRating,
     vendorName,
-  }
+  };
   return productDetailInformation;
-}
+};
+
+const getOrderForUserHistory = (orderInformation) => {
+  const order = {
+    date: orderInformation.date,
+    totalPrice: orderInformation.totalAmount,
+    status: orderInformation.state,
+    imageUrl: orderInformation.product.imageUrl,
+    name: getProductName(orderInformation.product),
+    vendor: orderInformation.vendor.name,
+    quantity: orderInformation.amount,
+    individualPrice: orderInformation.product.price,
+  };
+
+  return order;
+};
+
+export const getUserOrderHistoryByUserIdAsync = async (userId) => {
+  const orderList = await getBoughtProductsByUserIdAsync(userId);
+  const userOrderList = orderList.map(getOrderForUserHistory);
+
+  return userOrderList;
+};
