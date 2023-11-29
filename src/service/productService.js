@@ -6,7 +6,7 @@ import redBottle from "../images/redBottle.png";
 import skyBottle from "../images/skyBottle.png";
 import purpleBottle from "../images/purpleBottle.png";
 import bronceBottle from "../images/bronceBottle.png";
-import { getAllProductsAsync, getProductByIdAsync } from "../dataAccess/productDataAccess";
+import { getAllProductsAsync, getProductByIdAsync, getProductByVendorId, getProductsByVendorIdAsync } from "../dataAccess/productDataAccess";
 import { getProductRatingsByProductIdAsync } from "../dataAccess/productRatingsDataAccess";
 import { getVendorAverageRatingAsync, getVendorNameByIdAsync } from "./vendorService";
 
@@ -100,4 +100,20 @@ export const getProductDetailByIdAsync = async(productId) => {
     vendorName,
   }
   return productDetailInformation;
+}
+
+export const getProductInformationForVendor = (product) => {
+  const summaryProduct = {
+      availability: product.availability,
+      color: product.color,
+      storage: product.storage,
+      price: product.price
+    }
+  return summaryProduct;
+}
+
+export const getAllProductsByVendorIdAsync = async(vendorId) => {
+  const products = await getProductsByVendorIdAsync(vendorId);
+  const productsInformationForVendor = products.map(getProductInformationForVendor);
+  return productsInformationForVendor;
 }

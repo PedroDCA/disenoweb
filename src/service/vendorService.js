@@ -23,4 +23,28 @@ export const getVendorAverageRatingAsync = async(vendorId) => {
     }, 0);
     const averageRating = totalRatings/vendorRatings.length;
     return averageRating || 0;
-  }
+}
+
+/**
+ * Extracts summary vendor information for display.
+ * @param {object} vendor - The vendor object containing details like name and email.
+ * @returns {object} Summary vendor information with name and email.
+ */
+export const getProfileVendorInformation = (vendor) => {
+  const summaryVendor = {
+      name: vendor.name,
+      email: vendor.email
+    }
+  return summaryVendor;
+}
+
+/**
+ * Gets vendor information for display on a profile page by asynchronously fetching the vendor information using the provided vendorId.
+ * @param {string} vendorId - The unique identifier of the vendor.
+ * @returns {object} Profile vendor information with name and email.
+ */
+export const getVendorInformationForProfilePageByVendorId = async (vendorId) => {
+  const vendorInformation = await getVendorByIdAsync(vendorId);
+  const profileVendorInformation = getProfileVendorInformation(vendorInformation);
+  return profileVendorInformation;
+}

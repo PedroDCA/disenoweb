@@ -53,6 +53,11 @@ export const updateProductRatingAsync = async (productRatingId, updatedproductRa
     }
 };
 
+/**
+ * Retrieves all product ratings asynchronously.
+ * @returns {Array} An array of product ratings with additional IDs.
+ * @throws {Error} If there is an error finding documents.
+ */
 export const getAllProductRatingsAsync = async () => {
     try {
         const result = await getDocs(query(collection(database, productRatingCollectionName)));
@@ -68,6 +73,12 @@ export const getAllProductRatingsAsync = async () => {
     }
 };
 
+/**
+ * Retrieves product ratings for a specific product ID asynchronously.
+ * @param {string} productId - The unique identifier of the product.
+ * @returns {Array} An array of product ratings with additional IDs.
+ * @throws {Error} If there is an error finding documents.
+ */
 export const getProductRatingsByProductIdAsync = async (productId) => {
     try {
         const result = await getDocs(query(collection(database, productRatingCollectionName), where('productId', '==', productId)));

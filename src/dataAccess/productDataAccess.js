@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, query } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import database from '../database/firebase';
 
 const productCollectionName = "Product";
@@ -8,7 +8,6 @@ const productCollectionName = "Product";
  * @param {Object} product Information to be saved on the database.
  * @returns A promise about the save transaction.
  */
-
 export const addProductAsync = async (product) => {
     try {
         const productCollection = collection(database, productCollectionName);
@@ -54,6 +53,11 @@ export const updateProductAsync = async (productId, updatedProductInfo) => {
     }
 };
 
+/**
+ * Retrieves all products asynchronously.
+ * @returns {Array} An array of products with additional IDs.
+ * @throws {Error} If there is an error finding documents.
+ */
 export const getAllProductsAsync = async () => {
     try {
         const result = await getDocs(query(collection(database, productCollectionName)));
@@ -69,6 +73,12 @@ export const getAllProductsAsync = async () => {
     }
 };
 
+/**
+ * Retrieves a product by ID asynchronously.
+ * @param {string} productId - The unique identifier of the product.
+ * @returns {Object} The product information with an additional ID.
+ * @throws {Error} If there is an error finding the document.
+ */
 export const getProductByIdAsync = async (productId) => {
     try {
         const productDocRef = doc(collection(database, productCollectionName), productId);
@@ -76,6 +86,21 @@ export const getProductByIdAsync = async (productId) => {
         const id = result.id;
         console.log('Documents successfully found!');
         return {...result.data(), id};
+    } catch (error) {
+        console.error('Error finding documents: ', error);
+        throw error;
+    }
+};
+
+export const getProductsByVendorIdAsync = async (vendorId) => {
+    try {
+        const result = await getDocs(query(collection(database, productCollectionName), where('vendorId', '==', vendorId)));
+        const productList = result.docs.map((firebaseVendorRating) => {
+            const id = firebaseVendorRating.id;
+            return {...firebaseVendorRating.data(), id}
+        })
+        console.log('Documents successfully found!');
+        return productList;
     } catch (error) {
         console.error('Error finding documents: ', error);
         throw error;

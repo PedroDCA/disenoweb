@@ -4,24 +4,19 @@ import ProfileInformationSection from "../components/profileInformationSection";
 import UserOrderHistorySection from "../components/userOrderHistorySection";
 import VendorOrderHistorySection from "../components/vendorOrderHistorySection";
 import VendorProductList from "../components/vendorProductList";
+import { getUserInformationForProfilePageByUserId } from "./userService";
+import { getVendorInformationForProfilePageByVendorId } from "./vendorService";
+import { getAllProductsByVendorIdAsync } from "./productService";
 
-export const fetchProfileInformation = (id, type) => {
+export const fetchProfileInformationAsync = async (id, type) => {
   if (type === "user") {
-    return {
-      name: "Pedro",
-      lastName: "Calderon",
-      email: "pcalderon@gmail.com",
-      phone: "",
-      password: "asda",
-    };
+    const profileInformation = await getUserInformationForProfilePageByUserId(id);
+    return profileInformation;
   }
 
   if (type === "vendor") {
-    return {
-      name: "Tienda",
-      lastName: "Pepito",
-      email: "tienda@pepito.com",
-    };
+    const vendorInformation = await getVendorInformationForProfilePageByVendorId(id);
+    return vendorInformation;
   }
 
   return {};
@@ -96,41 +91,15 @@ export const getTabList = (profileType) => {
   return [];
 };
 
-export const fetchProductList = (profileId, profileType) => {
+export const fetchProductListAsync = async (profileId, profileType) => {
   if (profileType === "user") {
     return [];
   }
 
   if (profileType === "vendor") {
-    return [
-      {
-        imageUrl: bronceBottle,
-        price: 30000,
-        name: "Botella color ejemplo 750ml",
-        vendor: { name: "Nombre vendedor" },
-        color: "Azul",
-        storage: 300,
-        labels: ["Temporada", "Oferta"],
-      },
-      {
-        imageUrl: purpleBottle,
-        price: 30000,
-        name: "Botella color ejemplo 750ml",
-        vendor: { name: "Nombre vendedor" },
-        color: "Azul",
-        storage: 300,
-        labels: ["Temporada", "Oferta"],
-      },
-      {
-        imageUrl: purpleBottle,
-        name: "Botella color ejemplo 750ml",
-        vendor: { name: "Nombre vendedor" },
-        price: 2000,
-        color: "Rojo",
-        storage: 900,
-        labels: ["Temporada", "Oferta"],
-      },
-    ];
+    const productsInformation = await getAllProductsByVendorIdAsync(profileId);
+    return productsInformation;
+    
   }
 
   return [];

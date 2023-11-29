@@ -4,8 +4,8 @@ import LogoSection from "./logoSection";
 import { useSelector } from "react-redux";
 import {
   fetchOrderList,
-  fetchProductList,
-  fetchProfileInformation,
+  fetchProductListAsync,
+  fetchProfileInformationAsync,
   getComponentToRender,
   getTabList,
 } from "../service/profileService";
@@ -24,12 +24,11 @@ function ProfilePage() {
       return;
     }
 
-    const newProfileInformation = fetchProfileInformation(
+    fetchProfileInformationAsync(
       profileId,
       profileType
-    );
+    ).then((newProfileInformation) => setProfileInformation(newProfileInformation));
 
-    setProfileInformation(newProfileInformation);
   }, [profileId, profileType]);
   
   useEffect(() => {
@@ -37,12 +36,11 @@ function ProfilePage() {
       return;
     }
 
-    const newProductList = fetchProductList(
+    fetchProductListAsync(
       profileId,
       profileType
-    );
+    ).then((newProductList) => setProductList(newProductList));
 
-    setProductList(newProductList);
   }, [profileId, profileType]);
 
   useEffect(() => {
