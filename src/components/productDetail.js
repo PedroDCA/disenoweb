@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { formatPriceForColonCurrency } from "../service/priceService";
 import { addCartElement } from "../store"
 import "../styles/productDetail.css"
+import Star from "./star";
 
 function ProductDetail({ productInformation }) {
   const dispatch = useDispatch();
@@ -11,6 +12,15 @@ function ProductDetail({ productInformation }) {
   const buttonText = productInformation.ableToAddCard
     ? "Agregar al carrito"
     : "En carrito";
+
+    const renderStars = () => {
+      let stars = [];
+      for (let i = 1; i <= 5; i++) {
+        stars.push(<Star key={i} filled={i <= productInformation.ratingAverage} />);
+      }
+      return stars;
+    };
+
   return (
     <div className="product detail d-flex">
       <div>
@@ -26,7 +36,7 @@ function ProductDetail({ productInformation }) {
         </div>
         <h2 className="product-title">{productInformation.name}</h2>
         <div className="star-section">
-          <p>{productInformation.ratingAverage}</p>
+          <p>{renderStars()}</p>
           <p>
             {productInformation.ratingAverage} (
             {productInformation.reviewQuantity} reviews)
