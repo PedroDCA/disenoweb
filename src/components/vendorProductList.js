@@ -13,33 +13,43 @@ function VendorProductList({ productList }) {
   const navigate = useNavigate();
   const vendorId = useSelector((state) => state.profile.id);
 
-  const onCreateProductClickHandler = async ({value}) => {
+  const onCreateProductClickHandler = async ({ value }) => {
     if (!value) {
       return;
     }
-    await addNewProductAsync(value, vendorId);
-
-  }
+    return await addNewProductAsync(value, vendorId);
+  };
 
   const openNewProductoModal = () => {
-    swalReact.fire({
-      title: "Nuevo producto",
-      html: <NewProductForm />,
-      confirmButtonText: "Crear",
-      focusConfirm: false,
-      preConfirm: () => {
-        const popup = swalReact.getPopup();
-        const inputElementList = Array.from(popup.querySelectorAll("input[name]"));
-        const productInformation = inputElementList.reduce(
-          (accumulator, inputElement) => ({
-            ...accumulator,
-            [inputElement.name]: inputElement.files?.[0] || inputElement.value,
-          }),
-          {}
-        );
-        return productInformation;
-      },
-    }).then(onCreateProductClickHandler).then(() => swalReact.fire('Producto creado').then(() => navigate(0)));
+    swalReact
+      .fire({
+        title: "Nuevo producto",
+        html: <NewProductForm />,
+        confirmButtonText: "Crear",
+        focusConfirm: false,
+        preConfirm: () => {
+          const popup = swalReact.getPopup();
+          const inputElementList = Array.from(
+            popup.querySelectorAll("input[name]")
+          );
+          const productInformation = inputElementList.reduce(
+            (accumulator, inputElement) => ({
+              ...accumulator,
+              [inputElement.name]:
+                inputElement.files?.[0] || inputElement.value,
+            }),
+            {}
+          );
+          return productInformation;
+        },
+      })
+      .then(onCreateProductClickHandler)
+      .then((wasCreated) => {
+        if (!wasCreated) {
+          return;
+        }
+        swalReact.fire("Producto creado").then(() => navigate(0));
+      });
   };
   return (
     <div className="vendor-product-container">
