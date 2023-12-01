@@ -53,7 +53,13 @@ export const updateVendorAsync = async (vendorId, updatedVendorInfo) => {
     }
 };
 
-export const getVendorByIdAsync = async (vendorId) => {
+/**
+ * Retrieves vendor information by ID asynchronously.
+ * @param {string} vendorId - The unique identifier of the vendor.
+ * @returns {Object} Vendor information with an additional ID.
+ * @throws {Error} If there is an error finding the document.
+ */
+export const getVendorByIdAsync = async(vendorId) => {
     try {
         const result = await getDoc(doc(collection(database, vendorCollectionName), vendorId));
         const id = result.id;
