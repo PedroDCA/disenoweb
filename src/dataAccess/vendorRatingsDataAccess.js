@@ -53,6 +53,11 @@ export const updateVendorRatingAsync = async (vendorRatingId, updatedvendorRatin
     }
 };
 
+/**
+ * Retrieves all vendor ratings asynchronously.
+ * @returns {Array} An array of vendor ratings with additional IDs.
+ * @throws {Error} If there is an error finding documents.
+ */
 export const getAllVendorRatingsAsync = async () => {
     try {
         const result = await getDocs(query(collection(database, vendorRatingCollectionName)));
@@ -68,6 +73,12 @@ export const getAllVendorRatingsAsync = async () => {
     }
 };
 
+/**
+ * Retrieves vendor ratings for a specific vendor ID asynchronously.
+ * @param {string} vendorId - The unique identifier of the vendor.
+ * @returns {Array} An array of vendor ratings with additional IDs.
+ * @throws {Error} If there is an error finding documents.
+ */
 export const getVendorRatingsByVendorIdAsync = async (vendorId) => {
     try {
         const result = await getDocs(query(collection(database, vendorRatingCollectionName), where('vendorId', '==', vendorId)));

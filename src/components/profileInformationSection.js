@@ -19,12 +19,16 @@ function ProfileInformationSection({ userInformation }) {
           placeholder="Nombre"
         />
         <br/>
-        <input
-          className="profile-input"
-          type="text"
-          defaultValue={userInformation.lastName || ""}
-          placeholder="Apellido"
-        />
+        {userInformation.lastName !== undefined ? (
+          <input
+            className="profile-input"
+            type="text"
+            defaultValue={userInformation.lastName || ""}
+            placeholder="Apellido"
+          />
+        ) : (
+          <> </>
+        )}
         <br/>
         {userInformation.phoneNumber !== undefined ? (
           <input
