@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, where, query } from 'firebase/firestore';
 import database from '../database/firebase';
 
 const userCollectionName = "User";
@@ -71,4 +71,17 @@ export const getUserByIdAsync = async (userId) => {
         console.error('Error finding documents: ', error);
         throw error;
     }
+};
+
+
+export const getUserByUIdAsync = async (userUId) => {
+    const allUsers = await getDocs(
+      query(collection(database, userCollectionName), where("uid", "==", userUId))
+    );
+    const userList = allUsers.docs.map((receipt) => {
+      const id = receipt.id;
+      return { ...receipt.data(), id };
+    });
+  
+    return userList[0];
 };

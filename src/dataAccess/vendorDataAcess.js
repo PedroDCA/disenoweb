@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import database from '../database/firebase';
 
 const vendorCollectionName = "Vendor";
@@ -69,4 +69,17 @@ export const getVendorByIdAsync = async(vendorId) => {
         console.error('Error finding documents: ', error);
         throw error;
     }
+};
+
+
+export const getVendorByUIdAsync = async (vendorUId) => {
+    const allVendors = await getDocs(
+      query(collection(database, vendorCollectionName), where("uid", "==", vendorUId))
+    );
+    const vendorList = allVendors.docs.map((receipt) => {
+      const id = receipt.id;
+      return { ...receipt.data(), id };
+    });
+  
+    return vendorList[0];
 };
