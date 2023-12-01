@@ -10,7 +10,8 @@ export const addNewUserAsync = async (userInformation) => {
         name: userInformation.name,
         lastName: userInformation.lastName,
         email: userInformation.email,
-        password: userInformation.password
+        uid: userInformation.uid,
+        phone: userInformation.phone
     };
 
     const user = await addUserAsync(newUser);
