@@ -10,32 +10,38 @@ const getNewCartElement = (elementInformation) => ({
 
 const cartSlice = createSlice({
   name: "cartList",
-  initialState: { list: [] },
+  initialState: { list: [], wasListCleared: false },
   reducers: {
     addCartElement: (state, action) => {
       const newCartItem = getNewCartElement(action.payload);
       state.list.push(newCartItem);
+      state.wasListCleared = false;
     },
     removeCartElement: (state, action) => {
       state.list = state.list.filter(
         (element) => element.id !== action.payload
       );
     },
-    updateTotalPrice: (state, action) => {
+    updateCartProductQuantity: (state, action) => {
       const cartItemIndex = state.list.findIndex(
         (cartItem) => cartItem.id === action.payload.id
       );
       if (cartItemIndex > -1) {
-        state.list[cartItemIndex].totalPrice = action.payload.totalPrice;
+        state.list[cartItemIndex].amount = action.payload.amount;
       }
     },
-    clear: () => {
-      return { list: [] };
+    clearCart: (state) => {
+      state.list = [];
+      state.wasListCleared = true;
     },
   },
 });
 
 export default cartSlice.reducer;
 
-export const { removeCartElement, addCartElement, updateTotalPrice } =
-  cartSlice.actions;
+export const {
+  removeCartElement,
+  addCartElement,
+  updateCartProductQuantity,
+  clearCart,
+} = cartSlice.actions;

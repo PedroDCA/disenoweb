@@ -22,9 +22,9 @@ export const fetchProfileInformationAsync = async (id, type) => {
   return {};
 };
 
-export const fetchOrderList = (id, type) => {
+export const fetchOrderListAsync = async (id, type) => {
   if (type === "user") {
-    const userOrderList = getUserOrderHistoryByUserIdAsync(id);
+    const userOrderList = await getUserOrderHistoryByUserIdAsync(id);
     return userOrderList;
   }
 
@@ -35,7 +35,7 @@ export const fetchOrderList = (id, type) => {
       imageUrl: bronceBottle,
       name: "Botella color ejemplo 750ml",
       vendor: "Nombre vendedor",
-      quantity: 2,
+      amount: 2,
       individualPrice: 15000,
       date: "2023-10-04T00:00:00",
       labels: ["Temporada", "Oferta"],
@@ -50,7 +50,7 @@ export const fetchOrderList = (id, type) => {
       imageUrl: purpleBottle,
       name: "Botella color ejemplo 750ml",
       vendor: "Nombre vendedor",
-      quantity: 5,
+      amount: 5,
       individualPrice: 2000,
       date: "2023-11-15T00:00:00",
       labels: ["Temporada", "Oferta"],
@@ -65,7 +65,7 @@ export const fetchOrderList = (id, type) => {
       imageUrl: purpleBottle,
       name: "Botella color ejemplo 750ml",
       vendor: "Nombre vendedor",
-      quantity: 5,
+      amount: 5,
       individualPrice: 2000,
       date: "2023-11-15T00:00:00",
       labels: ["Temporada", "Oferta"],

@@ -1,9 +1,9 @@
 import { collection, addDoc } from "firebase/firestore";
 import database from "../database/firebase";
 
-const receiptCollectionName = "Product";
+const receiptCollectionName = "Receipt";
 
-export const addReceipt = async (totalAmount, userId, state, paymentId) => {
+export const addReceiptAsync = async (totalAmount, userId, state, paymentId, date) => {
   try {
     const receiptCollection = collection(database, receiptCollectionName);
     const docRef = await addDoc(receiptCollection, {
@@ -11,6 +11,7 @@ export const addReceipt = async (totalAmount, userId, state, paymentId) => {
       userId,
       state,
       paymentId,
+      date
     });
     console.log("Document written with ID: ", docRef.id);
     return docRef; // Optionally, you can return the document reference

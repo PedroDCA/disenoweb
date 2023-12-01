@@ -13,10 +13,14 @@ import Footer from "./components/footer";
 
 function App() {
   const cartElementList = useSelector((state) => state.cart.list);
+  const wasListCleared = useSelector((state) => state.cart.wasListCleared);
   const previousCartElementList = useRef(cartElementList);
 
   useEffect(() => {
-    if (cartElementList.length === previousCartElementList.current.length) {
+    if (
+      cartElementList.length === previousCartElementList.current.length ||
+      wasListCleared
+    ) {
       return;
     }
 
@@ -29,7 +33,7 @@ function App() {
     }
 
     previousCartElementList.current = cartElementList;
-  }, [cartElementList, previousCartElementList]);
+  }, [cartElementList, previousCartElementList, wasListCleared]);
 
   const router = createBrowserRouter(
     [
@@ -64,7 +68,7 @@ function App() {
       {
         path: "/footer",
         element: <Footer />,
-      }
+      },
     ],
     {
       basename: "/",
