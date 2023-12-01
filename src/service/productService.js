@@ -11,6 +11,7 @@ import {
   getBoughtProductsByUserIdAsync,
   getProductByIdAsync,
   getProductsByVendorIdAsync,
+  getReceiptProductsByVendorIdAsync,
 } from "../dataAccess/productDataAccess";
 import { getProductRatingsByProductIdAsync } from "../dataAccess/productRatingsDataAccess";
 import {
@@ -41,6 +42,7 @@ const mapToSummaryProduct = (product) => {
     id: product.id,
     imageUrl: getRandomImageUrl(),
     price: product.price,
+    vendorId: product.vendorId
   };
   return summaryProduct;
 };
@@ -127,13 +129,29 @@ export const getProductDetailByIdAsync = async (productId) => {
 const getOrderForUserHistory = (orderInformation) => {
   const order = {
     date: orderInformation.date,
-    totalPrice: getTotalPrice(orderInformation.amount, orderInformation.product.price),
+    totalPrice: getTotalPrice(
+      orderInformation.amount,
+      orderInformation.product.price
+    ),
     status: orderInformation.state,
     imageUrl: orderInformation.product.imageUrl,
     name: getProductName(orderInformation.product),
     vendor: orderInformation.vendor.name,
     amount: orderInformation.amount,
     individualPrice: orderInformation.product.price,
+  };
+
+  return order;
+};
+
+const getVendorProductCardInformation = (productOrder) => {
+  const order = {
+    imageUrl: '',
+    name: getProductName(productOrder.product),
+    price: productOrder.product.price,
+    color: productOrder.product.color,
+    storage: productOrder.product.storage,
+    
   };
 
   return order;
@@ -146,24 +164,36 @@ export const getUserOrderHistoryByUserIdAsync = async (userId) => {
   return userOrderList;
 };
 
+export const getVendorOrderHistoryByVendorIdAsync = async (vendorId) => {
+  const orderList = await getReceiptProductsByVendorIdAsync(vendorId);
+  const vendorOrderList = orderList.map((order) => ({
+    ...order,
+    products: order.products.map(getVendorProductCardInformation),
+  }));
+
+  return vendorOrderList;
+};
+
 export const getProductInformationForVendor = (product, vendorName) => {
   const summaryProduct = {
-      imageUrl: product.imageUrl,
-      name: getProductName(product),
-      availability: product.availability,
-      color: product.color,
-      storage: product.storage,
-      price: product.price,
-      vendorName
-    }
+    imageUrl: product.imageUrl,
+    name: getProductName(product),
+    availability: product.availability,
+    color: product.color,
+    storage: product.storage,
+    price: product.price,
+    vendorName,
+  };
   return summaryProduct;
-}
+};
 
-export const getAllProductsByVendorIdAsync = async(vendorId) => {
+export const getAllProductsByVendorIdAsync = async (vendorId) => {
   const vendorName = await getVendorNameByIdAsync(vendorId);
   const products = await getProductsByVendorIdAsync(vendorId);
-  const productsInformationForVendor = products.map((productInformation) => getProductInformationForVendor(productInformation, vendorName));
+  const productsInformationForVendor = products.map((productInformation) =>
+    getProductInformationForVendor(productInformation, vendorName)
+  );
   return productsInformationForVendor;
-}
+};
 
 export const getTotalPrice = (itemQuantity, price) => itemQuantity * price;

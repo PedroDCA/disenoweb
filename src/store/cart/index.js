@@ -6,6 +6,7 @@ const getNewCartElement = (elementInformation) => ({
   name: elementInformation.name,
   price: elementInformation.price,
   totalPrice: elementInformation.price,
+  vendorId: elementInformation.vendorId
 });
 
 const cartSlice = createSlice({
