@@ -10,7 +10,6 @@ import {
   getAllProductsAsync,
   getBoughtProductsByUserIdAsync,
   getProductByIdAsync,
-  getProductByVendorId,
   getProductsByVendorIdAsync,
 } from "../dataAccess/productDataAccess";
 import { getProductRatingsByProductIdAsync } from "../dataAccess/productRatingsDataAccess";
@@ -128,12 +127,12 @@ export const getProductDetailByIdAsync = async (productId) => {
 const getOrderForUserHistory = (orderInformation) => {
   const order = {
     date: orderInformation.date,
-    totalPrice: orderInformation.totalAmount,
+    totalPrice: getTotalPrice(orderInformation.amount, orderInformation.product.price),
     status: orderInformation.state,
     imageUrl: orderInformation.product.imageUrl,
     name: getProductName(orderInformation.product),
     vendor: orderInformation.vendor.name,
-    quantity: orderInformation.amount,
+    amount: orderInformation.amount,
     individualPrice: orderInformation.product.price,
   };
 

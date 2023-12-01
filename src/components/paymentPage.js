@@ -8,14 +8,17 @@ import "../styles/paymentPage.css";
 import Img1 from "../images/MASTECARD.png";
 import Img2 from "../images/VISA.png";
 import Footer from "./footer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { completePaymentOrderAsync } from "../service/paymentService";
 import Swal from "sweetalert2";
+import { clearCart } from "../store";
 
 function PaymentPage() {
   const { state } = useLocation();
-  const userId = useSelector((state) => state.profile.id);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const itemList = useSelector((state) => state.cart.list);
+  const userId = useSelector((state) => state.profile.id);
   const isTotalPriceValid = state?.total > 0;
   const isItemListValid = state?.itemList?.length > 0;
   const [paymentInformation, setPaymentInformation] = useState({});
@@ -24,7 +27,7 @@ function PaymentPage() {
 
   const checkedHandler = (event) => {
     if (event.target.checked) {
-      setSelectedPaymentInformation({type: event.target.value});
+      setSelectedPaymentInformation({ type: event.target.value });
     }
   };
 
@@ -36,14 +39,17 @@ function PaymentPage() {
   }, [isTotalPriceValid, isItemListValid, navigate]);
 
   useEffect(() => {
-    if (!paymentInformation.type) {
+    if (!paymentInformation.type || itemList.length < 1) {
       return;
     }
 
-    completePaymentOrderAsync(userId, paymentInformation, state?.itemList);
+    completePaymentOrderAsync(userId, paymentInformation, itemList);
 
-    Swal.fire("Compra completada!").then(() => navigate("/"));
-  }, [userId, paymentInformation, state?.itemList, navigate]);
+    Swal.fire("Compra completada!").then(() => {
+      dispatch(clearCart());
+      navigate("/");
+    });
+  }, [userId, paymentInformation, itemList, dispatch, navigate]);
 
   return (
     <>
@@ -87,7 +93,12 @@ function PaymentPage() {
             </div>
           </div>
           <div className="container-btn">
-            <button className="btn-comprar" onClick={() => setPaymentInformation(selectedPaymentInformation)}>Comprar</button>
+            <button
+              className="btn-comprar"
+              onClick={() => setPaymentInformation(selectedPaymentInformation)}
+            >
+              Comprar
+            </button>
           </div>
         </div>
       </main>

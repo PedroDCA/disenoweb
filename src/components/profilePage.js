@@ -3,7 +3,7 @@ import Header from "./header";
 import LogoSection from "./logoSection";
 import { useSelector } from "react-redux";
 import {
-  fetchOrderList,
+  fetchOrderListAsync,
   fetchProductListAsync,
   fetchProfileInformationAsync,
   getComponentToRender,
@@ -24,11 +24,9 @@ function ProfilePage() {
       return;
     }
 
-    fetchProfileInformationAsync(
-      profileId,
-      profileType
-    ).then((newProfileInformation) => setProfileInformation(newProfileInformation));
-
+    fetchProfileInformationAsync(profileId, profileType).then(
+      (newProfileInformation) => setProfileInformation(newProfileInformation)
+    );
   }, [profileId, profileType]);
 
   useEffect(() => {
@@ -36,11 +34,9 @@ function ProfilePage() {
       return;
     }
 
-    fetchProductListAsync(
-      profileId,
-      profileType
-    ).then((newProductList) => setProductList(newProductList));
-
+    fetchProductListAsync(profileId, profileType).then((newProductList) =>
+      setProductList(newProductList)
+    );
   }, [profileId, profileType]);
 
   useEffect(() => {
@@ -48,9 +44,9 @@ function ProfilePage() {
       return;
     }
 
-    const newOrderList = fetchOrderList(profileId, profileType);
-
-    setOrderList(newOrderList);
+    fetchOrderListAsync(profileId, profileType).then((newOrderList) =>
+      setOrderList(newOrderList)
+    );
   }, [profileId, profileType]);
 
   const [tabSelected, setTabSelected] = useState("profileInformation");

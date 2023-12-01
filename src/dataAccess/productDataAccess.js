@@ -1,6 +1,16 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
-import database from '../database/firebase';
-import { getVendorByIdAsync } from './vendorDataAcess';
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import database from "../database/firebase";
+import { getVendorByIdAsync } from "./vendorDataAcess";
 
 const productCollectionName = "Product";
 const productBoughtCollectionName = "ProductBought";
@@ -142,19 +152,40 @@ export const getBaseBoughtProductsByReceiptIdAsync = async (receiptId) => {
 };
 
 export const getBoughtProductsByUserIdAsync = async (userId) => {
-  const receiptId = await getReceiptsByUserIdAsync(userId);
-  const baseBoughtProducts = await getBaseBoughtProductsByReceiptIdAsync(
-    receiptId
+  const receipts = await getReceiptsByUserIdAsync(userId);
+  const baseBoughtProductsByReceipt = await Promise.all(
+    receipts.map(async (receipt) => {
+      const baseBoughtProducts = await getBaseBoughtProductsByReceiptIdAsync(
+        receipt.id
+      );
+      return baseBoughtProducts.map((baseBoughtProduct) => ({
+        ...baseBoughtProduct,
+        state: receipt.state,
+        totalAmount: receipt.totalAmount,
+        date: receipt.date,
+      }));
+    })
   );
-  const boughtProducts = await Promise.all(baseBoughtProducts.map(async (baseBoughtProduct) => {
-    const productInformation = await getProductByIdAsync(baseBoughtProduct);
-    const vendorInformation = await getVendorByIdAsync(productInformation.id);
-    return {
-      ...baseBoughtProduct,
-      product: productInformation,
-      vendor: vendorInformation,
-    };
-  }));
+  const baseBoughtProducts = baseBoughtProductsByReceipt.reduce(
+    (accumulator, baseBoughtProductList) =>
+      accumulator.concat(baseBoughtProductList),
+    []
+  );
+  const boughtProducts = await Promise.all(
+    baseBoughtProducts.map(async (baseBoughtProduct) => {
+      const productInformation = await getProductByIdAsync(
+        baseBoughtProduct.productId
+      );
+      const vendorInformation = await getVendorByIdAsync(
+        productInformation.vendorId
+      );
+      return {
+        ...baseBoughtProduct,
+        product: productInformation,
+        vendor: vendorInformation,
+      };
+    })
+  );
 
   return boughtProducts;
 };
@@ -176,16 +207,21 @@ export const addProductBoughtAsync = async (productId, amount, receiptId) => {
 };
 
 export const getProductsByVendorIdAsync = async (vendorId) => {
-    try {
-        const result = await getDocs(query(collection(database, productCollectionName), where('vendorId', '==', vendorId)));
-        const productList = result.docs.map((firebaseVendorRating) => {
-            const id = firebaseVendorRating.id;
-            return {...firebaseVendorRating.data(), id}
-        })
-        console.log('Documents successfully found!');
-        return productList;
-    } catch (error) {
-        console.error('Error finding documents: ', error);
-        throw error;
-    }
+  try {
+    const result = await getDocs(
+      query(
+        collection(database, productCollectionName),
+        where("vendorId", "==", vendorId)
+      )
+    );
+    const productList = result.docs.map((firebaseVendorRating) => {
+      const id = firebaseVendorRating.id;
+      return { ...firebaseVendorRating.data(), id };
+    });
+    console.log("Documents successfully found!");
+    return productList;
+  } catch (error) {
+    console.error("Error finding documents: ", error);
+    throw error;
+  }
 };

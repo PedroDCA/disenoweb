@@ -7,13 +7,14 @@ const createPaymentAsync = async (type) => {
   return payment.id;
 };
 
-const createNewReceiptAsync = async (totalAmount, userId, paymentId) => {
+const createNewReceiptAsync = async (totalAmount, userId, paymentId, date) => {
   const initialState = "pending";
   const receiptInformation = await addReceiptAsync(
     totalAmount,
     userId,
     initialState,
-    paymentId
+    paymentId,
+    date
   );
 
   return receiptInformation.id;
@@ -35,6 +36,7 @@ export const completePaymentOrderAsync = async (
     (accumulator, product) => accumulator + product.price,
     0
   );
-  const receiptId = await createNewReceiptAsync(totalAmount, userId, paymentId);
+  const currentDate = new Date();
+  const receiptId = await createNewReceiptAsync(totalAmount, userId, paymentId, currentDate.toISOString());
   addPaidProducts(productList, receiptId);
 };

@@ -10,11 +10,12 @@ const getNewCartElement = (elementInformation) => ({
 
 const cartSlice = createSlice({
   name: "cartList",
-  initialState: { list: [] },
+  initialState: { list: [], wasListCleared: false },
   reducers: {
     addCartElement: (state, action) => {
       const newCartItem = getNewCartElement(action.payload);
       state.list.push(newCartItem);
+      state.wasListCleared = false;
     },
     removeCartElement: (state, action) => {
       state.list = state.list.filter(
@@ -29,13 +30,18 @@ const cartSlice = createSlice({
         state.list[cartItemIndex].amount = action.payload.amount;
       }
     },
-    clear: () => {
-      return { list: [] };
+    clearCart: (state) => {
+      state.list = [];
+      state.wasListCleared = true;
     },
   },
 });
 
 export default cartSlice.reducer;
 
-export const { removeCartElement, addCartElement, updateCartProductQuantity } =
-  cartSlice.actions;
+export const {
+  removeCartElement,
+  addCartElement,
+  updateCartProductQuantity,
+  clearCart,
+} = cartSlice.actions;

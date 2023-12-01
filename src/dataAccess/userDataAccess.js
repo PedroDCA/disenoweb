@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, query } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc } from 'firebase/firestore';
 import database from '../database/firebase';
 
 const userCollectionName = "User";
