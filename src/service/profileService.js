@@ -4,7 +4,7 @@ import ProfileInformationSection from "../components/profileInformationSection";
 import UserOrderHistorySection from "../components/userOrderHistorySection";
 import VendorOrderHistorySection from "../components/vendorOrderHistorySection";
 import VendorProductList from "../components/vendorProductList";
-import { getUserOrderHistoryByUserIdAsync, getAllProductsByVendorIdAsync} from "./productService";
+import { getUserOrderHistoryByUserIdAsync, getAllProductsByVendorIdAsync, getVendorOrderHistoryByVendorIdAsync} from "./productService";
 import { getUserInformationForProfilePageByUserId } from "./userService";
 import { getVendorInformationForProfilePageByVendorId } from "./vendorService";
 
@@ -26,6 +26,11 @@ export const fetchOrderListAsync = async (id, type) => {
   if (type === "user") {
     const userOrderList = await getUserOrderHistoryByUserIdAsync(id);
     return userOrderList;
+  }
+
+  if (type === "vendor") {
+    const vendorOrderList = await getVendorOrderHistoryByVendorIdAsync(id);
+    return vendorOrderList;
   }
 
   return [

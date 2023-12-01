@@ -116,12 +116,25 @@ export const getProductByIdAsync = async (productId) => {
   }
 };
 
-export const getReceiptsByUserIdAsync = async (userId) => {
-  const allReceipts = await getDocs(
-    query(
+export const getReceiptByIdAsync = async (receiptId) => {
+  try {
+    const receiptDocRef = doc(
       collection(database, receiptCollectionName),
-      where("userId", "==", userId)
-    )
+      receiptId
+    );
+    const result = await getDoc(receiptDocRef);
+    const id = result.id;
+    console.log("Documents successfully found!");
+    return { ...result.data(), id };
+  } catch (error) {
+    console.error("Error finding documents: ", error);
+    throw error;
+  }
+};
+
+export const getReceiptsByFilterAsync = async (key, value) => {
+  const allReceipts = await getDocs(
+    query(collection(database, receiptCollectionName), where(key, "==", value))
   );
   const receiptList = allReceipts.docs.map((receipt) => {
     const id = receipt.id;
@@ -131,12 +144,18 @@ export const getReceiptsByUserIdAsync = async (userId) => {
   return receiptList;
 };
 
-export const getBaseBoughtProductsByReceiptIdAsync = async (receiptId) => {
+export const getReceiptsByUserIdAsync = async (userId) =>
+  await getReceiptsByFilterAsync("userId", userId);
+
+export const getReceiptsByVendorIdAsync = async (vendorId) =>
+  await getReceiptsByFilterAsync("vendorId", vendorId);
+
+export const getBaseBoughtProductsByFilterAsync = async (key, value) => {
   try {
     const result = await getDocs(
       query(
         collection(database, productBoughtCollectionName),
-        where("receiptId", "==", receiptId)
+        where(key, "==", value)
       )
     );
     const productBoughtList = result.docs.map((productBought) => {
@@ -150,6 +169,11 @@ export const getBaseBoughtProductsByReceiptIdAsync = async (receiptId) => {
     throw error;
   }
 };
+
+export const getBaseBoughtProductsByReceiptIdAsync = async (receiptId) =>
+  await getBaseBoughtProductsByFilterAsync("receiptId", receiptId);
+export const getBaseBoughtProductsByProductIdAsync = async (productId) =>
+  await getBaseBoughtProductsByFilterAsync("productId", productId);
 
 export const getBoughtProductsByUserIdAsync = async (userId) => {
   const receipts = await getReceiptsByUserIdAsync(userId);
@@ -188,6 +212,52 @@ export const getBoughtProductsByUserIdAsync = async (userId) => {
   );
 
   return boughtProducts;
+};
+
+export const getReceiptProductsByVendorIdAsync = async (vendorId) => {
+  const products = await getProductsByVendorIdAsync(vendorId);
+  const vendorInformation = await getVendorByIdAsync(vendorId);
+  const boughtProductListByProduct = await Promise.all(products.map(async (product) => {
+    const baseBoughtProducts = await getBaseBoughtProductsByProductIdAsync(
+      product.id
+    );
+    const boughtProducts = baseBoughtProducts.map((baseBoughtProduct) => ({
+      ...baseBoughtProduct,
+      product,
+      vendor: vendorInformation,
+    }));
+
+    return boughtProducts;
+  }));
+
+  const boughtProductList = boughtProductListByProduct.reduce(
+    (accumulator, list) => accumulator.concat(list),
+    []
+  );
+
+  const boughtProductListByReceipt = await boughtProductList.reduce(
+    async (accumulator, boughtProduct) => {
+      const receiptGroupIndex = boughtProductList.findIndex(
+        (receiptGroup) => receiptGroup.id === boughtProduct.receiptId
+      );
+      if (receiptGroupIndex > -1) {
+        accumulator[receiptGroupIndex].products.push(boughtProduct);
+        return accumulator;
+      }
+      const receiptInformation = await getReceiptByIdAsync(
+        boughtProduct.receiptId
+      );
+      const newReceiptGroup = {
+        ...receiptInformation,
+        products: [boughtProduct],
+      };
+      accumulator.push(newReceiptGroup);
+      return accumulator;
+    },
+    []
+  );
+
+  return boughtProductListByReceipt;
 };
 
 export const addProductBoughtAsync = async (productId, amount, receiptId) => {

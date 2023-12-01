@@ -31,12 +31,24 @@ export const completePaymentOrderAsync = async (
   paymentInformation,
   productList
 ) => {
-  const paymentId = await createPaymentAsync(paymentInformation.type);
-  const totalAmount = productList.reduce(
-    (accumulator, product) => accumulator + product.price,
-    0
-  );
-  const currentDate = new Date();
-  const receiptId = await createNewReceiptAsync(totalAmount, userId, paymentId, currentDate.toISOString());
-  addPaidProducts(productList, receiptId);
+  const vendorIdList = productList
+    .map((product) => product.vendorId)
+    .filter((vendorId, index, array) => array.indexOf(vendorId) === index);
+  const productsByVendor = vendorIdList.map((vendorId) => productList.filter((product) => product.vendorId === vendorId));
+  for (const listIndex in productsByVendor) {
+    const products = productsByVendor[listIndex];
+    const paymentId = await createPaymentAsync(paymentInformation.type);
+    const totalAmount = products.reduce(
+      (accumulator, product) => accumulator + product.price,
+      0
+    );
+    const currentDate = new Date();
+    const receiptId = await createNewReceiptAsync(
+      totalAmount,
+      userId,
+      paymentId,
+      currentDate.toISOString()
+    );
+    addPaidProducts(products, receiptId);
+  }
 };
