@@ -21,12 +21,12 @@ const cartSlice = createSlice({
         (element) => element.id !== action.payload
       );
     },
-    updateTotalPrice: (state, action) => {
+    updateCartProductQuantity: (state, action) => {
       const cartItemIndex = state.list.findIndex(
         (cartItem) => cartItem.id === action.payload.id
       );
       if (cartItemIndex > -1) {
-        state.list[cartItemIndex].totalPrice = action.payload.totalPrice;
+        state.list[cartItemIndex].amount = action.payload.amount;
       }
     },
     clear: () => {
@@ -37,5 +37,5 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer;
 
-export const { removeCartElement, addCartElement, updateTotalPrice } =
+export const { removeCartElement, addCartElement, updateCartProductQuantity } =
   cartSlice.actions;

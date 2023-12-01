@@ -29,7 +29,7 @@ function UserOrder({ orderInformation }) {
               Vendido por {orderInformation.vendor}
             </p>
             <p className="product-quantity">
-              Cantidad: {orderInformation.quantity}
+              Cantidad: {orderInformation.amount}
             </p>
             <p className="product-price">
               Precio Unitario:{" "}

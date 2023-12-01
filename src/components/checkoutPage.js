@@ -5,6 +5,7 @@ import CheckoutItemList from "./checkoutItemList";
 import CheckoutTotalSection from "./checkoutTotalSection";
 import { useEffect, useState } from "react";
 import Footer from './footer';
+import { getTotalPrice } from "../service/productService";
 
 function CheckoutPage() {
   const cartElementList = useSelector((state) => state.cart.list);
@@ -12,7 +13,7 @@ function CheckoutPage() {
 
   useEffect(() => {
     const newTotal = cartElementList.reduce(
-      (total, cartElement) => total + cartElement.totalPrice,
+      (total, cartElement) => total + getTotalPrice(cartElement.amount, cartElement.price),
       0
     );
 

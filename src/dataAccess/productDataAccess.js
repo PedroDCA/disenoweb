@@ -146,7 +146,7 @@ export const getBoughtProductsByUserIdAsync = async (userId) => {
   const baseBoughtProducts = await getBaseBoughtProductsByReceiptIdAsync(
     receiptId
   );
-  const boughtProducts = baseBoughtProducts.map(async (baseBoughtProduct) => {
+  const boughtProducts = await Promise.all(baseBoughtProducts.map(async (baseBoughtProduct) => {
     const productInformation = await getProductByIdAsync(baseBoughtProduct);
     const vendorInformation = await getVendorByIdAsync(productInformation.id);
     return {
@@ -154,14 +154,14 @@ export const getBoughtProductsByUserIdAsync = async (userId) => {
       product: productInformation,
       vendor: vendorInformation,
     };
-  });
+  }));
 
-  return Promise.all([boughtProducts]);
+  return boughtProducts;
 };
 
-export const addProductBought = async (productId, amount, receiptId) => {
+export const addProductBoughtAsync = async (productId, amount, receiptId) => {
   try {
-    const productCollection = collection(database, productCollectionName);
+    const productCollection = collection(database, productBoughtCollectionName);
     const docRef = await addDoc(productCollection, {
       productId,
       amount,

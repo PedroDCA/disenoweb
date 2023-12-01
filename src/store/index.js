@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import cartReducer, {
   addCartElement,
   removeCartElement,
-  updateTotalPrice,
+  updateCartProductQuantity,
 } from "./cart";
 import profileReducer, { logIn, logOut } from "./profile";
 import storage from "redux-persist/lib/storage";
@@ -43,4 +43,4 @@ const persistor = persistStore(store);
 
 export default store;
 
-export { addCartElement, removeCartElement, updateTotalPrice, logIn, logOut, persistor };
+export { addCartElement, removeCartElement, updateCartProductQuantity, logIn, logOut, persistor };

@@ -144,3 +144,5 @@ export const getUserOrderHistoryByUserIdAsync = async (userId) => {
 
   return userOrderList;
 };
+
+export const getTotalPrice = (itemQuantity, price) => itemQuantity * price;

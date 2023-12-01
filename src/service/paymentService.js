@@ -1,6 +1,6 @@
 import { addPaymentOption } from "../dataAccess/paymentDataAccess";
-import { addProductBought } from "../dataAccess/productDataAccess";
-import { addReceipt } from "../dataAccess/receiptDataAccess";
+import { addProductBoughtAsync } from "../dataAccess/productDataAccess";
+import { addReceiptAsync } from "../dataAccess/receiptDataAccess";
 
 const createPaymentAsync = async (type) => {
   const payment = await addPaymentOption(type);
@@ -9,7 +9,7 @@ const createPaymentAsync = async (type) => {
 
 const createNewReceiptAsync = async (totalAmount, userId, paymentId) => {
   const initialState = "pending";
-  const receiptInformation = await addReceipt(
+  const receiptInformation = await addReceiptAsync(
     totalAmount,
     userId,
     initialState,
@@ -21,7 +21,7 @@ const createNewReceiptAsync = async (totalAmount, userId, paymentId) => {
 
 const addPaidProducts = (paidProducts, receiptId) => {
   paidProducts.map((product) =>
-    addProductBought(product.id, product.amount, receiptId)
+    addProductBoughtAsync(product.id, product.amount, receiptId)
   );
 };
 
