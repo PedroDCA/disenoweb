@@ -1,5 +1,3 @@
-import purpleBottle from "../images/purpleBottle.png";
-import bronceBottle from "../images/bronceBottle.png";
 import ProfileInformationSection from "../components/profileInformationSection";
 import UserOrderHistorySection from "../components/userOrderHistorySection";
 import VendorOrderHistorySection from "../components/vendorOrderHistorySection";
@@ -33,53 +31,7 @@ export const fetchOrderListAsync = async (id, type) => {
     return vendorOrderList;
   }
 
-  return [
-    {
-      totalPrice: 30000,
-      status: "ready",
-      imageUrl: bronceBottle,
-      name: "Botella color ejemplo 750ml",
-      vendor: "Nombre vendedor",
-      amount: 2,
-      individualPrice: 15000,
-      date: "2023-10-04T00:00:00",
-      labels: ["Temporada", "Oferta"],
-      storage: 300,
-      color: "Rojo",
-      address: "Desamparados, San Jose",
-      id: 1,
-    },
-    {
-      totalPrice: 10000,
-      status: "sent",
-      imageUrl: purpleBottle,
-      name: "Botella color ejemplo 750ml",
-      vendor: "Nombre vendedor",
-      amount: 5,
-      individualPrice: 2000,
-      date: "2023-11-15T00:00:00",
-      labels: ["Temporada", "Oferta"],
-      storage: 300,
-      color: "Rojo",
-      address: "Guadalupe, San Jose",
-      id: 2,
-    },
-    {
-      totalPrice: 10000,
-      status: "pending",
-      imageUrl: purpleBottle,
-      name: "Botella color ejemplo 750ml",
-      vendor: "Nombre vendedor",
-      amount: 5,
-      individualPrice: 2000,
-      date: "2023-11-15T00:00:00",
-      labels: ["Temporada", "Oferta"],
-      storage: 300,
-      color: "Rojo",
-      address: "Tibas, San Jose",
-      id: 3,
-    },
-  ];
+  return [];
 };
 
 export const getTabList = (profileType) => {
