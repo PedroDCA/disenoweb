@@ -1,0 +1,9 @@
+.star {
+    fill: gray;
+    stroke: black;
+    stroke-width: 1px;
+  }
+  
+  .star.filled {
+    fill: gold;
+  }
