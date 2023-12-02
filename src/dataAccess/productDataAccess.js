@@ -58,13 +58,21 @@ export const deleteProductAsync = async (productId) => {
  * @param {Object} updatedproductInfo New information to be updated for the product.
  * @returns A promise about the update transaction.
  */
-export const updateProductAsync = async (productId, updatedProductInfo) => {
+export const updateProductAsync = async (productId, updatedProductInformation) => {
+  const newProductInformation = {
+    color: updatedProductInformation.color,
+    details: updatedProductInformation.details,
+    material: updatedProductInformation.material,
+    price: updatedProductInformation.price,
+    storage: updatedProductInformation.storage,
+    isActivated: updatedProductInformation.isActivated,
+  }
   try {
     const productDocRef = doc(
       collection(database, productCollectionName),
       productId
     );
-    await updateDoc(productDocRef, updatedProductInfo);
+    await updateDoc(productDocRef, newProductInformation);
     console.log("Document successfully updated!");
   } catch (error) {
     console.error("Error updating document: ", error);

@@ -1,4 +1,4 @@
-import { addUserAsync, getUserByIdAsync } from "../dataAccess/userDataAccess";
+import { addUserAsync, getUserByIdAsync, updateUserByIdAsync } from "../dataAccess/userDataAccess";
 
 /**
  * Manages the user information to be saved.
@@ -16,6 +16,10 @@ export const addNewUserAsync = async (userInformation) => {
 
     const user = await addUserAsync(newUser);
     return user;
+}
+
+export const updateProfileUserInformationAsync = async (userId, profileInformation) => {
+    await updateUserByIdAsync(userId, profileInformation);
 }
 
 /**

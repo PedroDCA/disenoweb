@@ -5,6 +5,7 @@ import {
   getProductByIdAsync,
   getProductsByVendorIdAsync,
   getReceiptProductsByVendorIdAsync,
+  updateProductAsync,
 } from "../dataAccess/productDataAccess";
 import { getProductRatingsByProductIdAsync } from "../dataAccess/productRatingsDataAccess";
 import {
@@ -21,6 +22,7 @@ export const addNewProductAsync = async (productInformation, vendorId) => {
     price: productInformation.price,
     storage: productInformation.storage,
     vendorId: vendorId,
+    isActivated: true,
   };
 
   const product = await addProductAsync(newProduct);
@@ -39,7 +41,7 @@ const mapToSummaryProduct = (product) => {
     id: product.id,
     imageUrl: getProductImage(product.id),
     price: product.price,
-    vendorId: product.vendorId
+    vendorId: product.vendorId,
   };
   return summaryProduct;
 };
@@ -149,7 +151,6 @@ const getVendorProductCardInformation = (productOrder) => {
     price: productOrder.product.price,
     color: productOrder.product.color,
     storage: productOrder.product.storage,
-    
   };
 
   return order;
@@ -181,6 +182,10 @@ export const getProductInformationForVendor = (product, vendorName) => {
     storage: product.storage,
     price: product.price,
     vendorName,
+    details: product.details,
+    material: product.material,
+    id: product.id,
+    isActivated: product.isActivated
   };
   return summaryProduct;
 };
@@ -195,3 +200,16 @@ export const getAllProductsByVendorIdAsync = async (vendorId) => {
 };
 
 export const getTotalPrice = (itemQuantity, price) => itemQuantity * price;
+
+export const updateProductInformationAsync = async (productInformation) => {
+  await updateProductAsync(productInformation.id, productInformation);
+  return true;
+};
+
+export const toggleProductActivation = async (productInformation) => {
+  await updateProductAsync(productInformation.id, {
+    ...productInformation,
+    isActivated: !productInformation.isActivated,
+  });
+  return true;
+};

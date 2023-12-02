@@ -43,9 +43,13 @@ export const deleteVendorAsync = async (vendorId) => {
  * @returns A promise about the update transaction.
  */
 export const updateVendorAsync = async (vendorId, updatedVendorInfo) => {
+    const newProfileInformation = {
+      name: updatedVendorInfo.name,
+      email: updatedVendorInfo.email
+    }
     try {
         const vendorDocRef = doc(collection(database, vendorCollectionName), vendorId);
-        await updateDoc(vendorDocRef, updatedVendorInfo);
+        await updateDoc(vendorDocRef, newProfileInformation);
         console.log('Document successfully updated!');
     } catch (error) {
         console.error('Error updating document: ', error);

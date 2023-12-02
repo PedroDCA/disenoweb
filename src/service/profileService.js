@@ -3,8 +3,8 @@ import UserOrderHistorySection from "../components/userOrderHistorySection";
 import VendorOrderHistorySection from "../components/vendorOrderHistorySection";
 import VendorProductList from "../components/vendorProductList";
 import { getUserOrderHistoryByUserIdAsync, getAllProductsByVendorIdAsync, getVendorOrderHistoryByVendorIdAsync} from "./productService";
-import { getUserInformationForProfilePageByUserId } from "./userService";
-import { getVendorInformationForProfilePageByVendorId } from "./vendorService";
+import { getUserInformationForProfilePageByUserId, updateProfileUserInformationAsync } from "./userService";
+import { getVendorInformationForProfilePageByVendorId, updateProfileVendorInformationAsync } from "./vendorService";
 
 export const fetchProfileInformationAsync = async (id, type) => {
   if (type === "user") {
@@ -86,3 +86,13 @@ export const getComponentToRender = (componentType, information) => {
 
   return <></>;
 };
+
+export const updateProfileAsync = async (profileId, profileType, newProfileInformation) => {
+  if (profileType === "vendor") {
+    await updateProfileVendorInformationAsync(profileId, newProfileInformation)
+  }
+
+  if (profileType === "user") {
+    await updateProfileUserInformationAsync(profileId, newProfileInformation);
+  }
+}
