@@ -14,11 +14,9 @@ function ProductDetail({ productInformation }) {
     : "En carrito";
 
     const renderStars = () => {
-      let stars = [];
-      for (let i = 1; i <= 5; i++) {
-        stars.push(<Star key={i} filled={i <= productInformation.ratingAverage} />);
-      }
-      return stars;
+      return [1, 2, 3, 4, 5].map(index => (
+        <Star key={index} filled={index <= productInformation.ratingAverage} />
+      ));
     };
 
   return (
