@@ -1,4 +1,4 @@
-import { addVendorAsync, getVendorByIdAsync } from "../dataAccess/vendorDataAcess";
+import { addVendorAsync, getVendorByIdAsync, updateVendorAsync } from "../dataAccess/vendorDataAcess";
 import { getVendorRatingsByVendorIdAsync } from "../dataAccess/vendorRatingsDataAccess";
 
 /**
@@ -58,4 +58,9 @@ export const addNewVendorAsync = async (vendorInformation) => {
 
     const vendor = await addVendorAsync(newVendor);
     return vendor;
+}
+
+
+export const updateProfileVendorInformationAsync = async (vendorId, profileInformation) => {
+  await updateVendorAsync(vendorId, profileInformation);
 }

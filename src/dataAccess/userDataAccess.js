@@ -44,9 +44,16 @@ export const deleteUserByIdAsync = async (userId) => {
  * @returns A promise about the update transaction.
  */
 export const updateUserByIdAsync = async (userId, updatedUserInfo) => {
+    const newProfileInformation = {
+        name: updatedUserInfo.name,
+        lastName: updatedUserInfo.lastName,
+        email: updatedUserInfo.email,
+        phone: updatedUserInfo.phone,
+        uid: userId,
+    }
     try {
         const userDocRef = doc(collection(database, userCollectionName), userId);
-        await updateDoc(userDocRef, updatedUserInfo);
+        await updateDoc(userDocRef, newProfileInformation);
         console.log('Document successfully updated!');
     } catch (error) {
         console.error('Error updating document: ', error);
