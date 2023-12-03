@@ -96,7 +96,8 @@
   border: none;
   margin-top: 2%;
   border-radius: 10px;
-  padding: 0.5% 6%
+  padding: 1% 6%;
+  width: 35%;
 }
 
 .inputsLogin
@@ -105,6 +106,8 @@
   margin: 0.5%;
   padding: 0.3% 3%;
   border: 1px solid lightgray;
+  width: 80%;
+  margin-bottom: 10px;
 }
 
 button.ghost {
@@ -149,6 +152,24 @@ button.ghost:hover i.login{
   height: 100%;
   text-align: center;
 }
+
+.user-type {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-type input,
+.user-type label {
+  margin: 5px;
+}
+
+.input-container {
+  display: block;
+  margin-bottom: 10px;
+}
+
 
 .HomePage input {
   background-color: #eee;

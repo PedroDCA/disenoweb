@@ -94,54 +94,60 @@ function SignPage() {
     <>
       <main>
         <div className={`container ${containerClasses}`} id="container">
-          <div className="form-container login-container">
+        <div className="form-container login-container">
             <div className="form">
-              <h1 className="loginTitle">Iniciar Sesión</h1>
-              <form data-form>
-                <input
-                  id="login_email"
-                  type="email"
-                  name="email"
-                  placeholder="Correo"
-                  className="inputsLogin"
-                />
-                <input
-                  id="login_password"
-                  type="password"
-                  name="password"
-                  placeholder="Contraseña"
-                  className="inputsLogin"
-                />
-                <input
-                  type="radio"
-                  id="signUpUser"
-                  name="type"
-                  value="user"
-                  defaultChecked
-                />
-                <label htmlFor="signUpUser">Como usuario</label>
-                <input
-                  type="radio"
-                  id="signUpVendor"
-                  name="type"
-                  value="vendor"
-                />
-                <label htmlFor="signUpVendor">Como vendedor</label>
-                <button className="loginButton" onClick={signInClickHandler}>
-                  Ingresar
-                </button>
-              </form>
-              <div className="social-container">
-                <a href="https://shorturl.at/qzAZ3" className="social">
-                  <i className="lni lni-facebook-fill"></i>
-                </a>
-                <a href="https://shorturl.at/qzAZ3" className="social">
-                  <i className="lni lni-pinterest-fill"></i>
-                </a>
-                <a href="https://shorturl.at/qzAZ3" className="social">
-                  <i className="lni lni-website-fill"></i>
-                </a>
-              </div>
+                <h1 className="loginTitle">Iniciar Sesión</h1>
+                <form data-form>
+                  <div className="input-container">
+                      <input
+                          id="login_email"
+                          type="email"
+                          name="email"
+                          placeholder="Correo"
+                          className="inputsLogin"
+                      />
+                    </div>
+                    <div className="input-container">
+                        <input
+                          id="login_password"
+                          type="password"
+                          name="password"
+                          placeholder="Contraseña"
+                          className="inputsLogin"
+                        />
+                    </div>
+                  <div className="user-type">
+                      <input
+                        type="radio"
+                        id="signUpUser"
+                        name="type"
+                        value="user"
+                        defaultChecked
+                      />
+                      <label htmlFor="signUpUser">Como usuario</label>
+                      <input
+                        type="radio"
+                        id="signUpVendor"
+                        name="type"
+                        value="vendor"
+                      />
+                      <label htmlFor="signUpVendor">Como vendedor</label>
+                  </div>
+                  <button className="loginButton" onClick={signInClickHandler}>
+                      Ingresar
+                  </button>
+                </form>
+                <div className="social-container">
+                  <a href="https://shorturl.at/qzAZ3" className="social">
+                      <i className="lni lni-facebook-fill"></i>
+                  </a>
+                  <a href="https://shorturl.at/qzAZ3" className="social">
+                      <i className="lni lni-pinterest-fill"></i>
+                  </a>
+                  <a href="https://shorturl.at/qzAZ3" className="social">
+                      <i className="lni lni-website-fill"></i>
+                  </a>
+                </div>
             </div>
           </div>
 
@@ -170,6 +176,7 @@ function SignPage() {
                   placeholder="Contraseña"
                   className="inputsLogin"
                 />
+                <div className="user-type"></div>
                 <input
                   type="radio"
                   id="signInUser"
@@ -185,6 +192,7 @@ function SignPage() {
                   value="vendor"
                 />
                 <label htmlFor="signInVendor">Como vendedor</label>
+                <div/>
                 <button className="loginButton" onClick={signUpClickHandler}>
                   Registrarse
                 </button>
