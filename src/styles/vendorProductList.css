@@ -84,6 +84,93 @@ td{
     background-color: #452F78;
   }
   
+  .btn-add-product,
+  .btn-add-product:link,
+  .btn-add-product:visited {
+    border: none;
+    outline: none;
+    color: #fefefe;
+    background-color: #78458b;
+    border-radius: 3px;
+    height: 50px;
+  }
+  .btn-add-product:hover, .btn-add-product:focus,
+  .btn-add-product:link:hover,
+  .btn-add-product:link:focus,
+  .btn-add-product:visited:hover,
+  .btn-add-product:visited:focus {
+    transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+    -webkit-animation: gelatine 0.5s 1;
+            animation: gelatine 0.5s 1;
+  }
+  
+  @-webkit-keyframes gelatine {
+    from, to {
+      -webkit-transform: scale(1, 1);
+    }
+    25% {
+      -webkit-transform: scale(0.9, 1.1);
+    }
+    50% {
+      -webkit-transform: scale(1.1, 0.9);
+    }
+    75% {
+      -webkit-transform: scale(0.95, 1.05);
+    }
+    from, to {
+      -webkit-transform: scale(1, 1);
+    }
+    25% {
+      -webkit-transform: scale(0.9, 1.1);
+    }
+    50% {
+      -webkit-transform: scale(1.1, 0.9);
+    }
+    75% {
+      -webkit-transform: scale(0.95, 1.05);
+    }
+  }
+  @keyframes gelatine {
+    from, to {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(0.9, 1.1);
+    }
+    50% {
+      transform: scale(1.1, 0.9);
+    }
+    75% {
+      transform: scale(0.95, 1.05);
+    }
+    from, to {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(0.9, 1.1);
+    }
+    50% {
+      transform: scale(1.1, 0.9);
+    }
+    75% {
+      transform: scale(0.95, 1.05);
+    }
+  }
+  .gif-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .add-text{
+    font-family: Gusto-Italic;
+    font-size: larger;
+    color: #452F78;
+  }
+  @font-face
+  {
+      font-family: Gusto-Italic;
+      src: url(../fonts/Gusto-Italic.ttf);
+  }
   @media (max-width: 768px) {
   /* Reducir el tamaño del encabezado */
   .vendor-product-header {
@@ -139,4 +226,6 @@ td{
     padding: 8px; /* Espaciado interno en las celdas */
   }
   }
+
+ 
   
