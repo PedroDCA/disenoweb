@@ -1,9 +1,16 @@
 .star {
-    fill: gray;
-    stroke: black;
-    stroke-width: 1px;
-  }
-  
-  .star.filled {
-    fill: gold;
-  }
+  display: inline-block;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.star.filled {
+  color: gold;
+}
+
+.star.half-filled {
+  background-image: linear-gradient(to right, gold 50%, gray 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}

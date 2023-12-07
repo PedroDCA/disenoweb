@@ -5,6 +5,9 @@ import "../styles/productDetail.css"
 import Star from "./star";
 
 function ProductDetail({ productInformation }) {
+
+
+
   const dispatch = useDispatch();
   if (!productInformation?.id) {
     return (<h1>Cargando</h1>);
@@ -14,9 +17,11 @@ function ProductDetail({ productInformation }) {
     : "En carrito";
 
     const renderStars = () => {
-      return [1, 2, 3, 4, 5].map(index => (
-        <Star key={index} filled={index <= productInformation.ratingAverage} />
-      ));
+      return [1, 2, 3, 4, 5].map(index => {
+        const filled = index <= Math.floor(productInformation.ratingAverage);
+        const half = index === Math.ceil(productInformation.ratingAverage) && productInformation.ratingAverage % 1 !== 0;
+        return <Star key={index} filled={filled} half={half} />;
+      });
     };
 
   return (
