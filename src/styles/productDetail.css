@@ -70,3 +70,10 @@
     font-size: 1.3em;
     font-family: 'Calibri', sans-serif;
   }
+
+  .cargando {
+    font-family: Gusto-Italic;
+    font-size: 3vw; 
+    text-decoration: none;
+    color: #594F9B;
+  }

@@ -10,7 +10,7 @@ function ProductDetail({ productInformation }) {
 
   const dispatch = useDispatch();
   if (!productInformation?.id) {
-    return (<h1>Cargando</h1>);
+    return (<h1 className="cargando">Cargando</h1>);
   }
   const buttonText = productInformation.ableToAddCard
     ? "Agregar al carrito"
