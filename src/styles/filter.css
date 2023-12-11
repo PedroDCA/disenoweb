@@ -1,0 +1,38 @@
+.color-filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.filter-button {
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 120px; /* Tamaño base del botón */
+}
+
+.filter-button:hover {
+  background-color: #e0e0e0;
+}
+
+.filter-button:active {
+  background-color: #d0d0d0;
+}
+
+/* Media query para ajustar los estilos en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .color-filter-container {
+    flex-wrap: wrap; /* Permite que los elementos se ajusten a una nueva línea */
+  }
+
+  .filter-button {
+    width: calc(50% - 10px); /* Dos botones por fila, con espacio entre ellos */
+    margin-bottom: 10px; /* Espacio entre los botones */
+  }
+}
