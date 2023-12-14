@@ -19,7 +19,7 @@ export const getVendorNameByIdAsync = async(vendorId) => {
 export const getVendorAverageRatingAsync = async(vendorId) => {
     const vendorRatings = await getVendorRatingsByVendorIdAsync(vendorId);
     const totalRatings = vendorRatings.reduce((accummulator, vendorRating) => {
-      return accummulator + Number(vendorRating.Rate);
+      return accummulator + Number(vendorRating.rate);
     }, 0);
     const averageRating = totalRatings/vendorRatings.length;
     return averageRating || 0;
