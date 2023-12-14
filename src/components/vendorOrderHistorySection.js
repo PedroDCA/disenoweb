@@ -1,6 +1,7 @@
 import VendorProduct from "./vendorProduct";
 import '../styles/vendorOrderHistory.css' ;
 import { useState } from 'react';
+import { updateOrderStatusAsync } from "../service/orderService";
 
 function VendorOrderHistorySection({ orderList }) {
 // Se inicializa un estado llamado 'statuses' para almacenar los estados de los pedidos y una función 'setStatuses' para actualizar este estado.
@@ -22,10 +23,11 @@ const getStatusClass = (status) => {
 
 // La función handleStatusChange se llama cuando se cambia el estado en un select.
 // Actualiza el estado 'statuses' con el nuevo estado del pedido en la posición index.
-const handleStatusChange = (index, status) => {
+const handleStatusChange = (index, status, orderId) => {
   const updatedStatuses = { ...statuses }; // Se crea una copia del estado 'statuses'.
   updatedStatuses[index] = status; // Se actualiza el estado del pedido en la posición 'index'.
   setStatuses(updatedStatuses); // Se actualiza el estado 'statuses' con el nuevo estado del pedido.
+  updateOrderStatusAsync(orderId, status);
 };
 
 // Se renderiza la lista de pedidos con la función map().
@@ -47,7 +49,7 @@ return (
               value={statuses[index] || order.state} 
               // Se llama a handleStatusChange cuando se cambia el valor del select.
               onChange={(e) => {
-                handleStatusChange(index, e.target.value);
+                handleStatusChange(index, e.target.value, order.id);
               }}
               // La clase del select se establece según el estado del pedido en 'statuses' o el estado original del pedido.
               className={
