@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import database from '../database/firebase';
 
 const vendorCollectionName = "Vendor";
@@ -43,9 +43,13 @@ export const deleteVendorAsync = async (vendorId) => {
  * @returns A promise about the update transaction.
  */
 export const updateVendorAsync = async (vendorId, updatedVendorInfo) => {
+    const newProfileInformation = {
+      name: updatedVendorInfo.name,
+      email: updatedVendorInfo.email
+    }
     try {
         const vendorDocRef = doc(collection(database, vendorCollectionName), vendorId);
-        await updateDoc(vendorDocRef, updatedVendorInfo);
+        await updateDoc(vendorDocRef, newProfileInformation);
         console.log('Document successfully updated!');
     } catch (error) {
         console.error('Error updating document: ', error);
@@ -53,7 +57,13 @@ export const updateVendorAsync = async (vendorId, updatedVendorInfo) => {
     }
 };
 
-export const getVendorByIdAsync = async (vendorId) => {
+/**
+ * Retrieves vendor information by ID asynchronously.
+ * @param {string} vendorId - The unique identifier of the vendor.
+ * @returns {Object} Vendor information with an additional ID.
+ * @throws {Error} If there is an error finding the document.
+ */
+export const getVendorByIdAsync = async(vendorId) => {
     try {
         const result = await getDoc(doc(collection(database, vendorCollectionName), vendorId));
         const id = result.id;
@@ -63,4 +73,17 @@ export const getVendorByIdAsync = async (vendorId) => {
         console.error('Error finding documents: ', error);
         throw error;
     }
+};
+
+
+export const getVendorByUIdAsync = async (vendorUId) => {
+    const allVendors = await getDocs(
+      query(collection(database, vendorCollectionName), where("uid", "==", vendorUId))
+    );
+    const vendorList = allVendors.docs.map((receipt) => {
+      const id = receipt.id;
+      return { ...receipt.data(), id };
+    });
+  
+    return vendorList[0];
 };

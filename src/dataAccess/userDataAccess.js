@@ -1,4 +1,4 @@
-import { collection, addDoc, deleteDoc, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, updateDoc, doc, getDoc, getDocs, where, query } from 'firebase/firestore';
 import database from '../database/firebase';
 
 const userCollectionName = "User";
@@ -44,12 +44,51 @@ export const deleteUserByIdAsync = async (userId) => {
  * @returns A promise about the update transaction.
  */
 export const updateUserByIdAsync = async (userId, updatedUserInfo) => {
+    const newProfileInformation = {
+        name: updatedUserInfo.name,
+        lastName: updatedUserInfo.lastName,
+        email: updatedUserInfo.email,
+        phone: updatedUserInfo.phone,
+        uid: userId,
+    }
     try {
         const userDocRef = doc(collection(database, userCollectionName), userId);
-        await updateDoc(userDocRef, updatedUserInfo);
+        await updateDoc(userDocRef, newProfileInformation);
         console.log('Document successfully updated!');
     } catch (error) {
         console.error('Error updating document: ', error);
         throw error;
     }
+};
+
+/**
+ * Retrieves user information by ID asynchronously.
+ * @param {string} userId - The unique identifier of the user.
+ * @returns {Object} User information with an additional ID.
+ * @throws {Error} If there is an error finding the document.
+ */
+export const getUserByIdAsync = async (userId) => {
+    try {
+        const userDocRef = doc(collection(database, userCollectionName), userId);
+        const result = await getDoc(userDocRef);
+        const id = result.id;
+        console.log('Documents successfully found!');
+        return {...result.data(), id};
+    } catch (error) {
+        console.error('Error finding documents: ', error);
+        throw error;
+    }
+};
+
+
+export const getUserByUIdAsync = async (userUId) => {
+    const allUsers = await getDocs(
+      query(collection(database, userCollectionName), where("uid", "==", userUId))
+    );
+    const userList = allUsers.docs.map((receipt) => {
+      const id = receipt.id;
+      return { ...receipt.data(), id };
+    });
+  
+    return userList[0];
 };

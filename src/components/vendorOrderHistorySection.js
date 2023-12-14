@@ -34,15 +34,7 @@ return (
   <div className="vendor-product-container">
     {orderList?.map?.((order, index) => {
       // Se crea un objeto 'vendorProductInformation' con los detalles del pedido para pasar al componente VendorProduct.
-      const vendorProductInformation = {
-        name: order.name,
-        imageUrl: order.imageUrl,
-        price: order.totalPrice,
-        color: order.color,
-        storage: order.storage,
-        vendor: { name: order.vendor },
-        labels: order.labels,
-      };
+      const vendorProductInformation = order.products[0];
 
       return (
         <div key={index} className="order-item"> 
@@ -52,7 +44,7 @@ return (
             <p>Direccion: {order.address}</p>
             <select
               // El valor del select se establece según el estado del pedido en 'statuses' o el estado original del pedido.
-              value={statuses[index] || order.status} 
+              value={statuses[index] || order.state} 
               // Se llama a handleStatusChange cuando se cambia el valor del select.
               onChange={(e) => {
                 handleStatusChange(index, e.target.value);
@@ -61,7 +53,7 @@ return (
               className={
                 statuses[index]
                   ? getStatusClass(statuses[index]) 
-                  : getStatusClass(order.status) 
+                  : getStatusClass(order.state) 
               }
             >
               <option value="ready">Completado</option>

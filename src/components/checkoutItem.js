@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { formatPriceForColonCurrency } from "../service/priceService";
 import { useDispatch } from "react-redux";
-import { removeCartElement, updateTotalPrice } from "../store";
+import { removeCartElement, updateCartProductQuantity } from "../store";
 import "../styles/checkoutItem.css";
+import { getTotalPrice } from "../service/productService";
 
 function CheckoutItem({ itemInformation }) {
   const [itemQuantity, setItemQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(itemInformation.totalPrice);
   const id = itemInformation.id;
   const dispatch = useDispatch();
-
-  const getTotalPrice = (itemQuantity, price) => itemQuantity * price;
 
   useEffect(() => {
     setTotalPrice(getTotalPrice(itemQuantity, itemInformation.price));
@@ -21,12 +20,12 @@ function CheckoutItem({ itemInformation }) {
       return;
     }
     dispatch(
-      updateTotalPrice({
+      updateCartProductQuantity({
         id,
-        totalPrice,
+        amount: itemQuantity,
       })
     );
-  }, [totalPrice, id, dispatch]);
+  }, [itemQuantity, id, dispatch]);
 
   const onChangeHandler = (event) => {
     setItemQuantity(event.target.value);

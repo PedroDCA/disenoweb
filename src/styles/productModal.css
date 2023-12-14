@@ -1,0 +1,54 @@
+/* Estilos para el modal */
+.custom-modal-style {
+    font-family: Arial, sans-serif;
+  }
+  
+  .custom-modal-style .swal2-popup {
+    background-color: #9b59b6; /* Fondo morado */
+    color: #fff; /* Texto blanco */
+    border-radius: 10px;
+  }
+  
+  .custom-modal-style .swal2-title {
+    color: #fff; /* Color del título */
+  }
+  
+  .custom-modal-style .swal2-content {
+    color: #fff; /* Color del contenido */
+  }
+  
+  .custom-modal-style .swal2-actions {
+    justify-content: center;
+  }
+  
+  .custom-modal-style .swal2-confirm {
+    background-color: #8e44ad; /* Fondo botón confirmar */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-modal-style .swal2-confirm:hover {
+    background-color: #9b59b6; /* Cambio al pasar el ratón */
+  }
+  
+  /* Ajustes generales para los campos de entrada en el modal */
+  .custom-modal-style input {
+    background-color: #f1eeff;
+    color: #401f4d;
+    border-radius: 5px;
+    border-color: #401f4d;
+    padding: 8px;
+    margin-bottom: 10px;
+    width: calc(100% - 22px); /* Reducir el ancho para alinear con otros inputs */
+    box-sizing: border-box;
+  }
+  
+  .custom-modal-style input[type="file"] {
+    border: none;
+    outline: none;
+  }
+  

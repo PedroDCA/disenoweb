@@ -60,7 +60,7 @@ function ProductDetail({ productInformation }) {
         </button>
         <div className="description">
           <p>Descripcion</p>
-          <p>{productInformation.descripcion}</p>
+          <p>{productInformation.details}</p>
         </div>
       </div>
     </div>
