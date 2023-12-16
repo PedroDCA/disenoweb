@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import VendorProduct from './vendorProduct';
 import { updateOrderStatusAsync } from '../service/orderService';
 import '../styles/vendorOrderHistory.css';
+import Swal from "sweetalert2";
 
 function VendorOrderHistorySection({ orderList, getCurrentUser }) {
   const [statuses, setStatuses] = useState({});
@@ -20,28 +21,45 @@ function VendorOrderHistorySection({ orderList, getCurrentUser }) {
   };
 
   const handleStatusChange = (index, status, orderId) => {
-    const currentUser = getCurrentUser(); // Obtener el usuario actual
+    const currentUser = getCurrentUser ? getCurrentUser() : { canUpdateOrders: true };
+    console.log('Current User:', currentUser); // Log the currentUser object
+  
     if (!currentUser.canUpdateOrders) {
-      alert('No tienes permisos para actualizar el estado de la orden.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Permiso denegado',
+        text: 'No tienes permisos para actualizar el estado de la orden.',
+      });
       return;
     }
-
+  
     const currentStatus = statuses[index] || orderList[index].state;
-
+  
     if (currentStatus === 'pending' && status !== 'sent') {
-      alert('No se puede cambiar el estado de "pending" a otro estado que no sea "sent".');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se puede cambiar el estado de "pending" a otro estado que no sea "sent".',
+      });
       return;
     }
-
-    const confirmed = window.confirm('¿Estás seguro de cambiar el estado?');
-    if (!confirmed) {
-      return;
-    }
-
-    const updatedStatuses = { ...statuses };
-    updatedStatuses[index] = status;
-    setStatuses(updatedStatuses);
-    updateOrderStatusAsync(orderId, status);
+  
+    Swal.fire({
+      icon: 'question',
+      title: '¿Estás seguro de cambiar el estado?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedStatuses = { ...statuses };
+        updatedStatuses[index] = status;
+        setStatuses(updatedStatuses);
+        updateOrderStatusAsync(orderId, status);
+      }
+    });
   };
 
   return (
