@@ -342,3 +342,21 @@ export const getProductsByVendorIdAsync = async (vendorId) => {
     throw error;
   }
 };
+
+export const getSoldProductsQuantityListByVendorIdAsync = async (vendorId) => {
+  const products = await getProductsByVendorIdAsync(vendorId);
+
+  const soldProducts = await Promise.all(
+    products.map(async (product) => {
+      const baseBoughtProducts = await getBaseBoughtProductsByProductIdAsync(
+        product.id
+      );
+      
+      const totalSold = baseBoughtProducts.reduce((accumulator, baseBoughtProduct) => Number(baseBoughtProduct.amount) + accumulator, 0);
+
+      return { ...product, totalSold };
+    })
+  );
+
+  return soldProducts;
+}
