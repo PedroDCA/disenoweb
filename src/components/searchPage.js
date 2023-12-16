@@ -13,8 +13,8 @@ import { useSelector } from "react-redux";
 
 function SearchPage() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [fullProductList, setFullProductList] = useState([]);
   const [productsToShow, setProductsToShow] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const cartElementList = useSelector((state) => state.cart.list);
   const cartProductIdList = cartElementList.map((element) => element.id);
@@ -30,41 +30,28 @@ const handleColorFilter = (color) => {
   }
 };
 
-  // Filtrar productos por término de búsqueda y/o color
-  const searchProductList = productsToShow.filter((product) => {
-    const matchesSearchTerm = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-
-    return matchesSearchTerm;
-  });
-
   // Obtener y establecer la lista de productos al cargar la página
   useEffect(() => {
     const fetchProducts = async () => {
       const products = await getSummaryProductListAsync();
-      setProductsToShow(products);
-      setFilteredProducts(products); // Inicializar la lista filtrada con todos los productos
+      setFullProductList(products);
     };
 
     fetchProducts();
   }, []);
 
   useEffect(() => {
-    const applyFilters = () => {
-      let filtered = productsToShow;
-  
-      // Aplicar filtro por término de búsqueda
-      filtered = filtered.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-  
-      console.log('Filtered Products:', filtered); // Mostrar los productos filtrados
+    if (fullProductList.length === 0) return; 
 
-      // Establecer los productos filtrados
-      setFilteredProducts(filtered);
-    };
+    let filtered = fullProductList.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   
-    applyFilters();
-  }, [searchTerm, productsToShow]);
+    console.log('Filtered Products:', filtered);
+  
+    setProductsToShow(filtered);
+  }, [searchTerm, fullProductList]);
+
   return (
     <>
       <header className="p-3 header_container w-100">
@@ -92,7 +79,7 @@ const handleColorFilter = (color) => {
 
         <div className="container">
           {/* Lista de productos filtrados */}
-          <ProductList productList={searchProductList} />
+          <ProductList productList={productsToShow} />
         </div>
       </main>
       <Footer />
