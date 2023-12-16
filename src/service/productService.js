@@ -5,6 +5,7 @@ import {
   getProductByIdAsync,
   getProductsByVendorIdAsync,
   getReceiptProductsByVendorIdAsync,
+  getSoldProductsQuantityListByVendorIdAsync,
   updateProductAsync,
 } from "../dataAccess/productDataAccess";
 import { getProductRatingsByProductIdAsync } from "../dataAccess/productRatingsDataAccess";
@@ -112,9 +113,8 @@ const getProductAverageRatingInformationAsync = async (productId) => {
  */
 export const getProductDetailByIdAsync = async (productId) => {
   const productData = await getProductByIdAsync(productId);
-  const { averageRating, reviewQuantity } = await getProductAverageRatingInformationAsync(
-    productId
-  );
+  const { averageRating, reviewQuantity } =
+    await getProductAverageRatingInformationAsync(productId);
   const vendorAverageRating = await getVendorAverageRatingAsync(
     productData.vendorId
   );
@@ -219,4 +219,24 @@ export const toggleProductActivation = async (productInformation) => {
     isActivated: !productInformation.isActivated,
   });
   return true;
+};
+
+const getVendorProductChartInformation = (product) => {
+  const chartInformation = {
+    name: getProductName(product),
+    totalSold: product.totalSold,
+  };
+
+  return chartInformation;
+};
+
+export const getMostSoldProductsByVendorIdAsync = async (vendorId) => {
+  const allSoldProducts = await getSoldProductsQuantityListByVendorIdAsync(
+    vendorId
+  );
+  const orderedSoldProducts = allSoldProducts.sort(
+    (firstSoldProduct, secondSoldProduct) =>
+      firstSoldProduct.totalSold + secondSoldProduct.totalSold
+  );
+  return orderedSoldProducts.slice(0, 2).map(getVendorProductChartInformation);
 };

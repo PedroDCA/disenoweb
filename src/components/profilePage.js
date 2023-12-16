@@ -3,6 +3,7 @@ import Header from "./header";
 import LogoSection from "./logoSection";
 import { useSelector } from "react-redux";
 import {
+  fetchChartInformationAsync,
   fetchOrderListAsync,
   fetchProductListAsync,
   fetchProfileInformationAsync,
@@ -18,6 +19,7 @@ function ProfilePage() {
   const [profileInformation, setProfileInformation] = useState({});
   const [productList, setProductList] = useState([]);
   const [orderList, setOrderList] = useState([]);
+  const [chartInformationList, setChartInformationList] = useState([]);
 
   useEffect(() => {
     if (!profileId) {
@@ -49,6 +51,16 @@ function ProfilePage() {
     );
   }, [profileId, profileType]);
 
+  useEffect(() => {
+    if (!profileId) {
+      return;
+    }
+
+    fetchChartInformationAsync(profileId, profileType).then((newOrderList) =>
+      setChartInformationList(newOrderList)
+    );
+  }, [profileId, profileType]);
+
   const [tabSelected, setTabSelected] = useState("profileInformation");
   const [renderedComponent, setRenderedComponent] = useState(<></>);
 
@@ -61,6 +73,7 @@ function ProfilePage() {
       profile: profileInformation,
       orderList,
       productList,
+      chartInformationList
     };
     const componentToRender = getComponentToRender(tabSelected, information);
 
@@ -69,7 +82,7 @@ function ProfilePage() {
     }
 
     setRenderedComponent(componentToRender);
-  }, [tabSelected, profileInformation, orderList, productList]);
+  }, [tabSelected, profileInformation, orderList, productList, chartInformationList]);
 
   return (
     <>
