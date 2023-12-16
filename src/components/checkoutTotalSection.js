@@ -3,6 +3,13 @@ import { formatPriceForColonCurrency } from "../service/priceService";
 import "../styles/checkoutTotalSection.css";
 
 function CheckoutTotalSection({ totalToPay, elementList }) {
+  let errorMessage = "";
+
+    if (totalToPay <= 0) {
+      errorMessage = "El total a pagar debe ser mayor que cero.";
+    }
+  
+
   return (
     <div className="checkout-container">
       <p className="total-label">Total</p>
@@ -18,6 +25,7 @@ function CheckoutTotalSection({ totalToPay, elementList }) {
           {formatPriceForColonCurrency(totalToPay)}
         </p>
       </div>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <Link to="/pay" state={{ total: totalToPay, itemList: elementList }}>
         <button disabled={totalToPay <= 0} className="btnCheckout">
           Checkout

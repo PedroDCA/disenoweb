@@ -1,17 +1,17 @@
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { completePaymentOrderAsync } from "../service/paymentService";
+import { clearCart } from "../store";
+import Swal from "sweetalert2";
 import Header from "./header";
 import LogoSection from "./logoSection";
-import { useEffect, useState } from "react";
 import BankCardForm from "./bankCardForm";
 import AddressForm from "./addressForm";
+import Footer from "./footer";
 import "../styles/paymentPage.css";
 import Img1 from "../images/MASTECARD.png";
 import Img2 from "../images/VISA.png";
-import Footer from "./footer";
-import { useDispatch, useSelector } from "react-redux";
-import { completePaymentOrderAsync } from "../service/paymentService";
-import Swal from "sweetalert2";
-import { clearCart } from "../store";
 
 function PaymentPage() {
   const { state } = useLocation();
@@ -19,37 +19,59 @@ function PaymentPage() {
   const dispatch = useDispatch();
   const itemList = useSelector((state) => state.cart.list);
   const userId = useSelector((state) => state.profile.id);
-  const isTotalPriceValid = state?.total > 0;
-  const isItemListValid = state?.itemList?.length > 0;
-  const [paymentInformation, setPaymentInformation] = useState({});
-  const [selectedPaymentInformation, setSelectedPaymentInformation] =
-    useState("");
+  const [selectedPaymentInformation, setSelectedPaymentInformation] = useState("");
+  const [bankFormValid, setBankFormValid] = useState(false);
+  const [addressFormValid, setAddressFormValid] = useState(false);
+
+  useEffect(() => {
+    if (!(state?.total > 0 && state?.itemList?.length > 0)) {
+      navigate("/");
+    }
+  }, [state, navigate]);
+
+  const handlePayment = async () => {
+    if (!selectedPaymentInformation || itemList.length < 1 || !bankFormValid || !addressFormValid) {
+      // Mensaje de error usando SweetAlert
+      if (!selectedPaymentInformation) {
+        await Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Por favor, selecciona un método de pago.',
+        });
+      }
+      if (itemList.length < 1) {
+        await Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Tu carrito está vacío. Agrega elementos antes de realizar el pago.',
+        });
+      }
+      if (!bankFormValid || !addressFormValid) {
+        await Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Por favor, completa todos los campos en los formularios.',
+        });
+      }
+      return;
+    }
+
+    try {
+      await completePaymentOrderAsync(userId, selectedPaymentInformation, itemList);
+      Swal.fire("¡Compra completada!");
+      dispatch(clearCart());
+      navigate("/");
+    } catch (error) {
+      console.error("Error al completar la compra:", error);
+      Swal.fire("Hubo un error al completar la compra.");
+    }
+  };
 
   const checkedHandler = (event) => {
     if (event.target.checked) {
       setSelectedPaymentInformation({ type: event.target.value });
     }
   };
-
-  useEffect(() => {
-    if (!isTotalPriceValid || !isItemListValid) {
-      navigate("/");
-      return;
-    }
-  }, [isTotalPriceValid, isItemListValid, navigate]);
-
-  useEffect(() => {
-    if (!paymentInformation.type || itemList.length < 1) {
-      return;
-    }
-
-    completePaymentOrderAsync(userId, paymentInformation, itemList);
-
-    Swal.fire("Compra completada!").then(() => {
-      dispatch(clearCart());
-      navigate("/");
-    });
-  }, [userId, paymentInformation, itemList, dispatch, navigate]);
 
   return (
     <>
@@ -86,17 +108,14 @@ function PaymentPage() {
           </div>
           <div className="payment-container">
             <div className="bank-container">
-              <BankCardForm />
+              <BankCardForm setBankFormValid={setBankFormValid} />
             </div>
             <div className="address-container">
-              <AddressForm />
+              <AddressForm setAddressFormValid={setAddressFormValid} />
             </div>
           </div>
           <div className="container-btn">
-            <button
-              className="btn-comprar"
-              onClick={() => setPaymentInformation(selectedPaymentInformation)}
-            >
+            <button className="btn-comprar" onClick={handlePayment}>
               Comprar
             </button>
           </div>
