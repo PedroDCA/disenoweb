@@ -75,7 +75,9 @@ function PaymentPage() {
 
   return (
     <>
-      <Header />
+      <header className="p-3 header_container w-100">
+        <Header />
+      </header>
       <main>
         <LogoSection />
         <div className="container">
