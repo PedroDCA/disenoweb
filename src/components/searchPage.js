@@ -18,7 +18,7 @@ function SearchPage() {
 
   const cartElementList = useSelector((state) => state.cart.list);
   const cartProductIdList = cartElementList.map((element) => element.id);
- 
+  
   // Función para filtrar por color
 const handleColorFilter = (color) => {
   const normalizedColor = color.toLowerCase();
@@ -41,16 +41,16 @@ const handleColorFilter = (color) => {
   }, []);
 
   useEffect(() => {
-    if (fullProductList.length === 0) return; 
-
+    if (fullProductList.length === 0) return;
+  
     let filtered = fullProductList.filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   
-    console.log('Filtered Products:', filtered);
-  
-    setProductsToShow(filtered);
-  }, [searchTerm, fullProductList]);
+    const formattedProducts = formatProductListForSearchPage(filtered, cartProductIdList);
+    
+    setProductsToShow(formattedProducts);
+  }, [searchTerm, fullProductList, cartProductIdList]);
 
   return (
     <>
