@@ -28,7 +28,7 @@ function ProductDetail({ productInformation }) {
         <div className="star-section">
           <p>★★★★☆</p>
           <p>
-            {productInformation.ratingAverage} (
+            {productInformation.averageRating} (
             {productInformation.reviewQuantity} reviews)
           </p>
         </div>
