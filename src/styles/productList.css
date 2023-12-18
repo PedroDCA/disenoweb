@@ -18,8 +18,41 @@
     background-position: 0 80%; /* Posiciona el subrayado en la parte inferior del texto */
     background-repeat: no-repeat; /* Evita que se repita el degradado */
 }
+/* Estilo para el contenedor del campo de búsqueda */
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px; /* Ajusta el ancho máximo según tu diseño */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
 
+/* Estilo para el campo de búsqueda */
+.searchBar {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
 
+/* Estilo para el botón de búsqueda */
+.search-button {
+  background: #fff;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Estilo para la imagen dentro del botón */
+.search-button img {
+  width: 40; /* Ajusta el tamaño del ícono según lo necesites */
+  height: 40px;
+  display: block; /* Elimina el espacio adicional alrededor de la imagen */
+}
 @font-face
 {
   font-family: Gusto-Italic;

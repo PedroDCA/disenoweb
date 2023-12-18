@@ -5,6 +5,7 @@ import {
   getProductByIdAsync,
   getProductsByVendorIdAsync,
   getReceiptProductsByVendorIdAsync,
+  getSoldProductsQuantityListByVendorIdAsync,
   updateProductAsync,
 } from "../dataAccess/productDataAccess";
 import { getProductRatingsByProductIdAsync } from "../dataAccess/productRatingsDataAccess";
@@ -95,13 +96,14 @@ export const formatProductForDetailPage = (product, cartItemIdList) => {
  * @param {string} productId - The unique identifier of the product.
  * @returns {number} The average rating of the product.
  */
-const getProductAverageRatingAsync = async (productId) => {
+const getProductAverageRatingInformationAsync = async (productId) => {
   const productRatings = await getProductRatingsByProductIdAsync(productId);
+  const reviewQuantity = productRatings.length;
   const totalRatings = productRatings.reduce((accummulator, productRating) => {
     return accummulator + Number(productRating.rate);
   }, 0);
-  const averageRating = totalRatings / productRatings.length;
-  return averageRating;
+  const averageRating = totalRatings / reviewQuantity || 0;
+  return { averageRating, reviewQuantity };
 };
 
 /**
@@ -111,7 +113,8 @@ const getProductAverageRatingAsync = async (productId) => {
  */
 export const getProductDetailByIdAsync = async (productId) => {
   const productData = await getProductByIdAsync(productId);
-  const productAverageRating = await getProductAverageRatingAsync(productId);
+  const { averageRating, reviewQuantity } =
+    await getProductAverageRatingInformationAsync(productId);
   const vendorAverageRating = await getVendorAverageRatingAsync(
     productData.vendorId
   );
@@ -119,7 +122,8 @@ export const getProductDetailByIdAsync = async (productId) => {
   const productDetailInformation = {
     ...productData,
     imageUrl: getProductImage(productId),
-    averageRating: productAverageRating,
+    averageRating,
+    reviewQuantity,
     vendorAverageRating: vendorAverageRating,
     vendorName,
   };
@@ -139,6 +143,9 @@ const getOrderForUserHistory = (orderInformation) => {
     vendor: orderInformation.vendor.name,
     amount: orderInformation.amount,
     individualPrice: orderInformation.product.price,
+    isProductRated: orderInformation.isProductRated || false,
+    isVendorRated: orderInformation.isVendorRated || false,
+    id: orderInformation.id,
   };
 
   return order;
@@ -185,7 +192,7 @@ export const getProductInformationForVendor = (product, vendorName) => {
     details: product.details,
     material: product.material,
     id: product.id,
-    isActivated: product.isActivated
+    isActivated: product.isActivated,
   };
   return summaryProduct;
 };
@@ -212,4 +219,24 @@ export const toggleProductActivation = async (productInformation) => {
     isActivated: !productInformation.isActivated,
   });
   return true;
+};
+
+const getVendorProductChartInformation = (product) => {
+  const chartInformation = {
+    name: getProductName(product),
+    totalSold: product.totalSold,
+  };
+
+  return chartInformation;
+};
+
+export const getMostSoldProductsByVendorIdAsync = async (vendorId) => {
+  const allSoldProducts = await getSoldProductsQuantityListByVendorIdAsync(
+    vendorId
+  );
+  const orderedSoldProducts = allSoldProducts.sort(
+    (firstSoldProduct, secondSoldProduct) =>
+      firstSoldProduct.totalSold + secondSoldProduct.totalSold
+  );
+  return orderedSoldProducts.slice(0, 2).map(getVendorProductChartInformation);
 };

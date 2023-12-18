@@ -58,7 +58,10 @@ export const deleteProductAsync = async (productId) => {
  * @param {Object} updatedproductInfo New information to be updated for the product.
  * @returns A promise about the update transaction.
  */
-export const updateProductAsync = async (productId, updatedProductInformation) => {
+export const updateProductAsync = async (
+  productId,
+  updatedProductInformation
+) => {
   const newProductInformation = {
     color: updatedProductInformation.color,
     details: updatedProductInformation.details,
@@ -66,7 +69,7 @@ export const updateProductAsync = async (productId, updatedProductInformation) =
     price: updatedProductInformation.price,
     storage: updatedProductInformation.storage,
     isActivated: updatedProductInformation.isActivated,
-  }
+  };
   try {
     const productDocRef = doc(
       collection(database, productCollectionName),
@@ -113,6 +116,23 @@ export const getProductByIdAsync = async (productId) => {
     const productDocRef = doc(
       collection(database, productCollectionName),
       productId
+    );
+    const result = await getDoc(productDocRef);
+    const id = result.id;
+    console.log("Documents successfully found!");
+    return { ...result.data(), id };
+  } catch (error) {
+    console.error("Error finding documents: ", error);
+    throw error;
+  }
+};
+
+
+export const getProductBoughtByIdAsync = async (productBoughtId) => {
+  try {
+    const productDocRef = doc(
+      collection(database, productBoughtCollectionName),
+      productBoughtId
     );
     const result = await getDoc(productDocRef);
     const id = result.id;
@@ -225,18 +245,20 @@ export const getBoughtProductsByUserIdAsync = async (userId) => {
 export const getReceiptProductsByVendorIdAsync = async (vendorId) => {
   const products = await getProductsByVendorIdAsync(vendorId);
   const vendorInformation = await getVendorByIdAsync(vendorId);
-  const boughtProductListByProduct = await Promise.all(products.map(async (product) => {
-    const baseBoughtProducts = await getBaseBoughtProductsByProductIdAsync(
-      product.id
-    );
-    const boughtProducts = baseBoughtProducts.map((baseBoughtProduct) => ({
-      ...baseBoughtProduct,
-      product,
-      vendor: vendorInformation,
-    }));
+  const boughtProductListByProduct = await Promise.all(
+    products.map(async (product) => {
+      const baseBoughtProducts = await getBaseBoughtProductsByProductIdAsync(
+        product.id
+      );
+      const boughtProducts = baseBoughtProducts.map((baseBoughtProduct) => ({
+        ...baseBoughtProduct,
+        product,
+        vendor: vendorInformation,
+      }));
 
-    return boughtProducts;
-  }));
+      return boughtProducts;
+    })
+  );
 
   const boughtProductList = boughtProductListByProduct.reduce(
     (accumulator, list) => accumulator.concat(list),
@@ -266,6 +288,23 @@ export const getReceiptProductsByVendorIdAsync = async (vendorId) => {
   );
 
   return boughtProductListByReceipt;
+};
+
+export const updateProductBoughtAsync = async (
+  productBoughtId,
+  productBoughtInformation
+) => {
+  try {
+    const productBoughtDocRef = doc(
+      collection(database, productBoughtCollectionName),
+      productBoughtId
+    );
+    await updateDoc(productBoughtDocRef, productBoughtInformation);
+    console.log("Document successfully updated!");
+  } catch (error) {
+    console.error("Error updating document: ", error);
+    throw error;
+  }
 };
 
 export const addProductBoughtAsync = async (productId, amount, receiptId) => {
@@ -303,3 +342,21 @@ export const getProductsByVendorIdAsync = async (vendorId) => {
     throw error;
   }
 };
+
+export const getSoldProductsQuantityListByVendorIdAsync = async (vendorId) => {
+  const products = await getProductsByVendorIdAsync(vendorId);
+
+  const soldProducts = await Promise.all(
+    products.map(async (product) => {
+      const baseBoughtProducts = await getBaseBoughtProductsByProductIdAsync(
+        product.id
+      );
+      
+      const totalSold = baseBoughtProducts.reduce((accumulator, baseBoughtProduct) => Number(baseBoughtProduct.amount) + accumulator, 0);
+
+      return { ...product, totalSold };
+    })
+  );
+
+  return soldProducts;
+}

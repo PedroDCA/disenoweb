@@ -1,8 +1,9 @@
 import ProfileInformationSection from "../components/profileInformationSection";
 import UserOrderHistorySection from "../components/userOrderHistorySection";
+import VendorChart from "../components/vendorChart";
 import VendorOrderHistorySection from "../components/vendorOrderHistorySection";
 import VendorProductList from "../components/vendorProductList";
-import { getUserOrderHistoryByUserIdAsync, getAllProductsByVendorIdAsync, getVendorOrderHistoryByVendorIdAsync} from "./productService";
+import { getUserOrderHistoryByUserIdAsync, getAllProductsByVendorIdAsync, getVendorOrderHistoryByVendorIdAsync, getMostSoldProductsByVendorIdAsync} from "./productService";
 import { getUserInformationForProfilePageByUserId, updateProfileUserInformationAsync } from "./userService";
 import { getVendorInformationForProfilePageByVendorId, updateProfileVendorInformationAsync } from "./vendorService";
 
@@ -34,6 +35,20 @@ export const fetchOrderListAsync = async (id, type) => {
   return [];
 };
 
+
+export const fetchChartInformationAsync = async (id, type) => {
+  if (type === "user") {
+    return [];
+  }
+
+  if (type === "vendor") {
+    const mostSoldProductsList = await getMostSoldProductsByVendorIdAsync(id);
+    return mostSoldProductsList;
+  }
+
+  return [];
+};
+
 export const getTabList = (profileType) => {
   if (profileType === "user") {
     return [
@@ -47,6 +62,7 @@ export const getTabList = (profileType) => {
       { type: "profileInformation", name: "Panel Vendedor" },
       { type: "productList", name: "Productos" },
       { type: "vendorOrderHistory", name: "Pedidos" },
+      { type: "vendorChart", name: "Graficos" }
     ];
   }
 
@@ -82,6 +98,10 @@ export const getComponentToRender = (componentType, information) => {
 
   if (componentType === "vendorOrderHistory") {
     return <VendorOrderHistorySection orderList={information.orderList} />;
+  }
+
+  if (componentType === "vendorChart") {
+    return <VendorChart productList={information.chartInformationList}/>
   }
 
   return <></>;
