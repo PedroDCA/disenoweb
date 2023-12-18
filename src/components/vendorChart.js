@@ -17,7 +17,7 @@ const options = {
     },
     title: {
       display: true,
-      text: "Productos mas comprados",
+      text: "Productos más comprados",
     },
   },
 };

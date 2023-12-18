@@ -18,8 +18,8 @@ function ProductDetail({ productInformation }) {
 
     const renderStars = () => {
       return [1, 2, 3, 4, 5].map(index => {
-        const filled = index <= Math.floor(productInformation.ratingAverage);
-        const half = index === Math.ceil(productInformation.ratingAverage) && productInformation.ratingAverage % 1 !== 0;
+        const filled = index <= Math.floor(productInformation.averageRating);
+        const half = index === Math.ceil(productInformation.averageRating) && productInformation.averageRating % 1 !== 0;
         return <Star key={index} filled={filled} half={half} />;
       });
     };
@@ -31,10 +31,10 @@ function ProductDetail({ productInformation }) {
       </div>
       <div>
         <div>
-          <p id="categories-title">Categorias</p>
+          <p id="categories-title">Categorías</p>
           <div>
-            <p id="categories">Categoria 1</p>
-            <p id="categories">Categoria 2</p>
+            <p id="categories">Categoría 1</p>
+            <p id="categories">Categoría 2</p>
           </div>
         </div>
         <h2 className="product-title">{productInformation.name}</h2>

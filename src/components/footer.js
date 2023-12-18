@@ -13,7 +13,7 @@ function Footer() {
           </div>
 
           <div className="col-xs-6 col-md-3">
-            <h6>Categorias</h6>
+            <h6>Categorías</h6>
             <ul className="footer-links">
               <li><Link to="/search"><p>Deportivas</p></Link></li>
               <li><Link to="/search"><p>Rosadas</p></Link></li>

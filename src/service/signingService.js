@@ -89,7 +89,7 @@ export const signUpProfile = async (fullName, email, password, profileType) => {
     return {};
   } catch (error) {
     if (error.code === AuthErrorCodes.WEAK_PASSWORD) {
-        return { error: "Contrasena debil" }; 
+        return { error: "Contrasena débil" }; 
     }
 
     return { error: "Usuario ya existente" };;
