@@ -5,9 +5,6 @@ import "../styles/productDetail.css"
 import Star from "./star";
 
 function ProductDetail({ productInformation }) {
-
-
-
   const dispatch = useDispatch();
   if (!productInformation?.id) {
     return (<h1 className="cargando">Cargando</h1>);
@@ -59,7 +56,7 @@ function ProductDetail({ productInformation }) {
           {buttonText}
         </button>
         <div className="description">
-          <p>Descripcion</p>
+          <p>Descripción</p>
           <p>{productInformation.details}</p>
         </div>
       </div>
