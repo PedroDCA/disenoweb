@@ -17,7 +17,29 @@ const options = {
     },
     title: {
       display: true,
-      text: "Productos mas comprados",
+      text: "Productos más comprados",
+      font: {
+        family: 'Arial', 
+        size: 25, 
+      },
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        font: {
+          family: 'Arial', 
+          size: 15, 
+        },
+      },
+    },
+    y: {
+      ticks: {
+        font: {
+          family: 'Arial', 
+          size: 15, 
+        },
+      },
     },
   },
 };
@@ -30,12 +52,18 @@ function VendorChart({ productList }) {
     datasets: [
       {
         data: productList.map((product) => product.totalSold),
+        backgroundColor: 'rgba(75, 0, 130, 0.7)',
         borderWidth: 1,
       },
     ],
   };
+
+  const containerStyle = {
+    marginBottom: '30px',
+  };
+
   return (
-    <div>
+    <div style={containerStyle}>
       <Bar data={data} options={options} />
     </div>
   );

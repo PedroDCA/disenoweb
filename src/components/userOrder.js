@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { addNewProductRatingAsync, addNewVendorRatingAsync } from "../service/ratingService";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Logo from "../images/logo.png";
 
 const swalReact = withReactContent(Swal);
 
@@ -40,7 +41,20 @@ function UserOrder({ orderInformation }) {
     swalReact
       .fire({
         title: "Calificar Producto",
-        html: <input name="rating" type="number" min={1} max={5} />,
+        html: (
+          <div className="custom-rating-form">
+            <img src={Logo} alt="Logo" className="w-25 logo" />
+            <h2 className="modal-title">¡Su opinión nos importa!</h2>
+            <p htmlFor="rating">Por favor, déjenos saber su calificación.</p>
+            <input
+              name="rating"
+              type="number"
+              min={1}
+              max={5}
+              className="rating-input"
+            />
+          </div>
+        ),
         confirmButtonText: "Confirmar",
         focusConfirm: false,
         customClass: {
@@ -49,19 +63,33 @@ function UserOrder({ orderInformation }) {
         preConfirm: () => {
           const popup = swalReact.getPopup();
           const ratingElement = popup.querySelector("input[name='rating']");
-
+  
           return Number(ratingElement.value) || 1;
         },
       })
       .then(createProductRatingAsync)
       .then(onRatingCreation);
   };
+  
 
   const openNewVendirRatingModal = () => {
     swalReact
       .fire({
         title: "Calificar Vendedor",
-        html: <input name="rating" type="number" min={1} max={5} />,
+        html: (
+          <div className="custom-rating-form">
+            <img src={Logo} alt="Logo" className="w-25 logo" />
+            <h2 className="modal-title">¡Su opinión nos importa!</h2>
+            <p htmlFor="rating">Por favor, déjenos saber su calificación.</p>
+            <input
+              name="rating"
+              type="number"
+              min={1}
+              max={5}
+              className="rating-input"
+            />
+          </div>
+        ),
         confirmButtonText: "Confirmar",
         focusConfirm: false,
         customClass: {
