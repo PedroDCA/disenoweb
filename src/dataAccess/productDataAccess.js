@@ -127,7 +127,6 @@ export const getProductByIdAsync = async (productId) => {
   }
 };
 
-
 export const getProductBoughtByIdAsync = async (productBoughtId) => {
   try {
     const productDocRef = doc(
@@ -265,27 +264,33 @@ export const getReceiptProductsByVendorIdAsync = async (vendorId) => {
     []
   );
 
-  const boughtProductListByReceipt = await boughtProductList.reduce(
-    async (accumulator, boughtProduct) => {
-      const receiptGroupIndex = boughtProductList.findIndex(
-        (receiptGroup) => receiptGroup.id === boughtProduct.receiptId
+  const boughtProductListByReceipt = [];
+
+  for (const boughtProduct of boughtProductList) {
+    const receiptGroupIndex = boughtProductListByReceipt.findIndex(
+      (receiptGroup) => receiptGroup.id === boughtProduct.receiptId
+    );
+
+    if (receiptGroupIndex > -1) {
+      boughtProductListByReceipt[receiptGroupIndex].products.push(
+        boughtProduct
       );
-      if (receiptGroupIndex > -1) {
-        accumulator[receiptGroupIndex].products.push(boughtProduct);
-        return accumulator;
+    } else {
+      try {
+        const receiptInformation = await getReceiptByIdAsync(
+          boughtProduct.receiptId
+        );
+        const newReceiptGroup = {
+          ...receiptInformation,
+          products: [boughtProduct],
+        };
+        boughtProductListByReceipt.push(newReceiptGroup);
+      } catch (error) {
+        // Handle error fetching receipt information
+        console.error("Error fetching receipt information:", error);
       }
-      const receiptInformation = await getReceiptByIdAsync(
-        boughtProduct.receiptId
-      );
-      const newReceiptGroup = {
-        ...receiptInformation,
-        products: [boughtProduct],
-      };
-      accumulator.push(newReceiptGroup);
-      return accumulator;
-    },
-    []
-  );
+    }
+  }
 
   return boughtProductListByReceipt;
 };
@@ -351,12 +356,16 @@ export const getSoldProductsQuantityListByVendorIdAsync = async (vendorId) => {
       const baseBoughtProducts = await getBaseBoughtProductsByProductIdAsync(
         product.id
       );
-      
-      const totalSold = baseBoughtProducts.reduce((accumulator, baseBoughtProduct) => Number(baseBoughtProduct.amount) + accumulator, 0);
+
+      const totalSold = baseBoughtProducts.reduce(
+        (accumulator, baseBoughtProduct) =>
+          Number(baseBoughtProduct.amount) + accumulator,
+        0
+      );
 
       return { ...product, totalSold };
     })
   );
 
   return soldProducts;
-}
+};
