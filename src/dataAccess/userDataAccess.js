@@ -48,7 +48,7 @@ export const updateUserByIdAsync = async (userId, updatedUserInfo) => {
         name: updatedUserInfo.name,
         lastName: updatedUserInfo.lastName,
         email: updatedUserInfo.email,
-        phone: updatedUserInfo.phone,
+        phone: updatedUserInfo.phoneNumber,
         uid: userId,
     }
     try {

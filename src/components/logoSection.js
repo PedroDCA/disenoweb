@@ -11,8 +11,6 @@ function LogoSection()
           <img src={Logo} alt="Logo" className="w-25 logo" />
       </div>
       <div className="d-flex justify-content-center pt-3">
-          <span>Explorar🠻</span>
-          <span>Mejor vendidas</span>
       </div>
         <Link to="/" className="d-flex align-items-center mb-2 mb-lg-0 bootle-up-link">
           bottle up.

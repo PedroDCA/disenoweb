@@ -14,7 +14,6 @@ function VendorProduct({ productInformation }) {
       <td>{productInformation.color}</td>
       <td>{productInformation.storage}ml</td>
       <td>{productInformation.vendorName}</td>
-      <td className="vendor-product-labels">{productInformation.labels?.join?.(", ")}</td>
     </>
   );
 }

@@ -159,7 +159,6 @@ function VendorProductList({ productList }) {
                       <td className="vendor-product-title">Color</td>
                       <td className="vendor-product-title">Tamaño</td>
                       <td className="vendor-product-title">Vendedor</td>
-                      <td className="vendor-product-title">Etiquetas</td>
                     </tr>
                   </thead>
                   <tbody>

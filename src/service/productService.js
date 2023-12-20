@@ -53,7 +53,8 @@ const mapToSummaryProduct = (product) => {
  */
 export const getSummaryProductListAsync = async () => {
   const products = await getAllProductsAsync();
-  const summaryProducts = products.map(mapToSummaryProduct);
+  const productsToShow = products.filter((product) => product.isActivated);
+  const summaryProducts = productsToShow.map(mapToSummaryProduct);
   return summaryProducts;
 };
 
@@ -236,7 +237,7 @@ export const getMostSoldProductsByVendorIdAsync = async (vendorId) => {
   );
   const orderedSoldProducts = allSoldProducts.sort(
     (firstSoldProduct, secondSoldProduct) =>
-      firstSoldProduct.totalSold + secondSoldProduct.totalSold
+      secondSoldProduct.totalSold - firstSoldProduct.totalSold
   );
   return orderedSoldProducts.slice(0, 2).map(getVendorProductChartInformation);
 };
