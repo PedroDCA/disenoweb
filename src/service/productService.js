@@ -127,6 +127,7 @@ export const getProductDetailByIdAsync = async (productId) => {
     reviewQuantity,
     vendorAverageRating: vendorAverageRating,
     vendorName,
+    name: getProductName(productData)
   };
   return productDetailInformation;
 };

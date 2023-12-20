@@ -27,13 +27,6 @@ function ProductDetail({ productInformation }) {
         <img src={productInformation.imageUrl} alt="Product" className="product-image"/>
       </div>
       <div>
-        <div>
-          <p id="categories-title">Categorías</p>
-          <div>
-            <p id="categories">Categoría 1</p>
-            <p id="categories">Categoría 2</p>
-          </div>
-        </div>
         <h2 className="product-title">{productInformation.name}</h2>
         <div className="star-section">
           <p>{renderStars()}</p>
