@@ -86,7 +86,7 @@ function ProfileInformationSection({ userInformation }) {
         <button onClick={() => {
           dispatch(logOut());
           navigate("/");
-        }}>Salir de sesion</button>
+        }}>Salir de sesión</button>
       </div>
     </div>
   );

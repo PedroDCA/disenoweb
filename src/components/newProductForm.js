@@ -16,7 +16,7 @@ function NewProductForm({ baseProductInformation }) {
         </>
       )}
 
-      <p>Descripcion</p>
+      <p>Descripción</p>
       <input
         type="text"
         name="details"

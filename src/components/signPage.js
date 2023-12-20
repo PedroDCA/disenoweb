@@ -154,7 +154,7 @@ function SignPage() {
           <div className="form-container register-container">
             <div className="form">
               <form data-form>
-                <h1 className="loginTitle">Registrese aquí</h1>
+                <h1 className="loginTitle">Regístrese aquí</h1>
                 <input
                   id="register_fullName"
                   type="text"
