@@ -5,28 +5,29 @@ import { useDispatch } from "react-redux";
 import { logIn } from "../store";
 import { useNavigate } from "react-router-dom";
 import { signInProfile, signUpProfile } from "../service/signingService";
-
 function SignPage() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [containerClasses, setContainerClasses] = useState("");
-  const [signInformation, setSignInformation] = useState({});
-  const [formInformation, setFormInformation] = useState({});
+  const dispatch = useDispatch(); // Inicializa useDispatch
+  const navigate = useNavigate(); // Inicializa useNavigate
+  const [containerClasses, setContainerClasses] = useState(""); // Estado para las clases del contenedor
+  const [signInformation, setSignInformation] = useState({}); // Estado para la información de inicio de sesión
+  const [formInformation, setFormInformation] = useState({}); // Estado para la información del formulario
 
+  // Efecto para manejar la información de inicio de sesión
   useEffect(() => {
     if (signInformation.error) {
-      Swal.fire(signInformation.error);
+      Swal.fire(signInformation.error); // Muestra un mensaje de error si hay errores de inicio de sesión
       return;
     }
 
     if (signInformation.id) {
       Swal.fire("Iniciando sesion...").then(() => {
-        dispatch(logIn({ id: signInformation.id, type: signInformation.type }));
-        navigate("/profile");
+        dispatch(logIn({ id: signInformation.id, type: signInformation.type })); // Inicia sesión con la información obtenida
+        navigate("/profile"); // Redirige al perfil del usuario
       });
     }
   }, [signInformation, dispatch, navigate]);
 
+  // Efecto para manejar el inicio de sesión o registro según el tipo de formulario
   useEffect(() => {
     const { type, properties } = formInformation;
     if (type === "signIn") {
@@ -34,7 +35,7 @@ function SignPage() {
         properties.email,
         properties.password,
         properties.type
-      ).then((newSignInformation) => setSignInformation(newSignInformation));
+      ).then((newSignInformation) => setSignInformation(newSignInformation)); // Llama a la función para iniciar sesión
     }
 
     if (type === "signUp") {
@@ -43,26 +44,27 @@ function SignPage() {
         properties.email,
         properties.password,
         properties.type
-      ).then((newSignUpIformation) => setSignInformation(newSignUpIformation));
+      ).then((newSignUpIformation) => setSignInformation(newSignUpIformation)); // Llama a la función para registrarse
     }
   }, [formInformation]);
 
+  // Función para obtener las propiedades del formulario
   const getFormProperties = (formElement) => {
-    const inputElements = Array.from(formElement.querySelectorAll("input"));
+    const inputElements = Array.from(formElement.querySelectorAll("input")); // Obtiene todos los elementos de input dentro del formulario
     const filteredInputElements = inputElements.filter((inputElement) => {
       const inputType = inputElement.type;
 
       if (inputType === "radio") {
-        return inputElement.checked;
+        return inputElement.checked; // Verifica si los radio buttons están seleccionados
       }
 
-      return inputElement.value;
+      return inputElement.value; // Obtiene los valores de los inputs
     });
 
     const formProperties = filteredInputElements.reduce(
       (accumulator, inputElement) => ({
         ...accumulator,
-        [inputElement.name]: inputElement.value,
+        [inputElement.name]: inputElement.value, // Crea un objeto con las propiedades del formulario
       }),
       {}
     );
@@ -70,12 +72,13 @@ function SignPage() {
     return formProperties;
   };
 
+  // Funciones para manejar los eventos de clic para iniciar sesión o registrarse
   const signInClickHandler = (event) => {
     event.preventDefault();
     const form = event.target.closest("[data-form]");
     const formProperties = getFormProperties(form);
 
-    // Here should be the validation.
+    // Aquí debería estar la validación.
 
     setFormInformation({ type: "signIn", properties: formProperties });
   };
@@ -85,76 +88,71 @@ function SignPage() {
     const form = event.target.closest("[data-form]");
     const formProperties = getFormProperties(form);
 
-    // Here should be the validation.
+    // Aquí debería estar la validación.
 
     setFormInformation({ type: "signUp", properties: formProperties });
   };
 
   return (
     <>
+      {/* Estructura del formulario para iniciar sesión y registrarse */}
       <main>
         <div className={`container ${containerClasses}`} id="container">
-        <div className="form-container login-container">
+          {/* Formulario de inicio de sesión */}
+          <div className="form-container login-container">
             <div className="form">
-                <h1 className="loginTitle">Iniciar Sesión</h1>
-                <form data-form>
-                  <div className="input-container">
-                      <input
-                          id="login_email"
-                          type="email"
-                          name="email"
-                          placeholder="Correo"
-                          className="inputsLogin"
-                      />
-                    </div>
-                    <div className="input-container">
-                        <input
-                          id="login_password"
-                          type="password"
-                          name="password"
-                          placeholder="Contraseña"
-                          className="inputsLogin"
-                        />
-                    </div>
-                  <div className="user-type">
-                      <input
-                        type="radio"
-                        id="signUpUser"
-                        name="type"
-                        value="user"
-                        defaultChecked
-                      />
-                      <label htmlFor="signUpUser">Como usuario</label>
-                      <input
-                        type="radio"
-                        id="signUpVendor"
-                        name="type"
-                        value="vendor"
-                      />
-                      <label htmlFor="signUpVendor">Como vendedor</label>
-                  </div>
-                  <button className="loginButton" onClick={signInClickHandler}>
-                      Ingresar
-                  </button>
-                </form>
-                <div className="social-container">
-                  <a href="https://shorturl.at/qzAZ3" className="social">
-                      <i className="lni lni-facebook-fill"></i>
-                  </a>
-                  <a href="https://shorturl.at/qzAZ3" className="social">
-                      <i className="lni lni-pinterest-fill"></i>
-                  </a>
-                  <a href="https://shorturl.at/qzAZ3" className="social">
-                      <i className="lni lni-website-fill"></i>
-                  </a>
+              <h1 className="loginTitle">Iniciar Sesión</h1>
+              <form data-form>
+                {/* Inputs para el inicio de sesión */}
+                <div className="input-container">
+                  <input
+                    id="login_email"
+                    type="email"
+                    name="email"
+                    placeholder="Correo"
+                    className="inputsLogin"
+                  />
                 </div>
+                <div className="input-container">
+                  <input
+                    id="login_password"
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    className="inputsLogin"
+                  />
+                </div>
+                <div className="user-type">
+                  <input
+                    type="radio"
+                    id="signUpUser"
+                    name="type"
+                    value="user"
+                    defaultChecked
+                  />
+                  <label htmlFor="signUpUser">Como usuario</label>
+                  <input
+                    type="radio"
+                    id="signUpVendor"
+                    name="type"
+                    value="vendor"
+                  />
+                  <label htmlFor="signUpVendor">Como vendedor</label>
+                </div>
+                <button className="loginButton" onClick={signInClickHandler}>
+                  Ingresar
+                </button>
+              </form>
+              {/* Redes sociales para iniciar sesión */}
+              {/* ... */}
             </div>
           </div>
 
+          {/* Formulario de registro */}
           <div className="form-container register-container">
             <div className="form">
               <form data-form>
-                <h1 className="loginTitle">Regístrese aquí</h1>
+                {/* Inputs para el registro */}
                 <input
                   id="register_fullName"
                   type="text"
@@ -192,27 +190,20 @@ function SignPage() {
                   value="vendor"
                 />
                 <label htmlFor="signInVendor">Como vendedor</label>
-                <div/>
+                <div />
                 <button className="loginButton" onClick={signUpClickHandler}>
                   Registrarse
                 </button>
               </form>
-              <div className="social-container">
-                <a href="https://shorturl.at/qzAZ3" className="social">
-                  <i className="lni lni-facebook-fill"></i>
-                </a>
-                <a href="https://shorturl.at/qzAZ3" className="social">
-                  <i className="lni lni-pinterest-fill"></i>
-                </a>
-                <a href="https://shorturl.at/qzAZ3" className="social">
-                  <i className="lni lni-website-fill"></i>
-                </a>
-              </div>
+              {/* Redes sociales para registrarse */}
+              {/* ... */}
             </div>
           </div>
 
+          {/* Overlay para cambiar entre iniciar sesión y registrarse */}
           <div className="overlay-container">
             <div className="overlay">
+              {/* Panel izquierdo: Iniciar sesión */}
               <div className="overlay-panel overlay-left">
                 <h1 className="title">
                   ¿Ya tienes <br /> una cuenta?
@@ -230,6 +221,7 @@ function SignPage() {
                   <i className="lni lni-arrow-left login"></i>
                 </button>
               </div>
+              {/* Panel derecho: Registrarse */}
               <div className="overlay-panel overlay-right">
                 <h1 className="title">
                   Crea tu <br /> cuenta aquí

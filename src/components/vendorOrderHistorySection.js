@@ -3,28 +3,31 @@ import VendorProduct from './vendorProduct';
 import { updateOrderStatusAsync } from '../service/orderService';
 import '../styles/vendorOrderHistory.css';
 import Swal from "sweetalert2";
-
 function VendorOrderHistorySection({ orderList, getCurrentUser }) {
-  const [statuses, setStatuses] = useState({});
+  const [statuses, setStatuses] = useState({}); // Estado para almacenar los estados de las órdenes
 
+  // Función para obtener la clase de estilo según el estado de la orden
   const getStatusClass = (status) => {
     switch (status) {
       case 'ready':
-        return 'completed';
+        return 'completed'; // Estilo para órdenes completadas
       case 'pending':
-        return 'pending';
+        return 'pending'; // Estilo para órdenes pendientes
       case 'sent':
-        return 'sent';
+        return 'sent'; // Estilo para órdenes enviadas
       default:
         return '';
     }
   };
 
+  // Función para manejar el cambio de estado de la orden
   const handleStatusChange = (index, status, orderId) => {
     const currentUser = getCurrentUser ? getCurrentUser() : { canUpdateOrders: true };
-    console.log('Current User:', currentUser); // Log the currentUser object
-  
+    console.log('Current User:', currentUser); // Loguea el objeto currentUser
+
+    // Verifica si el usuario actual tiene permiso para actualizar órdenes
     if (!currentUser.canUpdateOrders) {
+      // Muestra una alerta si el usuario no tiene permisos
       Swal.fire({
         icon: 'error',
         title: 'Permiso denegado',
@@ -32,9 +35,10 @@ function VendorOrderHistorySection({ orderList, getCurrentUser }) {
       });
       return;
     }
-  
+
     const currentStatus = statuses[index] || orderList[index].state;
-  
+
+    // Verifica restricciones al cambiar el estado de la orden
     if (currentStatus === 'pending' && status !== 'sent') {
       Swal.fire({
         icon: 'error',
@@ -43,7 +47,8 @@ function VendorOrderHistorySection({ orderList, getCurrentUser }) {
       });
       return;
     }
-  
+
+    // Muestra una confirmación para cambiar el estado de la orden
     Swal.fire({
       icon: 'question',
       title: '¿Estás seguro de cambiar el estado?',
@@ -57,22 +62,24 @@ function VendorOrderHistorySection({ orderList, getCurrentUser }) {
         const updatedStatuses = { ...statuses };
         updatedStatuses[index] = status;
         setStatuses(updatedStatuses);
-        updateOrderStatusAsync(orderId, status);
+        updateOrderStatusAsync(orderId, status); // Actualiza el estado de la orden en el servicio
       }
     });
   };
 
+  // Renderiza la lista de órdenes del vendedor con sus detalles y opción para cambiar el estado
   return (
     <div className="vendor-product-container">
       {orderList?.map?.((order, index) => {
-        const vendorProductInformation = order.products[0];
+        const vendorProductInformation = order.products[0]; // Información del producto del vendedor
 
         return (
           <div key={index} className="order-item">
             <strong className="order-id">Order ID: {order.id}</strong>
-            <VendorProduct productInformation={vendorProductInformation} />
+            <VendorProduct productInformation={vendorProductInformation} /> {/* Información del producto */}
             <div className="order-details">
-              <p>Dirección: {order.address}</p>
+              <p>Dirección: {order.address}</p> {/* Detalles de la orden */}
+              {/* Selector para cambiar el estado de la orden */}
               <select
                 value={statuses[index] || order.state}
                 onChange={(e) => {
@@ -89,12 +96,13 @@ function VendorOrderHistorySection({ orderList, getCurrentUser }) {
                 <option value="pending">Pendiente</option>
               </select>
             </div>
-            <hr className="separator" />
+            <hr className="separator" /> {/* Separador entre órdenes */}
           </div>
         );
       })}
     </div>
   );
 }
+
 
 export default VendorOrderHistorySection;

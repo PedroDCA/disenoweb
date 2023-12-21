@@ -7,20 +7,22 @@ import { logOut } from "../store";
 import { useNavigate } from "react-router-dom";
 import { updateProfileAsync } from "../service/profileService";
 import Swal from "sweetalert2";
-
 function ProfileInformationSection({ userInformation }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const profileId = useSelector((store) => store.profile.id);
   const profileType = useSelector((store) => store.profile.type);
 
+  // Maneja el evento de clic en el botón de actualización
   const updateButtonClickHandler = (event) => {
     const form = event.target.closest('[data-form]');
     const properties = getFormProperties(form);
 
-    updateProfileAsync(profileId, profileType, properties).then(() => Swal.fire("Cuenta actualizada"));        
+    // Llama a la función para actualizar el perfil
+    updateProfileAsync(profileId, profileType, properties).then(() => Swal.fire("Cuenta actualizada"));
   }
 
+  // Obtiene las propiedades del formulario
   const getFormProperties = (form) => {
     const inputElementList = Array.from(
       form.querySelectorAll("input[name]")
@@ -38,10 +40,12 @@ function ProfileInformationSection({ userInformation }) {
   return (
     <div className="container-profile">
       <div className="welcome-section">
+        {/* Muestra el icono de usuario y el nombre */}
         <FontAwesomeIcon icon={faUser} /> Bienvenido {userInformation.name}
       </div>
       <div className="profile-section" data-form>
         <div>
+          {/* Campos de entrada para editar la información */}
           <input
             className="profile-input"
             type="text"
@@ -50,6 +54,7 @@ function ProfileInformationSection({ userInformation }) {
             placeholder="Nombre"
           />
           <br />
+          {/* Verifica y muestra campos opcionales */}
           {userInformation.lastName !== undefined ? (
             <input
               className="profile-input"
@@ -73,6 +78,7 @@ function ProfileInformationSection({ userInformation }) {
           ) : (
             <> </>
           )}
+          {/* Campo de correo electrónico deshabilitado */}
           <input
             className="profile-input"
             type="text"
@@ -81,11 +87,13 @@ function ProfileInformationSection({ userInformation }) {
             disabled
           />
           <br />
+          {/* Botón para actualizar la información */}
           <button className="profile-button" onClick={updateButtonClickHandler}>Actualizar</button>
         </div>
+        {/* Botón para cerrar sesión */}
         <button onClick={() => {
-          dispatch(logOut());
-          navigate("/");
+          dispatch(logOut()); // Realiza la acción de logout
+          navigate("/"); // Redirige a la página principal
         }}>Salir de sesión</button>
       </div>
     </div>

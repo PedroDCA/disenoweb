@@ -10,25 +10,25 @@ import {
   getSummaryProductListAsync,
 } from "../service/productService";
 import { useSelector } from "react-redux";
-
 function SearchPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [fullProductList, setFullProductList] = useState([]);
   const [productsToShow, setProductsToShow] = useState([]);
 
+  // Obtener la lista de productos en el carrito del estado global
   const cartElementList = useSelector((state) => state.cart.list);
   const cartProductIdList = cartElementList.map((element) => element.id);
   
-  // Función para filtrar por color
-const handleColorFilter = (color) => {
-  const normalizedColor = color.toLowerCase();
-  if (normalizedColor === searchTerm) {
-    // Si se hace clic en el mismo color, limpiar los filtros
-    setSearchTerm("");
-  } else {
-    setSearchTerm(normalizedColor);
-  }
-};
+  // Función para manejar el filtro por color
+  const handleColorFilter = (color) => {
+    const normalizedColor = color.toLowerCase();
+    if (normalizedColor === searchTerm) {
+      // Si se hace clic en el mismo color, limpiar los filtros
+      setSearchTerm("");
+    } else {
+      setSearchTerm(normalizedColor);
+    }
+  };
 
   // Obtener y establecer la lista de productos al cargar la página
   useEffect(() => {
@@ -40,6 +40,7 @@ const handleColorFilter = (color) => {
     fetchProducts();
   }, []);
 
+  // Filtrar los productos según el término de búsqueda y los productos en el carrito
   useEffect(() => {
     if (fullProductList.length === 0) return;
   
@@ -60,18 +61,19 @@ const handleColorFilter = (color) => {
       <main>
         <LogoSection />
         <div className="search-container">
-        {/* Cuadro de texto para buscar productos */}
-        <input
-          type="text"
-          className="searchBar"
-          placeholder="Buscar productos..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-            <button type="button" className="search-button">
-      <img src="https://cdn.dribbble.com/users/1785190/screenshots/3906047/search.gif" alt="Buscar" />
-    </button>
-  </div>
+          {/* Cuadro de texto para buscar productos */}
+          <input
+            type="text"
+            className="searchBar"
+            placeholder="Buscar productos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          {/* Botón de búsqueda */}
+          <button type="button" className="search-button">
+            <img src="https://cdn.dribbble.com/users/1785190/screenshots/3906047/search.gif" alt="Buscar" />
+          </button>
+        </div>
         {/* Botones para filtrar por color */}
         <div>
           <ColorFilter handleColorFilter={handleColorFilter} />

@@ -8,12 +8,16 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Logo from "../images/logo.png";
 
+// Configuración de SweetAlert2 con React
 const swalReact = withReactContent(Swal);
 
+// Componente funcional UserOrder que recibe información de pedido
 function UserOrder({ orderInformation }) {
+  // Hooks y constantes de React
   const navigate = useNavigate();
   const userId = useSelector((store) => store.profile.id);
 
+  // Función que se ejecuta después de la creación de la calificación
   const onRatingCreation = (wasCreated) => {
     if (!wasCreated) {
       return;
@@ -23,6 +27,7 @@ function UserOrder({ orderInformation }) {
     });
   };
 
+  // Funciones asincrónicas para crear calificaciones del producto y vendedor
   const createProductRatingAsync = async ({ value }) => {
     if (!value) {
       return;
@@ -37,7 +42,9 @@ function UserOrder({ orderInformation }) {
     return await addNewVendorRatingAsync(orderInformation.id, userId, value);
   };
 
+  // Funciones para abrir los modales de calificación
   const openNewProductRatingModal = () => {
+    // Modal para calificar el producto
     swalReact
       .fire({
         title: "Calificar Producto",
@@ -63,16 +70,15 @@ function UserOrder({ orderInformation }) {
         preConfirm: () => {
           const popup = swalReact.getPopup();
           const ratingElement = popup.querySelector("input[name='rating']");
-  
           return Number(ratingElement.value) || 1;
         },
       })
       .then(createProductRatingAsync)
       .then(onRatingCreation);
   };
-  
 
   const openNewVendirRatingModal = () => {
+    // Modal para calificar al vendedor
     swalReact
       .fire({
         title: "Calificar Vendedor",
@@ -98,7 +104,6 @@ function UserOrder({ orderInformation }) {
         preConfirm: () => {
           const popup = swalReact.getPopup();
           const ratingElement = popup.querySelector("input[name='rating']");
-
           return Number(ratingElement.value) || 1;
         },
       })
@@ -106,10 +111,12 @@ function UserOrder({ orderInformation }) {
       .then(onRatingCreation);
   };
 
+  // Renderizado del componente de orden del usuario
   return (
     <div className="order-container">
       <div className="order-details">
         <div className="order-header">
+          {/* Sección de detalles del pedido */}
           <div className="order-section">
             <p className="section-title">Fecha</p>
             <p>{formatToSpanishFullDate(orderInformation.date)}</p>
@@ -121,6 +128,7 @@ function UserOrder({ orderInformation }) {
         </div>
         <div className="order-section">
           <p className="status">{orderInformation.status}</p>
+          {/* Información del producto */}
           <div className="product-info">
             <img
               className="product-image"
@@ -139,6 +147,7 @@ function UserOrder({ orderInformation }) {
               {formatPriceForColonCurrency(orderInformation.individualPrice)}
             </p>
           </div>
+          {/* Botones para calificar el producto y vendedor */}
           <button
             className="order-button m-1"
             onClick={openNewProductRatingModal}
